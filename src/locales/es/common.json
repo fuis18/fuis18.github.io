@@ -1,0 +1,18 @@
+{
+	"nav": {
+		"home": "Inicio",
+		"about": "Sobre mi",
+		"repositories": "Repositorios",
+		"contact": "Contacto",
+		"donate": "Donar :D",
+		"projects": "Mis Proyectos"
+	},
+	"buttons": {
+		"goHome": "Volver al inicio"
+	},
+	"notfound": {
+		"title": "Error: 404",
+		"subtitle": "Página no encontrada",
+		"message": "Lo siento, esta ruta no existe o está en construcción."
+	}
+}

@@ -1,0 +1,32 @@
+{
+	"about": {
+		"title": "common:nav.about",
+
+		"summary": {
+			"title": "Resumen",
+			"paraph1": "Hallo! Ich bin Fuis18, ein 20-jähriger Software-Systemingenieur, der gerne Prozesse entwickelt und automatisiert.",
+			"paraph2": "Ich habe es immer genossen, Dinge zu analysieren und zu verstehen, wie sie funktionieren, aber die Möglichkeit, sie zu verändern und zu teilen, hat meine Leidenschaft entfacht.",
+			"paraph3": "Ich finde, es macht mehr Spaß, durch Simulationen zu lernen und zu sehen, wie sich die Dinge verändern, als durch bloßes Theoretisieren.",
+			"paraph4": "Ich suche immer nach dem gängigsten oder besten Weg, Dinge zu tun, auch wenn die Lernkurve steil ist."
+		},
+		"stack": {
+			"title": "Tech-Stack",
+			"languages": "Programmiersprachen",
+			"frontend": "Frontend",
+			"backend": "Backend",
+			"frameworks": "Applikationen & Frameworks",
+			"databases": "Datenbanken",
+			"devtools": "Entwickelertools",
+			"opstools": "Operations-Tools"
+		},
+		"workspace": {
+			"title": "Workspace"
+		}
+	},
+	"repositories": {
+		"title": "common:nav.repositories"
+	},
+	"contact": {
+		"title": "common:nav.contact"
+	}
+}

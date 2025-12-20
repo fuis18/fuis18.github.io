@@ -1,0 +1,28 @@
+{
+	"about": {
+		"title": "common:nav.about",
+
+		"summary": {
+			"title": "まとめ",
+			"paraph1": "こんにちは！私はFuis18、20歳のソフトウェア システム エンジニアで、プロセスの作成と自動化を楽しんでいます。",
+			"paraph2": "私は常に物事の仕組みを分析して理解することを楽しんできましたが、それを変更して共有できることが私の情熱を高めています。",
+			"paraph3": "単に理論立てるよりも、シミュレーションして物事がどのように変化するかを見て学ぶ方が楽しいと感じます。",
+			"paraph4": "たとえ学習曲線が急峻であっても、私は常に最も標準的または最善の方法を探します。"
+		},
+		"stack": {
+			"title": "Stack"
+		},
+		"tools": {
+			"title": "Tools"
+		},
+		"workspace": {
+			"title": "Workspace"
+		}
+	},
+	"repositories": {
+		"title": "common:nav.repositories"
+	},
+	"contact": {
+		"title": "common:nav.contact"
+	}
+}

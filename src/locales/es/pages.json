@@ -1,0 +1,32 @@
+{
+	"about": {
+		"title": "common:nav.about",
+
+		"summary": {
+			"title": "Resumen",
+			"paraph1": "¡Hola! Soy Fuis18, un ingeniero de sistemas de software de 20 años al que le gusta crear y automatizar procesos.",
+			"paraph2": "Siempre me ha gustado analizar y comprender sobre como funcionan las cosas, pero el poder modificar y compartirlo es lo que me ha hecho apasionarme.",
+			"paraph3": "Siento que es más divertido aprender simulando y viendo como cambian las cosas, que simplemente teorizando.",
+			"paraph4": "Siempre busco lo más estándar o la mejor forma de hacer las cosas, aunque su curva de aprendizaje sea grande."
+		},
+		"stack": {
+			"title": "Ecosistema",
+			"languages": "Lenguajes",
+			"frontend": "Frontend",
+			"backend": "Backend",
+			"frameworks": "Applicaciones y Frameworks",
+			"databases": "Bases de datos",
+			"devtools": "Herramientas de desarrollo",
+			"opstools": "Herramientas de operaciones"
+		},
+		"workspace": {
+			"title": "Espacio de trabajo"
+		}
+	},
+	"repositories": {
+		"title": "common:nav.repositories"
+	},
+	"contact": {
+		"title": "common:nav.contact"
+	}
+}

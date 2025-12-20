@@ -1,0 +1,25 @@
+// src/main.tsx
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import "./index.css";
+import App from "./App";
+import { routes } from "./routes";
+import "@/lib/i18n";
+import NotFound from "./pages/notfound";
+
+createRoot(document.getElementById("root")!).render(
+	<StrictMode>
+		<BrowserRouter basename={import.meta.env.BASE_URL}>
+			<App>
+				<Routes>
+					{routes.map(({ path, element }) => (
+						<Route key={path} path={path} element={element} />
+					))}
+
+					<Route path="*" element={<NotFound />} />
+				</Routes>
+			</App>
+		</BrowserRouter>
+	</StrictMode>
+);

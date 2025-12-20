@@ -1,0 +1,32 @@
+{
+	"about": {
+		"title": "common:nav.about",
+
+		"summary": {
+			"title": "Summary",
+			"paraph1": "Hello! I'm Fuis18, a 20-year-old software systems engineer who enjoys creating and automating processes.",
+			"paraph2": "I've always enjoyed analyzing and understanding how things work, but being able to modify and share it is what has made me passionate.",
+			"paraph3": "I feel that it's more fun to learn by simulating and seeing how things change, than simply by theorizing.",
+			"paraph4": "I always look for the most standard or best way to do things, even if the learning curve is steep."
+		},
+		"stack": {
+			"title": "Stack",
+			"languages": "Languages",
+			"frontend": "Frontend",
+			"backend": "Backend",
+			"frameworks": "Apps | Frameworks",
+			"databases": "Databases",
+			"devtools": "Dev Tools",
+			"opstools": "Ops Tools"
+		},
+		"workspace": {
+			"title": "Workspace"
+		}
+	},
+	"repositories": {
+		"title": "common:nav.repositories"
+	},
+	"contact": {
+		"title": "common:nav.contact"
+	}
+}

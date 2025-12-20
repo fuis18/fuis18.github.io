@@ -1,0 +1,18 @@
+{
+	"nav": {
+		"home": "Mein Zuhause",
+		"about": "Über mich",
+		"repositories": "Repositories",
+		"contact": "Kontakt",
+		"donate": "Spenden :D",
+		"projects": "Meine Projekte"
+	},
+	"buttons": {
+		"goHome": "Nach Hause gehen"
+	},
+	"notfound": {
+		"title": "Fehler: 404",
+		"subtitle": "Seite nicht gefunden",
+		"message": "Entschuldigung, entweder existiert diese Strecke nicht oder sie befindet sich im Bau."
+	}
+}

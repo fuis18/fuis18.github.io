@@ -1,0 +1,15 @@
+<svg
+	xmlns="http://www.w3.org/2000/svg"
+	width="32"
+	height="32"
+	viewBox="0 0 21 21"
+>
+	<!-- Icon from System UIcons by Corey Ginnivan - https://github.com/CoreyGinnivan/system-uicons/blob/master/LICENSE -->
+	<path
+		fill="none"
+		stroke="currentColor"
+		stroke-linecap="round"
+		stroke-linejoin="round"
+		d="M11.5 9.5h4l-6 9v-6.997l-4-.003l6-9z"
+	/>
+</svg>

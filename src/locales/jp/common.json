@@ -1,0 +1,18 @@
+{
+	"nav": {
+		"home": "私の家",
+		"about": "私について",
+		"repositories": "リポジトリ",
+		"contact": "接触",
+		"donate": "寄付してください :D",
+		"projects": "私のプロジェクト"
+	},
+	"buttons": {
+		"goHome": "家に帰る"
+	},
+	"notfound": {
+		"title": "エラー: 404",
+		"subtitle": "ページが見つかりません",
+		"message": "申し訳ございませんが、このルートは存在しないか、工事中です。"
+	}
+}

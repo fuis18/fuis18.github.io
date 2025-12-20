@@ -1,0 +1,66 @@
+.header {
+	justify-content: space-between;
+	background: var(--mainground);
+	height: 46px;
+	padding: 0 20px;
+	width: 100%;
+}
+
+.header a {
+	padding: 0;
+}
+
+.header button,
+.header svg {
+	max-height: 32px;
+	width: 50px;
+	padding: 0 4px;
+	cursor: pointer;
+}
+
+.Newsletter svg,
+.header_mode,
+.header_config svg {
+	fill: none;
+	stroke: var(--foreground);
+}
+
+.header_home svg {
+	fill: var(--foreground);
+	height: 28px;
+}
+.Newsletter svg {
+	height: 32px;
+}
+.header_config svg {
+	height: 30px;
+}
+
+.header .time {
+	font-size: 24px;
+	font-family: monospace;
+}
+
+.time {
+	display: none;
+}
+
+.language-trigger {
+	font-size: 24px;
+	padding: 0 5px;
+}
+
+.language-content {
+	padding: 6px 0;
+}
+
+.language-content div {
+	padding: 0 0.6rem;
+	font-size: 18px;
+}
+
+@media screen and (min-width: 400px) {
+	.time {
+		display: flex;
+	}
+}

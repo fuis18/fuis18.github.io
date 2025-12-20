@@ -1,0 +1,18 @@
+{
+	"nav": {
+		"home": "My Home",
+		"about": "About me",
+		"repositories": "Repositories",
+		"contact": "Contact",
+		"donate": "Donate :D",
+		"projects": "My Projects"
+	},
+	"buttons": {
+		"goHome": "Go Home"
+	},
+	"notfound": {
+		"title": "Error: 404",
+		"subtitle": "Page not found",
+		"message": "Sorry, either this route doesn't exist or it's under construction."
+	}
+}

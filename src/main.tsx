@@ -10,7 +10,7 @@ import NotFound from "./pages/notfound";
 
 createRoot(document.getElementById("root")!).render(
 	<StrictMode>
-		<BrowserRouter basename={import.meta.env.BASE_URL}>
+		<BrowserRouter>
 			<App>
 				<Routes>
 					{routes.map(({ path, element }) => (

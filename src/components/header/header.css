@@ -6,6 +6,14 @@
 	width: 100%;
 }
 
+.header-item {
+	@apply mx-px;
+	height: 40px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
 .header a {
 	padding: 0;
 }

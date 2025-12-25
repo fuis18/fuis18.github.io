@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 
 const News = () => {
 	const { t } = useTranslation("pages");
-	return <Main title={t("nav.home")} className="cont__flex"></Main>;
+	return <Main title={t("news.title")} className="cont__flex"></Main>;
 };
 
 export default News;

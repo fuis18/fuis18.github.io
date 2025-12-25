@@ -20,13 +20,22 @@
 			"opstools": "Herramientas de operaciones"
 		},
 		"workspace": {
-			"title": "Espacio de trabajo"
+			"title": "Espacio de trabajo",
+			"environment": "Entorno de trabajo",
+			"services": "Servicios en segundo plano"
 		}
 	},
 	"repositories": {
-		"title": "common:nav.repositories"
+		"title": "common:nav.repositories",
+		"dotfiles": "Uso Arch linux por cierto",
+		"healthylife": "Un trabajo para una amiga .-.",
+		"projects": "Mis comienzos"
 	},
 	"contact": {
-		"title": "common:nav.contact"
+		"title": "common:nav.contact",
+		"mail": "Correo"
+	},
+	"news": {
+		"title": "Anuncios"
 	}
 }

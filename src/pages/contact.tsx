@@ -14,7 +14,7 @@ const Contact = () => {
 	return (
 		<Main title={t(t("contact.title"))} className="cont__flex cards-container">
 			<Card
-				name="E-Mail"
+				name={t("contact.mail")}
 				link="mailto:fuis18@proton.me"
 				Icon={Mail}
 				className="svg-nofill"

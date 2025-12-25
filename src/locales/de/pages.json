@@ -3,7 +3,7 @@
 		"title": "common:nav.about",
 
 		"summary": {
-			"title": "Resumen",
+			"title": "Zusammenfassung",
 			"paraph1": "Hallo! Ich bin Fuis18, ein 20-jähriger Software-Systemingenieur, der gerne Prozesse entwickelt und automatisiert.",
 			"paraph2": "Ich habe es immer genossen, Dinge zu analysieren und zu verstehen, wie sie funktionieren, aber die Möglichkeit, sie zu verändern und zu teilen, hat meine Leidenschaft entfacht.",
 			"paraph3": "Ich finde, es macht mehr Spaß, durch Simulationen zu lernen und zu sehen, wie sich die Dinge verändern, als durch bloßes Theoretisieren.",
@@ -20,13 +20,22 @@
 			"opstools": "Operations-Tools"
 		},
 		"workspace": {
-			"title": "Workspace"
+			"title": "Arbeitsumgebung",
+			"environment": "Arbeitsumgebung",
+			"services": "Hintergrunddienste"
 		}
 	},
 	"repositories": {
-		"title": "common:nav.repositories"
+		"title": "common:nav.repositories",
+		"dotfiles": "Ich benutze übrigens Arch Linux",
+		"healthylife": "Ein Auftrag für eine Freundin .-.",
+		"projects": "Meine Anfänge"
 	},
 	"contact": {
-		"title": "common:nav.contact"
+		"title": "common:nav.contact",
+		"mail": "E-Mail"
+	},
+	"news": {
+		"title": "Neuigkeiten"
 	}
 }

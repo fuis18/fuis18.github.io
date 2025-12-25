@@ -20,13 +20,22 @@
 			"opstools": "Ops Tools"
 		},
 		"workspace": {
-			"title": "Workspace"
+			"title": "Workspace",
+			"environment": "Work Environment",
+			"services": "Background Services"
 		}
 	},
 	"repositories": {
-		"title": "common:nav.repositories"
+		"title": "common:nav.repositories",
+		"dotfiles": "I use Archlinux by the way",
+		"healthylife": "A job for a friend .-.",
+		"projects": "My beginnings"
 	},
 	"contact": {
-		"title": "common:nav.contact"
+		"title": "common:nav.contact",
+		"mail": "E-Mail"
+	},
+	"news": {
+		"title": "News"
 	}
 }

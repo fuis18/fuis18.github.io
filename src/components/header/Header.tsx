@@ -15,33 +15,33 @@ import "./header.css";
 const Header = () => {
 	return (
 		<NavigationMenu className="header" role="banner">
-			<NavigationMenuList className="flex-wrap">
-				<NavigationMenuItem className="mx-px">
+			<NavigationMenuList className="flex-wrap h-10">
+				<NavigationMenuItem className="header-item">
 					<NavigationMenuLink asChild>
 						<Home></Home>
 					</NavigationMenuLink>
 				</NavigationMenuItem>
-				<NavigationMenuItem className="mx-px">
+				<NavigationMenuItem className="header-item">
 					<Time></Time>
 				</NavigationMenuItem>
 			</NavigationMenuList>
-			<NavigationMenuList className="flex-wrap">
-				<NavigationMenuItem className="mx-px">
+			<NavigationMenuList className="flex-wrap h-10">
+				<NavigationMenuItem className="header-item">
 					<NavigationMenuLink asChild>
 						<News></News>
 					</NavigationMenuLink>
 				</NavigationMenuItem>
-				<NavigationMenuItem className="mx-px">
+				<NavigationMenuItem className="header-item">
 					<NavigationMenuLink>
 						<Mode></Mode>
 					</NavigationMenuLink>
 				</NavigationMenuItem>
-				<NavigationMenuItem className="mx-px">
+				<NavigationMenuItem className="header-item">
 					<NavigationMenuLink>
 						<Language></Language>
 					</NavigationMenuLink>
 				</NavigationMenuItem>
-				<NavigationMenuItem className="mx-px">
+				<NavigationMenuItem className="header-item">
 					<NavigationMenuLink asChild>
 						<Config></Config>
 					</NavigationMenuLink>

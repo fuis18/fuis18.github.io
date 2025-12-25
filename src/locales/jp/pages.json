@@ -10,19 +10,32 @@
 			"paraph4": "たとえ学習曲線が急峻であっても、私は常に最も標準的または最善の方法を探します。"
 		},
 		"stack": {
-			"title": "Stack"
-		},
-		"tools": {
-			"title": "Tools"
+			"title": "技術スタック",
+			"languages": "プログラミング言語",
+			"frontend": "フロントエンド",
+			"backend": "バックエンド",
+			"frameworks": "アプリケーション・フレームワーク",
+			"databases": "データベース",
+			"devtools": "開発ツール",
+			"opstools": "運用ツール"
 		},
 		"workspace": {
-			"title": "Workspace"
+			"title": "作業環境",
+			"environment": "Work Environment",
+			"services": "Background Services"
 		}
 	},
 	"repositories": {
-		"title": "common:nav.repositories"
+		"title": "common:nav.repositories",
+		"dotfiles": "ちなみにArch Linuxを使っています",
+		"healthylife": "友人のための仕事です .-.",
+		"projects": "私の始まり"
 	},
 	"contact": {
-		"title": "common:nav.contact"
+		"title": "common:nav.contact",
+		"mail": "メール"
+	},
+	"news": {
+		"title": "お知らせ"
 	}
 }

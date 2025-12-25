@@ -29,8 +29,8 @@ import ShadcnuiDark from "@/assets/dev-svg/shadcnui-logo-dark.svg?react";
 import Reacthookform from "@/assets/dev-svg/reacthookform-logo.svg?react";
 import Zod from "@/assets/dev-svg/zod-logo.svg?react";
 import ZodDark from "@/assets/dev-svg/zod-logo-dark.svg?react";
-import Motion from "@/assets/dev-svg/motion-logo-dark.svg?react";
-import MotionDark from "@/assets/dev-svg/motion-logo.svg?react";
+import Motion from "@/assets/dev-svg/motion-logo.svg?react";
+import MotionDark from "@/assets/dev-svg/motion-logo-dark.svg?react";
 
 import NestJS from "@/assets/dev-svg/nestjs-logo.svg?react";
 import NestJSDark from "@/assets/dev-svg/nestjs-logo-dark.svg?react";
@@ -136,7 +136,7 @@ const Stack = () => {
 						<IconTheme
 							Light={Reactsvg}
 							Dark={ReactsvgDark}
-							label="Reactsvg"
+							label="React"
 							className="path"
 						/>
 						<IconTheme
@@ -157,7 +157,7 @@ const Stack = () => {
 							label="Nextjs"
 							className="path"
 						/>
-						<IconTheme Light={Reacthookform} label="Reacthookform" />
+						<IconTheme Light={Reacthookform} label="React-hook-form" />
 						<IconTheme
 							Light={Zod}
 							Dark={ZodDark}
@@ -188,7 +188,7 @@ const Stack = () => {
 						<IconTheme Light={Fastify} label="Fastify" />
 						<IconTheme Light={Express} label="Express" />
 						<div className="icon-theme">
-							<div className="text-4xl">Axum (Rust)</div>
+							<div className="text-3xl">Axum (Rust)</div>
 							<span className="icon-tooltip">Axum (Rust)</span>
 						</div>
 					</fieldset>

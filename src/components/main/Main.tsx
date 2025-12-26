@@ -10,13 +10,11 @@ type MainProps = {
 const Main = ({ title, className = "", children, fProject }: MainProps) => {
 	return (
 		<main role="main">
-			{fProject ? (
-				<h1 className={`${fProject}__h1`}>{title}</h1>
-			) : (
-				<h1>{title}</h1>
-			)}
+			<h1 className={`main-h1 ${fProject ? fProject + "__h1" : ""}`}>
+				{title}
+			</h1>
 
-			<div className={`container ${className}`}>{children}</div>
+			<div className={`main__container ${className}`}>{children}</div>
 		</main>
 	);
 };

@@ -12,7 +12,7 @@ export default function AboutTabs({ active, onChange }: Props) {
 	const { t } = useTranslation("pages");
 
 	return (
-		<ul className="flex justify-around relative">
+		<ul className="about__tabs">
 			{items.map((item) => (
 				<button
 					key={item}

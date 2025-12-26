@@ -74,22 +74,19 @@ import GitDark from "@/assets/dev-svg/git-logo-dark.svg?react";
 const Stack = () => {
 	const { t } = useTranslation("pages");
 	return (
-		<div className="flex">
-			<div className="flex flex-col items-center">
-				<Button
-					variant="ghost"
-					className="border-b border-r rounded-none p-(--padding-s)"
-				>
+		<div className="about__stack">
+			<div className="about__stack-modes">
+				<Button variant="ghost">
 					<Menu className="fill-foreground" />
 				</Button>
 				{/* <Button
 					variant="ghost"
-					className="svg-nofill border-b border-r rounded-none p-(--padding-s)"
+					className="svg-nofill border-b border-r rounded-none"
 				>
 					<Nodes className="fill-foreground" />
 				</Button> */}
 			</div>
-			<div className="p-(--padding-x) flex flex-col gap-(--padding-s) w-full">
+			<div className="about__stack-content">
 				<h2>{t("about.stack.title")}</h2>
 				<div className="section-container">
 					<fieldset className="section">

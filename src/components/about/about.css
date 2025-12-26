@@ -1,0 +1,56 @@
+.about__tabs {
+	@apply flex justify-around relative;
+}
+.about__content {
+	border-top: 2px solid var(--border);
+	width: 100%;
+	overflow-y: auto;
+}
+
+.about__stack {
+	display: flex;
+}
+
+.about__stack-modes {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.about__stack-modes button {
+	border-right: 1px solid var(--border);
+	border-bottom: 1px solid var(--border);
+	border-radius: 0;
+}
+.about__stack-modes svg {
+	margin: 1px;
+}
+
+.about__stack-content {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	padding: var(--padding-x);
+	gap: var(--padding-s);
+	padding-right: 0;
+}
+
+.about__stack-content .section {
+	border-right: none;
+}
+
+@media screen and (min-width: 550px) {
+	.about__content {
+		border: 2px solid var(--border);
+	}
+}
+
+@media screen and (min-width: 800px) {
+	.about__stack-content {
+		padding-right: var(--padding-x);
+		max-height: 40rem;
+	}
+	.about__stack-content .section {
+		border-right: 1px solid var(--border);
+	}
+}

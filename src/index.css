@@ -133,7 +133,7 @@
 
 .container {
 	border-top: 1px solid var(--border);
-	padding: 10px;
+	padding: 10px 0;
 	width: 100%;
 }
 
@@ -325,6 +325,18 @@
 	fill: #000;
 }
 
+.about-content {
+	@apply md:max-h-96 lg:max-h-112 xl:max-h-128 overflow-y-auto w-full;
+	border-top: 2px solid var(--border);
+}
+
+@media screen and (min-width: 500px) {
+	.about-content {
+		@apply rounded-md;
+		border: 2px solid var(--border);
+	}
+}
+
 .icon-tooltip {
 	position: absolute;
 	bottom: -2rem;
@@ -341,6 +353,7 @@
 	opacity: 0;
 	pointer-events: none;
 	transition: opacity 0.2s ease, transform 0.2s ease;
+	z-index: 10;
 }
 
 .icon-theme:hover .icon-tooltip {
@@ -353,6 +366,7 @@
 	cursor: zoom-in;
 	border-radius: 8px;
 	margin: auto;
+	min-width: 400px;
 }
 
 /* Overlay */

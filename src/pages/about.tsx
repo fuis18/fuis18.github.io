@@ -18,7 +18,7 @@ const About = () => {
 		<Main title={t(t("about.title"))} className="cont__flex">
 			<AboutTabs active={active} onChange={setActive} />
 
-			<div className="border-2 m-1 md:max-h-80 lg:max-h-96 xl:max-h-128 overflow-y-auto rounded-md w-full">
+			<div className="about-content">
 				<AnimatePresence mode="wait">
 					<motion.div
 						key={active}

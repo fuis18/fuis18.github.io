@@ -112,13 +112,7 @@ main {
 
 ::-webkit-scrollbar-thumb {
 	background-color: #8b8b8b;
-	border-radius: 999px;
-}
-
-/* Firefox global */
-* {
-	scrollbar-width: auto;
-	scrollbar-color: #8b8b8b transparent;
+	border-radius: 50%;
 }
 
 /* === SCROLL DEL BODY === */
@@ -130,4 +124,3 @@ body::-webkit-scrollbar-thumb {
 body {
 	scrollbar-color: var(--mainground) transparent;
 }
-

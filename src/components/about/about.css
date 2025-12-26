@@ -4,7 +4,6 @@
 .about__content {
 	border-top: 2px solid var(--border);
 	width: 100%;
-	overflow-y: auto;
 }
 
 .about__stack {
@@ -30,7 +29,7 @@
 	display: flex;
 	flex-direction: column;
 	width: 100%;
-	padding: var(--padding-x);
+	padding-top: var(--padding-x);
 	gap: var(--padding-s);
 	padding-right: 0;
 }
@@ -47,8 +46,9 @@
 
 @media screen and (min-width: 800px) {
 	.about__stack-content {
-		padding-right: var(--padding-x);
+		padding: var(--padding-x);
 		max-height: 40rem;
+		overflow-y: auto;
 	}
 	.about__stack-content .section {
 		border-right: 1px solid var(--border);

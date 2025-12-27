@@ -38,7 +38,7 @@ const Home = () => {
 					name={t("nav.donate")}
 					Icon={Kofi}
 					className="svg-fill"
-					link="/donate"
+					link="https://ko-fi.com/fuis18"
 					newtab={true}
 				/>
 				<Card

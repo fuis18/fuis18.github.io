@@ -16,8 +16,8 @@
 			"backend": "Backend",
 			"frameworks": "Applicaciones y Frameworks",
 			"databases": "Bases de datos",
-			"devtools": "Herramientas de desarrollo",
-			"opstools": "Herramientas de operaciones"
+			"devops": "Herramientas de desarrollo",
+			"network": "Herramientas de operaciones"
 		},
 		"workspace": {
 			"title": "Espacio de trabajo",

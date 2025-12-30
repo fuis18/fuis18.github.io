@@ -51,25 +51,26 @@ import PostgreSQL from "@/assets/dev-svg/postgresql-logo.svg?react";
 import PostgreSQLDark from "@/assets/dev-svg/postgresql-logo-dark.svg?react";
 import SQLite from "@/assets/dev-svg/sqlite-logo.svg?react";
 import SQLiteDark from "@/assets/dev-svg/sqlite-logo-dark.svg?react";
-import Qdrant from "@/assets/dev-svg/qdrant-logo.svg?react";
-import QdrantDark from "@/assets/dev-svg/qdrant-logo-dark.svg?react";
+// import Qdrant from "@/assets/dev-svg/qdrant-logo.svg?react";
+// import QdrantDark from "@/assets/dev-svg/qdrant-logo-dark.svg?react";
 
 import Bun from "@/assets/dev-svg/bun-logo.svg?react";
 import BunDark from "@/assets/dev-svg/bun-logo-dark.svg?react";
-import Npm from "@/assets/dev-svg/npm-logo.svg?react";
-import NpmDark from "@/assets/dev-svg/npm-logo-dark.svg?react";
 import Tokio from "@/assets/dev-svg/tokio-logo.svg?react";
 import Neovim from "@/assets/dev-svg/neovim-logo.svg?react";
 import NeovimDark from "@/assets/dev-svg/neovim-logo-dark.svg?react";
 import VSCode from "@/assets/dev-svg/vscode-logo.svg?react";
 import VSCodeDark from "@/assets/dev-svg/vscode-logo-dark.svg?react";
-
 import Docker from "@/assets/dev-svg/docker-logo.svg?react";
 import DockerDark from "@/assets/dev-svg/docker-logo-dark.svg?react";
 import Nginx from "@/assets/dev-svg/nginx-logo.svg?react";
 import NginxDark from "@/assets/dev-svg/nginx-logo-dark.svg?react";
 import Git from "@/assets/dev-svg/git-logo.svg?react";
 import GitDark from "@/assets/dev-svg/git-logo-dark.svg?react";
+import Linux from "@/assets/app-svg/linux-logo.svg?react";
+import LinuxDark from "@/assets/app-svg/linux-logo-dark.svg?react";
+import NodeJS from "@/assets/dev-svg/nodejs-logo.svg?react";
+import NodeJSDark from "@/assets/dev-svg/nodejs-logo-dark.svg?react";
 
 const Stack = () => {
 	const { t } = useTranslation("pages");
@@ -110,12 +111,6 @@ const Stack = () => {
 							className="path"
 						/>
 						<IconTheme
-							Light={Shell}
-							Dark={ShellDark}
-							label="Shell"
-							className="svg"
-						/>
-						<IconTheme
 							Light={Python}
 							Dark={PythonDark}
 							label="Python"
@@ -125,6 +120,35 @@ const Stack = () => {
 							Light={Java}
 							Dark={JavaDark}
 							label="Java"
+							className="path"
+						/>
+						<IconTheme
+							Light={Shell}
+							Dark={ShellDark}
+							label="Shell"
+							className="svg"
+						/>
+					</fieldset>
+					<fieldset className="section">
+						<legend>{t("about.stack.network")}</legend>
+						<div className="icon-theme">
+							<div className="text-3xl">CCNA</div>
+							<span className="icon-tooltip">CCNA</span>
+						</div>
+						<div className="icon-theme">
+							<div className="text-3xl">TCP/IP</div>
+							<span className="icon-tooltip">TCP/IP</span>
+						</div>
+						<IconTheme
+							Light={Linux}
+							Dark={LinuxDark}
+							label="Linux"
+							className="svg"
+						/>
+						<IconTheme
+							Light={Nginx}
+							Dark={NginxDark}
+							label="Nginx"
 							className="path"
 						/>
 					</fieldset>
@@ -190,7 +214,38 @@ const Stack = () => {
 						</div>
 					</fieldset>
 					<fieldset className="section">
-						<legend>{t("about.stack.frameworks")}</legend>
+						<legend>{t("about.stack.databases")}</legend>
+						<IconTheme
+							Light={PostgreSQL}
+							Dark={PostgreSQLDark}
+							label="PostgreSQL"
+							className="path"
+						/>
+						<IconTheme
+							Light={SQLite}
+							Dark={SQLiteDark}
+							label="SQLite"
+							className="path"
+						/>
+						{/* <IconTheme Light={Qdrant} Dark={QdrantDark} label="Qdrant" /> */}
+					</fieldset>
+					<fieldset className="section">
+						<legend>{t("about.stack.devops")}</legend>
+						<IconTheme
+							Light={Docker}
+							Dark={DockerDark}
+							label="Docker"
+							className="path"
+						/>
+						<IconTheme
+							Light={Git}
+							Dark={GitDark}
+							label="Git"
+							className="path"
+						/>
+					</fieldset>
+					<fieldset className="section">
+						<legend>{t("about.stack.tooling")}</legend>
 						<IconTheme
 							Light={Vite}
 							Dark={ViteDark}
@@ -210,25 +265,6 @@ const Stack = () => {
 							label="Bevy"
 							className="path"
 						/>
-					</fieldset>
-					<fieldset className="section">
-						<legend>{t("about.stack.databases")}</legend>
-						<IconTheme
-							Light={PostgreSQL}
-							Dark={PostgreSQLDark}
-							label="PostgreSQL"
-							className="path"
-						/>
-						<IconTheme
-							Light={SQLite}
-							Dark={SQLiteDark}
-							label="SQLite"
-							className="path"
-						/>
-						<IconTheme Light={Qdrant} Dark={QdrantDark} label="Qdrant" />
-					</fieldset>
-					<fieldset className="section">
-						<legend>{t("about.stack.devtools")}</legend>
 						<IconTheme
 							Light={Bun}
 							Dark={BunDark}
@@ -236,9 +272,9 @@ const Stack = () => {
 							className="path"
 						/>
 						<IconTheme
-							Light={Npm}
-							Dark={NpmDark}
-							label="Npm"
+							Light={NodeJS}
+							Dark={NodeJSDark}
+							label="NodeJS"
 							className="path"
 						/>
 						<IconTheme Light={Tokio} label="Tokio" />
@@ -255,36 +291,6 @@ const Stack = () => {
 							className="path"
 						/>
 					</fieldset>
-					<fieldset className="section">
-						<legend>{t("about.stack.opstools")}</legend>
-						<IconTheme
-							Light={Docker}
-							Dark={DockerDark}
-							label="Docker"
-							className="path"
-						/>
-						<IconTheme
-							Light={Nginx}
-							Dark={NginxDark}
-							label="Nginx"
-							className="path"
-						/>
-						<IconTheme
-							Light={Git}
-							Dark={GitDark}
-							label="Git"
-							className="path"
-						/>
-					</fieldset>
-					{/* <fieldset className="section">
-						<legend>Practices</legend>
-						<div>Clean Architecture</div>
-						<div>Modular Monolith</div>
-						<div>REST APIs</div>
-						<div>API Versioning</div>
-						<div>i18n</div>
-						<div>Type-safe systems</div>
-					</fieldset> */}
 				</div>
 			</div>
 		</div>

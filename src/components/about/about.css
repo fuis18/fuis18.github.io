@@ -25,7 +25,8 @@
 	margin: 1px;
 }
 
-.about__stack-content {
+.about__stack-content,
+.workspace__stack-content {
 	display: flex;
 	flex-direction: column;
 	width: 100%;
@@ -39,13 +40,15 @@
 }
 
 @media screen and (min-width: 550px) {
-	.about__content {
+	.about__content,
+	.workspace__stack-content {
 		border: 2px solid var(--border);
 	}
 }
 
 @media screen and (min-width: 800px) {
-	.about__stack-content {
+	.about__stack-content,
+	.workspace__stack-content {
 		padding: var(--padding-x);
 		max-height: 40rem;
 		overflow-y: auto;

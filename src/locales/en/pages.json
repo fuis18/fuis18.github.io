@@ -14,10 +14,10 @@
 			"languages": "Languages",
 			"frontend": "Frontend",
 			"backend": "Backend",
-			"frameworks": "Apps | Frameworks",
+			"tooling": "Tooling & Developer Environment",
 			"databases": "Databases",
-			"devtools": "Dev Tools",
-			"opstools": "Ops Tools"
+			"devops": "DevOps & Infrastructure",
+			"network": "Networking & Systems"
 		},
 		"workspace": {
 			"title": "Workspace",

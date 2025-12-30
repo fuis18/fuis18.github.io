@@ -12,11 +12,13 @@ import Syncthing from "@/assets/app-svg/syncthing-logo.svg?react";
 import SyncthingDark from "@/assets/app-svg/syncthing-logo-dark.svg?react";
 import RClone from "@/assets/app-svg/rclone-logo.svg?react";
 import RCloneDark from "@/assets/app-svg/rclone-logo-dark.svg?react";
+import Onlyoffice from "@/assets/app-svg/onlyoffice-logo.svg?react";
+import OnlyofficeDark from "@/assets/app-svg/onlyoffice-logo-dark.svg?react";
 
 const Workspace = () => {
 	const { t } = useTranslation("pages");
 	return (
-		<div className="p-(--padding-x) flex flex-col gap-(--padding-s) w-full">
+		<div className="workspace__stack-content">
 			<h2>{t("about.workspace.title")}</h2>
 			<ImgZoom src="/img/workspace.png"></ImgZoom>
 			<div className="section-container">
@@ -54,6 +56,11 @@ const Workspace = () => {
 						<span className="icon-tooltip">Oxker</span>
 					</div>
 					<IconTheme Light={Syncthing} Dark={SyncthingDark} label="Syncthing" />
+					<IconTheme
+						Light={Onlyoffice}
+						Dark={OnlyofficeDark}
+						label="OnlyOffice"
+					/>
 				</fieldset>
 			</div>
 		</div>

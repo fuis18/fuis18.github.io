@@ -57,10 +57,6 @@ import SQLiteDark from "@/assets/dev-svg/sqlite-logo-dark.svg?react";
 import Bun from "@/assets/dev-svg/bun-logo.svg?react";
 import BunDark from "@/assets/dev-svg/bun-logo-dark.svg?react";
 import Tokio from "@/assets/dev-svg/tokio-logo.svg?react";
-import Neovim from "@/assets/dev-svg/neovim-logo.svg?react";
-import NeovimDark from "@/assets/dev-svg/neovim-logo-dark.svg?react";
-import VSCode from "@/assets/dev-svg/vscode-logo.svg?react";
-import VSCodeDark from "@/assets/dev-svg/vscode-logo-dark.svg?react";
 import Docker from "@/assets/dev-svg/docker-logo.svg?react";
 import DockerDark from "@/assets/dev-svg/docker-logo-dark.svg?react";
 import Nginx from "@/assets/dev-svg/nginx-logo.svg?react";
@@ -71,6 +67,12 @@ import Linux from "@/assets/app-svg/linux-logo.svg?react";
 import LinuxDark from "@/assets/app-svg/linux-logo-dark.svg?react";
 import NodeJS from "@/assets/dev-svg/nodejs-logo.svg?react";
 import NodeJSDark from "@/assets/dev-svg/nodejs-logo-dark.svg?react";
+import Wireshark from "@/assets/app-svg/wireshark-logo.svg?react";
+import WiresharkDark from "@/assets/app-svg/wireshark-logo-dark.svg?react";
+import TcpIp from "@/assets/app-svg/tcp-ip-logo.svg?react";
+import TcpIpDark from "@/assets/app-svg/tcp-ip-logo-dark.svg?react";
+import Vlan from "@/assets/app-svg/vlan-logo.svg?react";
+import VlanDark from "@/assets/app-svg/vlan-logo-dark.svg?react";
 
 const Stack = () => {
 	const { t } = useTranslation("pages");
@@ -135,10 +137,24 @@ const Stack = () => {
 							<div className="text-3xl">CCNA</div>
 							<span className="icon-tooltip">CCNA</span>
 						</div>
-						<div className="icon-theme">
-							<div className="text-3xl">TCP/IP</div>
-							<span className="icon-tooltip">TCP/IP</span>
-						</div>
+						<IconTheme
+							Light={TcpIp}
+							Dark={TcpIpDark}
+							label="TCP/IP"
+							className="svg"
+						/>
+						<IconTheme
+							Light={Wireshark}
+							Dark={WiresharkDark}
+							label="Wireshark"
+							className="svg"
+						/>
+						<IconTheme
+							Light={Vlan}
+							Dark={VlanDark}
+							label="Vlan"
+							className="svg"
+						/>
 						<IconTheme
 							Light={Linux}
 							Dark={LinuxDark}
@@ -278,18 +294,6 @@ const Stack = () => {
 							className="path"
 						/>
 						<IconTheme Light={Tokio} label="Tokio" />
-						<IconTheme
-							Light={Neovim}
-							Dark={NeovimDark}
-							label="Neovim"
-							className="path"
-						/>
-						<IconTheme
-							Light={VSCode}
-							Dark={VSCodeDark}
-							label="VSCode"
-							className="path"
-						/>
 					</fieldset>
 				</div>
 			</div>

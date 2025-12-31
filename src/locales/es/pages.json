@@ -14,15 +14,15 @@
 			"languages": "Lenguajes",
 			"frontend": "Frontend",
 			"backend": "Backend",
-			"frameworks": "Applicaciones y Frameworks",
+			"tooling": "Herramientas y entorno de desarrollo",
 			"databases": "Bases de datos",
-			"devops": "Herramientas de desarrollo",
-			"network": "Herramientas de operaciones"
+			"devops": "DevOps e infraestructura",
+			"network": "Redes y sistemas"
 		},
 		"workspace": {
 			"title": "Espacio de trabajo",
 			"environment": "Entorno de trabajo",
-			"services": "Servicios en segundo plano"
+			"apps": "Applicaciones"
 		}
 	},
 	"repositories": {

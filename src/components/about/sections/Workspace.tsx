@@ -14,6 +14,10 @@ import RClone from "@/assets/app-svg/rclone-logo.svg?react";
 import RCloneDark from "@/assets/app-svg/rclone-logo-dark.svg?react";
 import Onlyoffice from "@/assets/app-svg/onlyoffice-logo.svg?react";
 import OnlyofficeDark from "@/assets/app-svg/onlyoffice-logo-dark.svg?react";
+import Neovim from "@/assets/app-svg/neovim-logo.svg?react";
+import NeovimDark from "@/assets/app-svg/neovim-logo-dark.svg?react";
+import VSCode from "@/assets/app-svg/vscode-logo.svg?react";
+import VSCodeDark from "@/assets/app-svg/vscode-logo-dark.svg?react";
 
 const Workspace = () => {
 	const { t } = useTranslation("pages");
@@ -50,7 +54,7 @@ const Workspace = () => {
 					</div>
 				</fieldset>
 				<fieldset className="section">
-					<legend>{t("about.workspace.services")}</legend>
+					<legend>{t("about.workspace.apps")}</legend>
 					<div className="icon-theme">
 						<div className="text-3xl">Oxker</div>
 						<span className="icon-tooltip">Oxker</span>
@@ -60,6 +64,18 @@ const Workspace = () => {
 						Light={Onlyoffice}
 						Dark={OnlyofficeDark}
 						label="OnlyOffice"
+					/>
+					<IconTheme
+						Light={Neovim}
+						Dark={NeovimDark}
+						label="Neovim"
+						className="path"
+					/>
+					<IconTheme
+						Light={VSCode}
+						Dark={VSCodeDark}
+						label="VSCode"
+						className="path"
 					/>
 				</fieldset>
 			</div>

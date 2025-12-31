@@ -22,7 +22,7 @@
 		"workspace": {
 			"title": "Workspace",
 			"environment": "Work Environment",
-			"services": "Background Services"
+			"apps": "Applications"
 		}
 	},
 	"repositories": {

@@ -10,14 +10,14 @@
 			"paraph4": "Ich suche immer nach dem gängigsten oder besten Weg, Dinge zu tun, auch wenn die Lernkurve steil ist."
 		},
 		"stack": {
-			"title": "Tech-Stack",
+			"title": "Technologie-Stack",
 			"languages": "Programmiersprachen",
-			"frontend": "Frontend",
-			"backend": "Backend",
-			"frameworks": "Applikationen & Frameworks",
+			"frontend": "Frontend-Entwicklung",
+			"backend": "Backend-Entwicklung",
+			"tooling": "Werkzeuge und Entwicklungsumgebung",
 			"databases": "Datenbanken",
-			"devtools": "Entwickelertools",
-			"opstools": "Operations-Tools"
+			"devops": "DevOps und Infrastruktur",
+			"network": "Netzwerke und Systeme"
 		},
 		"workspace": {
 			"title": "Arbeitsumgebung",

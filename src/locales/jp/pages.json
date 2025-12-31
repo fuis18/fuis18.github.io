@@ -12,12 +12,12 @@
 		"stack": {
 			"title": "技術スタック",
 			"languages": "プログラミング言語",
-			"frontend": "フロントエンド",
-			"backend": "バックエンド",
-			"frameworks": "アプリケーション・フレームワーク",
+			"frontend": "フロントエンド開発",
+			"backend": "バックエンド開発",
+			"tooling": "開発ツール・開発環境",
 			"databases": "データベース",
-			"devtools": "開発ツール",
-			"opstools": "運用ツール"
+			"devops": "DevOps・インフラストラクチャ",
+			"network": "ネットワーク・システム"
 		},
 		"workspace": {
 			"title": "作業環境",

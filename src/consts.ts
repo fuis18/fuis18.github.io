@@ -1,7 +1,7 @@
-import type { Site, Links } from "@/types";
+import type { Site, Links } from "./types.ts";
 
 export const SITE: Site = {
-  TITLE: "ぅいす",
+  TITLE: "フイスです",
   DESCRIPTION:
     ".",
   AUTHOR: "Fuis18",

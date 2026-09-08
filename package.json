@@ -24,7 +24,7 @@
     }
   },
   "dependencies": {
-    "astro": "7.3.1",
+    "astro": "7.3.1"
   },
   "allowScripts": {
     "esbuild@0.28.2": true
@@ -34,6 +34,6 @@
     "@typescript-eslint/eslint-plugin": "8.69.0",
     "@typescript-eslint/parser": "8.69.0",
     "prettier": "3.9.6",
-    "prettier-plugin-astro": "0.14.1",
+    "prettier-plugin-astro": "0.14.1"
   }
 }

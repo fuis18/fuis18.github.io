@@ -1,7 +1,22 @@
 ---
-
+import homeData from "@/data/home.json";
 ---
 
-<p>My Name</p>
-<h1>Luis Roman Cieza</h1>
-<p>@fuis18</p>
+<div class="main-card">
+  <p>My Name</p>
+  <h1>Luis Roman Cieza</h1>
+  <div>
+    <h2 data-lang="es">{homeData.es.role}</h2>
+    <h2 data-lang="en">{homeData.en.role}</h2>
+    <span>/</span>
+    <span>@fuis18</span>
+  </div>
+</div>
+
+<style>
+  h2 {
+    display: inline;
+  }
+</style>
+
+

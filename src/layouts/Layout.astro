@@ -16,9 +16,23 @@ import { SITE } from "@/consts";
   </head>
   <body>
     <Header />
-    <section>
-      <slot />
-    </section>
+    <slot />
     <Footer />
   </body>
 </html>
+
+<script>
+  import { updateTranslations } from "@/lib/i18n";
+
+  function init() {
+    const lang = localStorage.getItem("lang") || (navigator.language.startsWith("es") ? "es" : "en");
+    document.documentElement.lang = lang;
+    updateTranslations();
+    const select = document.getElementById("lang-select") as HTMLSelectElement;
+    if (select) select.value = lang;
+  }
+
+  init();
+  document.addEventListener("lang-change", init);
+  document.addEventListener("astro:page-load", init);
+</script>

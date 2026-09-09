@@ -8,17 +8,15 @@ import ThemeToggle from "./ThemeToggle.astro";
 ---
 
 <header>
-  <!-- Left -->
-  <div>
-    <a href="/">{SITE.TITLE}</a>
-    <span>00:00</span>
+  <div class="header-left">
+    <a href="/" class="JP">{SITE.TITLE}</a>
+    <span class="clock">00:00</span>
   </div>
   <!-- Center -->
   <nav>
     {LINKS.map((LINK) => <a href={LINK.HREF}>{LINK.TEXT}</a>)}
   </nav>
-  <!-- Rigth -->
-  <div>
+  <div class="header-rigth">
     <LangDropdown />
     <ThemeToggle />
   </div>
@@ -29,6 +27,22 @@ import ThemeToggle from "./ThemeToggle.astro";
     display: flex;
     justify-content: space-between;
     align-items: center;
+    height: 4rem;
+  }
+  .header-left,
+  .header-rigth {
+    display: inherit;
+    gap: 12px;
+  }
+  .clock {
+    font-family: digital-7;
+    font-size: 1.25rem;
+    font-weight: 700;
+  }
+  .JP {
+    font-family: "Yuji Mai";
+    font-weight: 700;
+    font-size: 1.25rem;
   }
   nav {
     font-size: 0.875rem;

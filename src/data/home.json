@@ -1,0 +1,16 @@
+{
+  "es": {
+    "role": "Ingeniero DevOps",
+    "about": {
+      "title": "¿Quién Soy?",
+      "text": "Desarrollador apasionado por crear experiencias web únicas. Me encanta explorar nuevas tecnologías y construir cosas que importan."
+    }
+  },
+  "en": {
+    "role": "DevOps Engineer",
+    "about": {
+      "title": "Who I Am?",
+      "text": "Developer passionate about creating unique web experiences. I love exploring new technologies and building things that matter."
+    }
+  }
+}

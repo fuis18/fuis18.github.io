@@ -1,6 +1,6 @@
 {
   "name": "fuis18.github.io",
-  "version": "1.0.0",
+  "version": "5.0.0",
   "author": "Fuis18",
   "license": "MIT",
   "type": "module",
@@ -13,7 +13,10 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "playwright test"
   },
   "devEngines": {
     "packageManager": {
@@ -23,14 +26,20 @@
     }
   },
   "dependencies": {
+    "@astrojs/mdx": "8.0.1",
     "astro": "7.3.1"
   },
   "allowScripts": {
     "esbuild@0.28.2": true
   },
   "devDependencies": {
+    "@playwright/test": "1.63.0",
+    "@types/node": "26.5.0",
+    "@vitest/coverage-v8": "5.0.0",
+    "jsdom": "30.0.1",
     "prettier": "3.9.6",
     "prettier-plugin-astro": "0.14.1",
-    "typescript": "7.0.2"
+    "typescript": "7.0.2",
+    "vitest": "5.0.0"
   }
 }

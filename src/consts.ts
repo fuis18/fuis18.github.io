@@ -2,8 +2,7 @@ import type { Site, Links } from "./types.ts";
 
 export const SITE: Site = {
   TITLE: "フイスです",
-  DESCRIPTION:
-    ".",
+  DESCRIPTION: ".",
   AUTHOR: "Fuis18",
 };
 

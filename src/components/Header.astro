@@ -1,0 +1,43 @@
+---
+import { SITE, LINKS } from "@/consts";
+// const { pathname } = Astro.url;
+// const subpath = pathname.match(/[^/]+/g);
+
+import LangDropdown from "./LangDropdown.astro";
+import ThemeToggle from "./ThemeToggle.astro";
+---
+
+<header>
+  <!-- Left -->
+  <div>
+    <a href="/">{SITE.TITLE}</a>
+    <span>00:00</span>
+  </div>
+  <!-- Center -->
+  <nav>
+    {LINKS.map((LINK) => <a href={LINK.HREF}>{LINK.TEXT}</a>)}
+  </nav>
+  <!-- Rigth -->
+  <div>
+    <LangDropdown />
+    <ThemeToggle />
+  </div>
+</header>
+
+<style>
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  nav {
+    font-size: 0.875rem;
+  }
+  nav a {
+    display: inline-block;
+    margin: 0 1rem;
+    height: 2.25rem;
+    font-weight: 500;
+    align-content: center;
+  }
+</style>

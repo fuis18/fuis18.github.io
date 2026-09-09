@@ -1,0 +1,58 @@
+.light {
+  --color: #0a0a0a;
+  --title-color: #104090;
+  --background-primary: #fafafa;
+  --background-secondary: #80c0d0;
+  --color-border: #e5e5e5;
+}
+
+.dark {
+  --color: #c0c0c0;
+  --title-color: #c0c0c0;
+  --background-primary: #303030;
+  --background-secondary: #505050;
+  --color-border: #262626;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+  color: var(--color);
+  background-color: var(--background-primary);
+  line-height: 2;
+}
+
+@font-face {
+  font-family: Inter;
+  src: url(/fonts/Inter-Regular.woff2) format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Inter;
+  src: url(/fonts/Inter-Bold.woff2) format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+section {
+  margin-top: 64px;
+  margin-bottom: 32px;
+}
+
+h1 {
+  color: var(--title-color);
+}
+
+a {
+  color: var(--color);
+  text-decoration: inherit;
+}

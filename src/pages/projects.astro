@@ -5,25 +5,67 @@ import projects from "@/data/projects.json";
 ---
 
 <Layout title="Projects" description="My website">
-  <h1>Projects</h1>
-  <div class="project-container">
-    {
-      projects.map((project) => (
-        <ProjectCard
-          title={project.title}
-          description={project.description}
-          href={project.href}
-          image={project.image}
-          tags={project.tags}
-        />
-      ))
-    }
-  </div>
+  <main>
+    <h1>Projects</h1>
+    <div class="project-container">
+      {
+        projects.map((project) => (
+          <ProjectCard
+            title={project.title}
+            description={project.description}
+            href={project.href}
+            image={project.image}
+            tags={project.tags}
+          />
+        ))
+      }
+    </div>
+  </main>
 </Layout>
 
 <style>
+  main {
+    max-width: max-content;
+    margin-inline: 1rem;
+  }
   .project-container {
+    grid-template-columns: 1fr;
     display: grid;
-    gap: 3rem;
+    gap: 1.5rem;
+  }
+
+  :global(.project-container .project-card:nth-child(2n)) {
+    justify-self: end;
+  }
+
+  @media screen and (width >= 600px) {
+    main {
+      margin-inline: 2rem;
+    }
+  }
+  @media screen and (width >= 700px) {
+    .project-container {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  @media screen and (width >= 900px) {
+    .project-container {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+  }
+  @media screen and (width >= 1720px) {
+    .project-container {
+      grid-template-columns: 1fr 1fr;
+      padding-bottom: 100px;
+    }
+    :global(.project-container .project-card:nth-child(2n)) {
+      transform: translateY(50%);
+    }
+  }
+  @media screen and (width >= 1810px) {
+    main {
+      margin-inline: 5rem;
+    }
   }
 </style>

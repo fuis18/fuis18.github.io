@@ -1,0 +1,133 @@
+---
+interface Props {
+  src: string;
+  alt: string;
+}
+
+const { src, alt } = Astro.props;
+---
+
+<div class="img-container">
+  <img src={src} alt={alt} />
+  <span class="img-tool">Expand</span>
+</div>
+
+<style>
+  .img-container {
+    position: relative;
+    display: flex;
+    cursor: zoom-in;
+  }
+  .img-container img {
+    object-fit: cover;
+    width: 100%;
+    border-radius: 0.5rem;
+    transition: scale 0.1s ease;
+    height: min-content;
+  }
+
+  html.dark .img-container img {
+    border-top-left-radius: inherit;
+    border-bottom-left-radius: inherit;
+  }
+  .img-tool {
+    bottom: 0.5rem;
+    right: 0.5rem;
+    position: absolute;
+    color: var(--color-title);
+    padding: 4px 8px;
+    line-height: 1.5;
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    font-size: 0.75rem;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+  .img-container:hover img {
+    scale: 1.02;
+  }
+  .img-container:hover .img-tool {
+    opacity: 1;
+  }
+
+  :global(.zoom) {
+    position: fixed;
+    inset: 0;
+    z-index: 99;
+    transition:
+      opacity 0.1s,
+      backdrop-filter 0.1s;
+    backdrop-filter: blur(0px);
+    background: transparent;
+    opacity: 0;
+  }
+</style>
+
+<script>
+  document.querySelectorAll(".img-container").forEach((container) => {
+    const img = container.children[0];
+    img.addEventListener("click", () => {
+      const rect = img.getBoundingClientRect();
+
+      const overlay = document.createElement("div");
+      overlay.classList.add("zoom");
+
+      const picture = document.createElement("img");
+      picture.src = img.src;
+      picture.style.position = "fixed";
+      picture.style.left = rect.left + "px";
+      picture.style.top = rect.top + "px";
+      picture.style.width = rect.width + "px";
+      picture.style.height = rect.height + "px";
+      picture.style.objectFit = "cover";
+      picture.style.borderRadius = "0.5rem";
+      picture.style.transformOrigin = "top left";
+      picture.style.transform = "translate3d(0, 0, 0) scale(1)";
+      picture.style.transition = "transform 0.4s";
+      picture.style.zIndex = "100";
+      picture.style.maxWidth = "none";
+      picture.style.maxHeight = "none";
+      picture.style.margin = "0";
+      picture.style.cursor = "zoom-out";
+
+      overlay.appendChild(picture);
+      document.body.appendChild(overlay);
+
+      void overlay.offsetHeight;
+
+      const finalW = window.innerWidth * 0.9;
+      const finalH = window.innerHeight * 0.9;
+      const finalScale = Math.min(finalW / rect.width, finalH / rect.height);
+      const finalW2 = rect.width * finalScale;
+      const finalH2 = rect.height * finalScale;
+      const dx = (window.innerWidth - finalW2) / 2 - rect.left;
+      const dy = (window.innerHeight - finalH2) / 2 - rect.top;
+
+      overlay.style.opacity = "1";
+      overlay.style.backdropFilter = "blur(6px)";
+      overlay.style.background = "rgba(0,0,0,0.3)";
+      picture.style.transform = `translate3d(${dx}px, ${dy}px, 0) scale(${finalScale})`;
+
+      document.body.style.overflow = "hidden";
+      img.style.opacity = "0";
+
+      const close = () => {
+        picture.style.transition = "transform 0.4s ease";
+        overlay.style.transition = "opacity 0.4s, backdrop-filter 0.4s";
+        picture.style.transform = "translate3d(0, 0, 0) scale(1)";
+        overlay.style.opacity = "0";
+        overlay.style.backdropFilter = "blur(0px)";
+        overlay.style.background = "transparent";
+        img.style.opacity = "";
+        setTimeout(() => {
+          overlay.remove();
+          document.body.style.overflow = "";
+        }, 400);
+        overlay.removeEventListener("click", close);
+      };
+
+      overlay.addEventListener("click", close);
+    });
+  });
+</script>

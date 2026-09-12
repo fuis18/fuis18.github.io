@@ -1,4 +1,6 @@
 ---
+import ImageZoom from "./ImageZoom.astro";
+
 interface Props {
   title: string;
   description?: string;
@@ -11,14 +13,7 @@ const { title, description = "", href = "/", image, tags = [] } = Astro.props;
 ---
 
 <div class="card-container project-card">
-  {
-    image && (
-      <div class="img-container">
-        <img src={image} alt={title} class="img-project" />
-        <span class="img-tool">Expand</span>
-      </div>
-    )
-  }
+  {image && <ImageZoom src={image} alt={title} />}
   <a href={href} class="card-content">
     <div class="project-title">
       <h2>{title}</h2><span>2025 - 2026</span>
@@ -32,50 +27,46 @@ const { title, description = "", href = "/", image, tags = [] } = Astro.props;
 
 <style>
   .project-card {
+    position: relative;
     display: grid;
-    grid-template-columns: 2fr 3fr;
     transition-property: translate;
     transition-duration: 0.2s;
+    overflow: hidden;
   }
+
+  .project-card:hover {
+    translate: 0 -0.25rem;
+  }
+  .project-card:hover .tag {
+    color: var(--color-hover);
+    background-color: var(--bg-secondary);
+  }
+
   html.dark .project-card {
     border-left: none;
     border-right: none;
     border-radius: initial;
   }
-  .project-card:hover {
-    translate: 0 -0.25rem;
+
+  html.dark .project-card:hover::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -70%;
+    height: 100%;
+    width: 5rem;
+    pointer-events: none;
+    animation: shine 2s;
+    background-color: var(--color-title);
+    opacity: 0.1;
+    transform: skewX(-25deg);
   }
+
   .card-content {
     width: 100%;
-  }
-  .img-container {
-    position: relative;
-    display: flex;
-    cursor: pointer;
-  }
-  .img-container img {
-    object-fit: cover;
-    width: 100%;
-    border-radius: 0.5rem;
-    transition: scale 0.1s ease;
-  }
-  .img-tool {
-    bottom: 0.5rem;
-    right: 0.5rem;
-    position: absolute;
-    color: var(--color-title);
-    padding: 4px 8px;
-    background-color: var(--bg-primary);
-    border-radius: 1rem;
-    font-size: 0.75rem;
-    opacity: 0;
-    transition: opacity 0.5s ease;
-  }
-  .img-container:hover .img-container img {
-    scale: 1.02;
-  }
-  .img-container:hover .img-tool {
-    opacity: 1;
+    padding: 1rem;
+    display: grid;
+    grid-template-rows: min-content 1fr min-content;
   }
   .project-content {
     width: 100%;
@@ -89,6 +80,9 @@ const { title, description = "", href = "/", image, tags = [] } = Astro.props;
   h2 {
     font-size: 1.125rem;
   }
+  .project-title span {
+    font-size: 0.75rem;
+  }
   .tags {
     display: flex;
     flex-wrap: wrap;
@@ -99,86 +93,36 @@ const { title, description = "", href = "/", image, tags = [] } = Astro.props;
     border: 1px solid var(--border);
     border-radius: 1rem;
     white-space: nowrap;
-    color: var(--color);
     font-size: 0.75rem;
     padding: 0.25rem 0.625rem;
   }
-  .tag:hover {
-    color: var(--color-hover);
-    background-color: var(--bg-secondary);
+
+  @keyframes shine {
+    0% {
+      left: -20%;
+      filter: blur(10px);
+    }
+    50% {
+      filter: blur(0px);
+    }
+    100% {
+      left: 110%;
+      filter: blur(10px);
+    }
   }
-  :global(.zoom) {
-    position: fixed;
-    inset: 0;
-    z-index: 99;
+  @media screen and (width >= 900px) {
+    .project-card {
+      grid-template-columns: 2fr 3fr;
+    }
+  }
+  @media screen and (width >= 1150px) {
+    .project-card {
+      width: 75%;
+    }
+  }
+  @media screen and (width >= 1720px) {
+    .project-card {
+      width: 100%;
+    }
   }
 </style>
-
-<script>
-  document.querySelectorAll(".img-container").forEach((container) => {
-    const img = container.children[0];
-    img.addEventListener("click", () => {
-      const rect = img.getBoundingClientRect();
-
-      const overlay = document.createElement("div");
-      overlay.classList.add("zoom");
-      overlay.style.opacity = "0";
-      overlay.style.transition = "opacity 0.1s, backdrop-filter 0.1s";
-      overlay.style.backdropFilter = "blur(0px)";
-      overlay.style.background = "transparent";
-
-      const picture = document.createElement("img");
-      picture.src = img.src;
-      picture.style.position = "fixed";
-      picture.style.left = rect.left + "px";
-      picture.style.top = rect.top + "px";
-      picture.style.width = rect.width + "px";
-      picture.style.height = rect.height + "px";
-      picture.style.objectFit = "cover";
-      picture.style.borderRadius = "0.5rem";
-      picture.style.transformOrigin = "top left";
-      picture.style.transform = "translate3d(0, 0, 0) scale(1)";
-      picture.style.transition = "transform 0.4s, opacity 0.4s";
-      picture.style.zIndex = "100";
-      picture.style.maxWidth = "none";
-      picture.style.maxHeight = "none";
-      picture.style.margin = "0";
-
-      overlay.appendChild(picture);
-      document.body.appendChild(overlay);
-
-      void overlay.offsetHeight;
-
-      const finalW = window.innerWidth * 0.9;
-      const finalH = window.innerHeight * 0.9;
-      const finalScale = Math.min(finalW / rect.width, finalH / rect.height);
-      const finalW2 = rect.width * finalScale;
-      const finalH2 = rect.height * finalScale;
-      const dx = (window.innerWidth - finalW2) / 2 - rect.left;
-      const dy = (window.innerHeight - finalH2) / 2 - rect.top;
-
-      overlay.style.opacity = "1";
-      overlay.style.backdropFilter = "blur(6px)";
-      overlay.style.background = "rgba(0,0,0,0.3)";
-      picture.style.transform = `translate3d(${dx}px, ${dy}px, 0) scale(${finalScale})`;
-
-      document.body.style.overflow = "hidden";
-      img.style.opacity = "0";
-
-      const close = () => {
-        picture.style.transform = "translate3d(0, 0, 0) scale(1)";
-        overlay.style.opacity = "0";
-        overlay.style.backdropFilter = "blur(0px)";
-        overlay.style.background = "transparent";
-        setTimeout(() => {
-          overlay.remove();
-          document.body.style.overflow = "";
-          img.style.opacity = "";
-        }, 100);
-        overlay.removeEventListener("click", close);
-      };
-
-      overlay.addEventListener("click", close);
-    });
-  });
-</script>

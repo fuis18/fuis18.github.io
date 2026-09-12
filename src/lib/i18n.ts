@@ -8,9 +8,7 @@ export function getLang(): string {
 export function setLang(lang: string) {
   localStorage.setItem("lang", lang);
   document.documentElement.lang = lang;
-  document.dispatchEvent(
-    new CustomEvent("lang-change", { detail: { lang } })
-  );
+  document.dispatchEvent(new CustomEvent("lang-change", { detail: { lang } }));
 }
 
 export function updateTranslations() {

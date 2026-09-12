@@ -10,12 +10,18 @@ describe("i18n", () => {
 
   describe("getLang", () => {
     it("retorna 'en' por defecto cuando navigator no es 'es'", () => {
-      Object.defineProperty(navigator, "language", { value: "en-US", configurable: true });
+      Object.defineProperty(navigator, "language", {
+        value: "en-US",
+        configurable: true,
+      });
       expect(getLang()).toBe("en");
     });
 
     it("retorna 'es' cuando navigator.language empieza con 'es'", () => {
-      Object.defineProperty(navigator, "language", { value: "es-MX", configurable: true });
+      Object.defineProperty(navigator, "language", {
+        value: "es-MX",
+        configurable: true,
+      });
       expect(getLang()).toBe("es");
     });
 
@@ -25,7 +31,10 @@ describe("i18n", () => {
     });
 
     it("localStorage tiene prioridad sobre navigator.language", () => {
-      Object.defineProperty(navigator, "language", { value: "en-US", configurable: true });
+      Object.defineProperty(navigator, "language", {
+        value: "en-US",
+        configurable: true,
+      });
       localStorage.setItem("lang", "es");
       expect(getLang()).toBe("es");
     });

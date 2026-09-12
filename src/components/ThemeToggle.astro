@@ -40,7 +40,12 @@
 <script>
   import { getTheme, setTheme, applyTheme } from "@/lib/theme";
 
+  let controller: AbortController | null = null;
+
   function setupToggle() {
+    controller?.abort();
+    controller = new AbortController();
+
     const btn = document.getElementById("theme-toggle");
     if (!btn) return;
 
@@ -64,7 +69,7 @@
       setTheme(next);
       applyTheme(next);
       updateIcon();
-    });
+    }, { signal: controller.signal });
 
     updateIcon();
   }
@@ -78,7 +83,7 @@
     background: none;
     border: none;
     cursor: pointer;
-    color: inherit;
+    color: var(--color-title)
     padding: 0.5rem;
     display: flex;
     align-items: center;

@@ -3,9 +3,8 @@ import homeData from "@/data/home.json";
 ---
 
 <div class="main-card">
-  <p>My Name</p>
   <h1>Luis Roman Cieza</h1>
-  <div>
+  <div class="subtitle">
     <h2 data-lang="es">{homeData.es.role}</h2>
     <h2 data-lang="en">{homeData.en.role}</h2>
     <span>/</span>
@@ -16,7 +15,26 @@ import homeData from "@/data/home.json";
 <style>
   h2 {
     display: inline;
+    font-size: 1.5rem;
+    color: var(--color);
+  }
+  .subtitle {
+    display: inline-flex;
+    gap: 0.75rem;
+    align-items: center;
+    color: var(--color);
+  }
+  .subtitle span {
+    font-size: 1.25rem;
+  }
+  @media screen and (width >= 640px) {
+    h1 {
+      font-size: 3.5rem;
+    }
+  }
+  @media screen and (width >= 960px) {
+    h1 {
+      font-size: 4.5rem;
+    }
   }
 </style>
-
-

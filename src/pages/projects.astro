@@ -1,7 +1,29 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import ProjectCard from "@/components/ProjectCard.astro";
+import projects from "@/data/projects.json";
 ---
 
 <Layout title="Projects" description="My website">
   <h1>Projects</h1>
+  <div class="project-container">
+    {
+      projects.map((project) => (
+        <ProjectCard
+          title={project.title}
+          description={project.description}
+          href={project.href}
+          image={project.image}
+          tags={project.tags}
+        />
+      ))
+    }
+  </div>
 </Layout>
+
+<style>
+  .project-container {
+    display: grid;
+    gap: 3rem;
+  }
+</style>

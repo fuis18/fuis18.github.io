@@ -1,7 +1,6 @@
 ---
 import { SITE, LINKS } from "@/consts";
-// const { pathname } = Astro.url;
-// const subpath = pathname.match(/[^/]+/g);
+const { pathname } = Astro.url;
 
 import LangDropdown from "./LangDropdown.astro";
 import ThemeToggle from "./ThemeToggle.astro";
@@ -12,9 +11,18 @@ import ThemeToggle from "./ThemeToggle.astro";
     <a href="/" class="JP">{SITE.TITLE}</a>
     <span class="clock">00:00</span>
   </div>
-  <!-- Center -->
   <nav>
-    {LINKS.map((LINK) => <a href={LINK.HREF}>{LINK.TEXT}</a>)}
+    {
+      LINKS.map((LINK) => {
+        const isActive =
+          LINK.HREF === "/" ? pathname === "/" : pathname.startsWith(LINK.HREF);
+        return (
+          <a href={LINK.HREF} class:list={[{ active: isActive }]}>
+            {LINK.TEXT}
+          </a>
+        );
+      })
+    }
   </nav>
   <div class="header-rigth">
     <LangDropdown />
@@ -33,6 +41,7 @@ import ThemeToggle from "./ThemeToggle.astro";
   .header-rigth {
     display: inherit;
     gap: 12px;
+    color: var(--color-title);
   }
   .clock {
     font-family: digital-7;
@@ -40,12 +49,14 @@ import ThemeToggle from "./ThemeToggle.astro";
     font-weight: 700;
   }
   .JP {
+    color: var(--color-title);
     font-family: "Yuji Mai";
     font-weight: 700;
     font-size: 1.25rem;
   }
   nav {
     font-size: 0.875rem;
+    position: relative;
   }
   nav a {
     display: inline-block;
@@ -53,5 +64,31 @@ import ThemeToggle from "./ThemeToggle.astro";
     height: 2.25rem;
     font-weight: 500;
     align-content: center;
+    padding: 0 1rem;
+    border-radius: 0.375rem;
+    position: relative;
+    z-index: 1;
+  }
+  nav a.active {
+    background-color: var(--bg-hover);
+    color: var(--color-title);
   }
 </style>
+
+<script>
+  function initIndicator() {
+    const nav = document.querySelector("nav");
+    const indicator = document.querySelector(".nav-indicator") as HTMLElement;
+    const activeLink = nav?.querySelector(".active") as HTMLElement;
+    if (!nav || !indicator || !activeLink) return;
+
+    const navRect = nav.getBoundingClientRect();
+    const linkRect = activeLink.getBoundingClientRect();
+    indicator.style.opacity = "1";
+    indicator.style.left = linkRect.left - navRect.left + "px";
+    indicator.style.width = linkRect.width + "px";
+    indicator.style.height = linkRect.height + "px";
+  }
+
+  document.addEventListener("astro:page-load", initIndicator);
+</script>

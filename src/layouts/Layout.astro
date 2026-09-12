@@ -16,17 +16,23 @@ import { SITE } from "@/consts";
   </head>
   <body>
     <Header />
-    <slot />
+    <main>
+      <slot />
+    </main>
     <Footer />
   </body>
 </html>
 
 <script>
   import { updateTranslations } from "@/lib/i18n";
+  import { applyTheme } from "@/lib/theme";
 
   function init() {
-    const lang = localStorage.getItem("lang") || (navigator.language.startsWith("es") ? "es" : "en");
+    const lang =
+      localStorage.getItem("lang") ||
+      (navigator.language.startsWith("es") ? "es" : "en");
     document.documentElement.lang = lang;
+    applyTheme();
     updateTranslations();
     const select = document.getElementById("lang-select") as HTMLSelectElement;
     if (select) select.value = lang;

@@ -1,0 +1,30 @@
+[
+  {
+    "title": "Portfolio Website",
+    "description": "Mi sitio web personal hecho con Astro y estilos modernos.",
+    "href": "#",
+    "image": "/img/img-dotfiles.png",
+    "tags": ["Astro", "TypeScript", "CSS"]
+  },
+  {
+    "title": "Task Manager App",
+    "description": "Aplicación de gestión de tareas con autenticación y sync en la nube.",
+    "href": "#",
+    "image": "/img/img-healthy-life.png",
+    "tags": ["React", "NodeJS", "SQL"]
+  },
+  {
+    "title": "CLI Tool",
+    "description": "Herramienta de línea de comandos para automatizar workflows.",
+    "href": "#",
+    "image": "/img/img-dotfiles.png",
+    "tags": ["Rust", "Shell/Bash"]
+  },
+  {
+    "title": "E-commerce Platform",
+    "description": "Plataforma de tienda online con carrito y pasarela de pago.",
+    "href": "#",
+    "image": "/img/img-healthy-life.png",
+    "tags": ["NextJS", "TypeScript", "SQL", "NodeJS"]
+  }
+]

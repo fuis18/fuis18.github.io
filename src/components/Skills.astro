@@ -1,1 +1,54 @@
-<div class="card-container card-content">Skills</div>
+---
+import skillsData from "@/data/skills.json";
+const skills = [...skillsData, ...skillsData];
+---
+
+<div class="scroll">
+  <div class="wrapper">
+    {skills.map((skill) => <span class="item">{skill}</span>)}
+  </div>
+</div>
+
+<style>
+  .scroll {
+    overflow: hidden;
+    width: 100%;
+    mask-image: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0),
+      rgba(0, 0, 0, 1) 10%,
+      rgba(0, 0, 0, 1) 90%,
+      rgba(0, 0, 0, 0)
+    );
+  }
+
+  .wrapper {
+    display: flex;
+    width: max-content;
+    animation: scroll 30s linear infinite;
+  }
+
+  .item {
+    flex-shrink: 0;
+    padding: 0.5rem 1rem;
+    margin-inline: 0.5rem;
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    white-space: nowrap;
+    color: var(--color);
+  }
+
+  .item:hover {
+    color: var(--color-hover);
+    background-color: var(--bg-secondary);
+  }
+
+  @keyframes scroll {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+</style>

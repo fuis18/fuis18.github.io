@@ -15,7 +15,14 @@ import { SITE } from "@/consts";
     padding: 1rem;
     border-top: 1px solid var(--border);
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     font-size: 0.875rem;
+    align-items: center;
+  }
+  @media screen and (width >= 640px) {
+    footer {
+      flex-direction: row;
+    }
   }
 </style>

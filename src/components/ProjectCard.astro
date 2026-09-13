@@ -7,16 +7,24 @@ interface Props {
   href?: string;
   image?: string;
   tags?: string[];
+  date?: string;
 }
 
-const { title, description = "", href = "/", image, tags = [] } = Astro.props;
+const {
+  title,
+  description = "",
+  href = "/",
+  image,
+  tags = [],
+  date = "",
+} = Astro.props;
 ---
 
 <div class="card-container project-card">
   {image && <ImageZoom src={image} alt={title} />}
-  <a href={href} class="card-content">
+  <a href={href} class="card-content" target="_blank">
     <div class="project-title">
-      <h2>{title}</h2><span>2025 - 2026</span>
+      <h2>{title}</h2><span>{date}</span>
     </div>
     <p>{description}</p>
     <div class="tags">
@@ -117,7 +125,7 @@ const { title, description = "", href = "/", image, tags = [] } = Astro.props;
   }
   @media screen and (width >= 1150px) {
     .project-card {
-      width: 75%;
+      width: 60%;
     }
   }
   @media screen and (width >= 1720px) {

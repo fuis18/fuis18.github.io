@@ -5,7 +5,7 @@ import projects from "@/data/projects.json";
 ---
 
 <Layout title="Projects" description="My website">
-  <main>
+  <main transition:animate="slide">
     <h1>Projects</h1>
     <div class="project-container">
       {
@@ -16,6 +16,7 @@ import projects from "@/data/projects.json";
             href={project.href}
             image={project.image}
             tags={project.tags}
+            date={project.date}
           />
         ))
       }
@@ -27,6 +28,7 @@ import projects from "@/data/projects.json";
   main {
     max-width: max-content;
     margin-inline: 1rem;
+    margin-top: 0;
   }
   .project-container {
     grid-template-columns: 1fr;
@@ -36,6 +38,10 @@ import projects from "@/data/projects.json";
 
   :global(.project-container .project-card:nth-child(2n)) {
     justify-self: end;
+  }
+
+  :global(footer) {
+    max-width: none;
   }
 
   @media screen and (width >= 600px) {
@@ -57,7 +63,7 @@ import projects from "@/data/projects.json";
   @media screen and (width >= 1720px) {
     .project-container {
       grid-template-columns: 1fr 1fr;
-      padding-bottom: 100px;
+      padding-bottom: 0.5rem;
     }
     :global(.project-container .project-card:nth-child(2n)) {
       transform: translateY(50%);

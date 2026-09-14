@@ -1,13 +1,14 @@
 ---
 import homeData from "@/data/home.json";
-import MailIcon from "@/assets/mail.svg";
-import GithubIcon from "@/assets/github.svg";
-import LinkedinIcon from "@/assets/linkedin.svg";
-import YoutubeIcon from "@/assets/youtube.svg";
-import KofiIcon from "@/assets/ko-fi.svg";
-import SignalIcon from "@/assets/signal.svg";
-import ListOutlineIcon from "@/assets/list-outline.svg";
-import NodesIcon from "@/assets/nodes.svg";
+import SkillGraph from "./SkillGraph.astro";
+import MailIcon from "@/assets/svg-links/mail.svg";
+import GithubIcon from "@/assets/svg-links/github.svg";
+import LinkedinIcon from "@/assets/svg-links/linkedin.svg";
+import YoutubeIcon from "@/assets/svg-links/youtube.svg";
+import KofiIcon from "@/assets/svg-links/ko-fi.svg";
+import SignalIcon from "@/assets/svg-links/signal.svg";
+import ListOutlineIcon from "@/assets/svg-tools/list-outline.svg";
+import NodesIcon from "@/assets/svg-tools/nodes.svg";
 
 const links = [
   { label: "Mail", url: "mailto:fuis18@proton.me", icon: MailIcon },
@@ -24,15 +25,35 @@ const links = [
 ---
 
 <div class="card-container">
-  <div class="card__modes">
-    <div><ListOutlineIcon /></div>
-    <div><NodesIcon /></div>
-  </div>
-  <div class="card__about card-content">
-    <h3 data-lang="es">{homeData.es.about.title}</h3>
-    <h3 data-lang="en">{homeData.en.about.title}</h3>
-    <p data-lang="es">{homeData.es.about.text}</p>
-    <p data-lang="en">{homeData.en.about.text}</p>
+  <div class="card-container-content">
+    <div class="card__modes">
+      <button
+        id="mode-list"
+        type="button"
+        class="is-active"
+        aria-label="List mode"
+        aria-pressed="true"
+      >
+        <ListOutlineIcon />
+      </button>
+      <button
+        id="mode-nodes"
+        type="button"
+        aria-label="Graph mode"
+        aria-pressed="false"
+      >
+        <NodesIcon />
+      </button>
+    </div>
+    <div class="card-content">
+      <div class="card__content-text">
+        <h3 data-lang="es">{homeData.es.about.title}</h3>
+        <h3 data-lang="en">{homeData.en.about.title}</h3>
+        <p data-lang="es">{homeData.es.about.text}</p>
+        <p data-lang="en">{homeData.en.about.text}</p>
+      </div>
+      <SkillGraph />
+    </div>
   </div>
   <ul class="card__links">
     {
@@ -47,47 +68,119 @@ const links = [
   </ul>
 </div>
 
+<script>
+  import { GRAPH_MODE_EVENT } from "@/lib/events";
+
+  type Mode = "about" | "graph";
+
+  let container: HTMLElement | null = null;
+  let listBtn: HTMLButtonElement | null = null;
+  let graphBtn: HTMLButtonElement | null = null;
+  let links: HTMLElement | null = null;
+  let mode: Mode = "about";
+
+  function dispatchGraphMode(active: boolean) {
+    document.dispatchEvent(
+      new CustomEvent(GRAPH_MODE_EVENT, { detail: { active } }),
+    );
+  }
+
+  function setMode(next: Mode) {
+    mode = next;
+    if (!container || !listBtn || !graphBtn) return;
+
+    container.classList.toggle("graph-mode", next === "graph");
+    listBtn.classList.toggle("is-active", next === "about");
+    graphBtn.classList.toggle("is-active", next === "graph");
+    listBtn.setAttribute("aria-pressed", String(next === "about"));
+    graphBtn.setAttribute("aria-pressed", String(next === "graph"));
+
+    dispatchGraphMode(next === "graph");
+  }
+
+  function setup() {
+    container = document.querySelector(".card-container");
+    links = document.querySelector(".card__links");
+    listBtn = document.getElementById("mode-list") as HTMLButtonElement;
+    graphBtn = document.getElementById("mode-nodes") as HTMLButtonElement;
+
+    if (!container || !listBtn || !graphBtn) return;
+    if (mode !== "about") setMode("about");
+
+    listBtn.addEventListener("click", () => setMode("about"));
+    graphBtn.addEventListener("click", () => setMode("graph"));
+  }
+
+  setup();
+  document.addEventListener("astro:page-load", setup);
+</script>
+
 <style>
   .card-container {
     display: grid;
-    grid-template-areas:
-      "modes about"
-      "links links";
-    grid-template-columns: min-content 1fr;
-    grid-template-rows: auto auto;
+    grid-template-columns: 1fr;
+  }
+  .card-container-content {
+    display: flex;
   }
   .card__modes {
     grid-area: modes;
   }
-  .card__modes div {
+  .card__modes button {
     padding: 6px;
+    border: none;
     border-right: 1px solid var(--border);
     border-bottom: 1px solid var(--border);
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    background: none;
+    color: var(--color);
+    font: inherit;
+    line-height: 1;
   }
-  .card__modes div:nth-child(1) {
+  .card__modes button:nth-child(1) {
     border-top-left-radius: 1rem;
   }
-  .card__modes div:hover {
-    background-color: var(--bg-secondary);
+  .card__modes button:hover,
+  .card__modes button.is-active {
+    background-color: var(--bg-hover);
     color: var(--color-hover);
   }
   .card__modes svg {
     width: 1.75rem;
     height: 1.75rem;
   }
-  .card__about {
+  .card__content {
     grid-area: about;
+  }
+  .card__content-text {
+    display: block;
   }
   h3 {
     margin-bottom: 1rem;
     font-size: 0.875rem;
   }
+  .card-container.graph-mode .card__content-text {
+    display: none;
+  }
+  .card-container.graph-mode .card-content {
+    padding: 0;
+    flex: 1;
+  }
+  .card-container.graph-mode .card-container-content {
+    position: relative;
+  }
+  .card-container.graph-mode .card__modes {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 5;
+    background-color: var(--bg-secondary);
+    border-top-left-radius: 1rem;
+  }
   .card__links {
-    grid-area: links;
     border-top: 1px solid var(--border);
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -137,7 +230,7 @@ const links = [
   @media screen and (width >= 768px) {
     .card-container {
       grid-template-areas: "modes about links";
-      grid-template-columns: min-content 3fr min-content;
+      grid-template-columns: 3fr min-content;
     }
     .card__links {
       border-top: none;
@@ -148,6 +241,21 @@ const links = [
     }
     .card__links :nth-child(6) {
       border-bottom-right-radius: 1rem;
+    }
+    .card-container.graph-mode .card__links {
+      grid-template-columns: 1fr;
+    }
+    .card-container.graph-mode .card__links li:nth-child(2n) {
+      border-left: none;
+    }
+    .card-container.graph-mode .card__links li:nth-child(5) {
+      border-bottom: 1px solid var(--border);
+    }
+    .card-container.graph-mode .card__links li:first-child {
+      border-top-right-radius: 1rem;
+    }
+    .card-container.graph-mode .card__links li:nth-child(2) {
+      border-top-right-radius: 0;
     }
   }
 </style>

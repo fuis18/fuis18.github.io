@@ -1,0 +1,258 @@
+<div class="skill-graph">
+  <div id="network" class="card__network"></div>
+  <aside id="network-info" class="card__network-info" hidden>
+    <button type="button" id="network-info-close" aria-label="Close">×</button>
+    <h4 id="network-info-title"></h4>
+    <p id="network-info-text"></p>
+  </aside>
+</div>
+
+<script>
+  import graph from "@/data/graph.json";
+  import { GRAPH_MODE_EVENT } from "@/lib/events";
+  import type { DataSet, Network } from "vis-network/standalone";
+
+  interface GraphNode {
+    id: string;
+    label: string;
+    group: "center" | "category" | "skill";
+    description?: string;
+  }
+
+  interface GraphEdge {
+    from: string;
+    to: string;
+    arrows?: "to";
+  }
+
+  let network: Network | null = null;
+  let nodesDataSet: DataSet | null = null;
+  let ensurePromise: Promise<void> | null = null;
+  let controller: AbortController | null = null;
+  let infoEl: HTMLElement | null = null;
+  let infoTitle: HTMLElement | null = null;
+  let infoText: HTMLElement | null = null;
+
+  function cssVar(name: string): string {
+    return getComputedStyle(document.documentElement)
+      .getPropertyValue(name)
+      .trim();
+  }
+
+  function buildOptions() {
+    const color = cssVar("--color");
+    const title = cssVar("--color-title");
+    const hover = cssVar("--color-hover");
+    const border = cssVar("--border");
+
+    const nodeColors = {
+      background: color,
+      border: color,
+      highlight: { background: hover, border: hover },
+    };
+
+    return {
+      autoResize: true,
+      nodes: {
+        shape: "dot",
+        size: 10,
+        borderWidth: 0,
+        shadow: { enabled: false },
+        font: { color, size: 11, face: "Inter" },
+        color: nodeColors,
+      },
+      groups: {
+        center: {
+          shape: "star",
+          size: 22,
+          font: { color: title, size: 15, face: "Inter" },
+          color: nodeColors,
+        },
+        category: {
+          shape: "dot",
+          size: 16,
+          font: { color, size: 13, face: "Inter" },
+          color: nodeColors,
+        },
+        skill: nodeColors,
+      },
+      edges: {
+        color: { color: border, highlight: border },
+        width: 1.5,
+        smooth: { enabled: true, type: "continuous", roundness: 0.5 },
+        arrows: {},
+      },
+      physics: {
+        stabilization: true,
+        barnesHut: { gravitationalConstant: -2000, springLength: 95 },
+      },
+      interaction: { hover: true, hideEdgesOnDrag: true },
+    };
+  }
+
+  function showInfo(node: GraphNode) {
+    if (!infoEl || !infoTitle || !infoText) return;
+    infoTitle.textContent = node.label;
+    infoText.textContent = node.description || "";
+    infoEl.hidden = false;
+  }
+
+  function hideInfo() {
+    if (infoEl) infoEl.hidden = true;
+  }
+
+  function ensureNetwork(): Promise<void> {
+    if (network) return Promise.resolve();
+    if (ensurePromise) return ensurePromise;
+
+    const netEl = document.getElementById("network");
+    if (!netEl) return Promise.resolve();
+
+    ensurePromise = (async () => {
+      const { Network, DataSet } = await import("vis-network/standalone");
+
+      nodesDataSet = new DataSet(graph.nodes as GraphNode[]);
+      const edgesDataSet = new DataSet(graph.edges as GraphEdge[]);
+
+      network = new Network(
+        netEl,
+        { nodes: nodesDataSet, edges: edgesDataSet },
+        buildOptions(),
+      );
+
+      network.on("click", (params: { nodes?: Array<string | number> }) => {
+        const id = params.nodes?.[0];
+        if (id === undefined) {
+          hideInfo();
+          return;
+        }
+        const node = nodesDataSet?.get(id) as GraphNode | null;
+        if (node?.description) showInfo(node);
+        else hideInfo();
+      });
+
+      (window as Window & { __fuisNetwork?: Network }).__fuisNetwork = network;
+
+      network.once("stabilizationIterationsDone", () => {
+        network?.setOptions({ physics: false });
+        (
+          window as Window & { __fuisNetworkStabilized?: boolean }
+        ).__fuisNetworkStabilized = true;
+      });
+
+      const observer = new MutationObserver(() => {
+        if (network) network.setOptions(buildOptions());
+      });
+      observer.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ["class"],
+      });
+    })();
+
+    return ensurePromise;
+  }
+
+  function setup() {
+    const host = document.querySelector(".skill-graph");
+    infoEl = document.getElementById("network-info");
+    infoTitle = document.getElementById("network-info-title");
+    infoText = document.getElementById("network-info-text");
+    const infoClose = document.getElementById("network-info-close");
+
+    if (!host) return;
+
+    network?.destroy();
+    network = null;
+    nodesDataSet = null;
+    ensurePromise = null;
+    (window as Window & { __fuisNetwork?: Network }).__fuisNetwork = undefined;
+    (
+      window as Window & { __fuisNetworkStabilized?: boolean }
+    ).__fuisNetworkStabilized = false;
+
+    controller?.abort();
+    controller = new AbortController();
+
+    const onGraphMode = (event: Event) => {
+      const active = Boolean((event as CustomEvent).detail?.active);
+      host.classList.toggle("is-active", active);
+      if (!active) {
+        hideInfo();
+        return;
+      }
+      ensureNetwork().then(() => {
+        requestAnimationFrame(() => network?.redraw());
+      });
+    };
+
+    document.addEventListener(GRAPH_MODE_EVENT, onGraphMode, {
+      signal: controller.signal,
+    });
+    window.addEventListener("resize", () => network?.redraw(), {
+      signal: controller.signal,
+    });
+    infoClose?.addEventListener("click", hideInfo, {
+      signal: controller.signal,
+    });
+  }
+
+  setup();
+  document.addEventListener("astro:page-load", setup);
+</script>
+
+<style>
+  .skill-graph {
+    display: none;
+    position: relative;
+  }
+  .skill-graph.is-active {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    max-height: 460px;
+  }
+  .card__network {
+    height: 100%;
+  }
+  .card__network-info {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    z-index: 5;
+    max-width: 75%;
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border);
+    border-radius: 0.75rem;
+    padding: 0.75rem 1.25rem 0.75rem 1rem;
+    box-shadow: 0 4px 12px rgb(0 0 0 / 0.12);
+  }
+  .card__network-info h4 {
+    margin-bottom: 0.25rem;
+    font-size: 0.875rem;
+    color: var(--color-title);
+    padding-right: 1rem;
+  }
+  .card__network-info p {
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--color);
+  }
+  .card__network-info button {
+    position: absolute;
+    top: 0.375rem;
+    right: 0.5rem;
+    background: none;
+    border: none;
+    color: var(--color);
+    cursor: pointer;
+    font-size: 1rem;
+    line-height: 1;
+    padding: 0.125rem 0.375rem;
+    border-radius: 0.375rem;
+  }
+  .card__network-info button:hover {
+    background-color: var(--bg-hover);
+    color: var(--color-hover);
+  }
+</style>
+

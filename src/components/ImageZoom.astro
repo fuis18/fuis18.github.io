@@ -1,6 +1,9 @@
 ---
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+
 interface Props {
-  src: string;
+  src: ImageMetadata;
   alt: string;
 }
 
@@ -8,7 +11,14 @@ const { src, alt } = Astro.props;
 ---
 
 <div class="img-container">
-  <img src={src} alt={alt} />
+  <Image
+    src={src}
+    alt={alt}
+    formats={["webp"]}
+    widths={[480, 960, 1600]}
+    sizes="(min-width: 900px) 40vw, 100vw"
+    loading="lazy"
+  />
   <span class="img-tool">Expand</span>
 </div>
 
@@ -65,9 +75,12 @@ const { src, alt } = Astro.props;
 </style>
 
 <script>
-  document.querySelectorAll(".img-container").forEach((container) => {
-    const img = container.children[0];
-    img.addEventListener("click", () => {
+  function setup() {
+    document.querySelectorAll(".img-container").forEach((container) => {
+      const img = container.children[0];
+      if (img.dataset.zoom) return;
+      img.dataset.zoom = "true";
+      img.addEventListener("click", () => {
       const rect = img.getBoundingClientRect();
 
       const overlay = document.createElement("div");
@@ -130,4 +143,9 @@ const { src, alt } = Astro.props;
       overlay.addEventListener("click", close);
     });
   });
+
+  }
+
+  setup();
+  document.addEventListener("astro:page-load", setup);
 </script>

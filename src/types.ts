@@ -8,6 +8,8 @@ export interface Site extends Page {
 }
 
 export type Links = {
-  TEXT: string;
+  TEXT: Localized<string>;
   HREF: string;
 }[];
+
+export type Localized<T> = Record<string, T>;

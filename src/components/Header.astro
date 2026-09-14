@@ -18,7 +18,9 @@ import ThemeToggle from "./ThemeToggle.astro";
           LINK.HREF === "/" ? pathname === "/" : pathname.startsWith(LINK.HREF);
         return (
           <a href={LINK.HREF} class:list={[{ active: isActive }]}>
-            {LINK.TEXT}
+            {Object.keys(LINK.TEXT).map((lang) => (
+              <span data-lang={lang}>{LINK.TEXT[lang]}</span>
+            ))}
           </a>
         );
       })

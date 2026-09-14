@@ -3,14 +3,14 @@
     "role": "Ingeniero DevOps",
     "about": {
       "title": "¿Quién Soy?",
-      "text": "Ingeniero DevOps con experiencia en arquitectura Web, enfocado en el rendimiento y la productividad, me entusiasma automatizar procesos y descubrir nuevas tecnologias innovadoras, y arquitecturas con excelencia técnica."
+      "text": "Ingeniero DevOps con experiencia en arquitectura Web, enfocado en el rendimiento y la productividad. Soy un entusiasta el software libre, me gusta automatizar procesos y descubrir nuevas tecnologias innovadoras, y arquitecturas con excelencia técnica."
     }
   },
   "en": {
     "role": "DevOps Engineer",
     "about": {
       "title": "Who I Am?",
-      "text": "DevOps engineer with experience in Web architecture, focused on performance and productivity, I am enthusiastic about automating processes and discovering new innovative technologies and architectures with technical excellence."
+      "text": "DevOps engineer with experience in Web architecture, focused on performance and productivity.  I am a free software enthusiast, I like to automate processes and discover new innovative technologies and architectures with technical excellence."
     }
   }
 }

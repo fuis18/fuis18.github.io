@@ -13,5 +13,9 @@
   "NodeJS",
   "f-droid",
   "Go",
-  "Docker"
+  "Docker",
+  "nvim",
+  "ncmpcpp",
+  "Fastify",
+  "Tan-Stack"
 ]

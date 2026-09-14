@@ -1,32 +1,38 @@
 ---
+import type { ImageMetadata } from "astro";
+import type { Localized } from "@/types";
 import ImageZoom from "./ImageZoom.astro";
 
 interface Props {
-  title: string;
-  description?: string;
+  title: Localized<string>;
+  description: Localized<string>;
   href?: string;
-  image?: string;
+  image?: ImageMetadata;
   tags?: string[];
-  date?: string;
+  date: Localized<string>;
 }
 
 const {
   title,
-  description = "",
+  description,
   href = "/",
   image,
   tags = [],
-  date = "",
+  date,
 } = Astro.props;
+
+const langs = Object.keys(title);
+const alt = Object.values(title)[0] ?? "";
 ---
 
 <div class="card-container project-card">
-  {image && <ImageZoom src={image} alt={title} />}
+  {image && <ImageZoom src={image} alt={alt} />}
   <a href={href} class="card-content" target="_blank">
     <div class="project-title">
-      <h2>{title}</h2><span>{date}</span>
+      {langs.map((lang) => <h2 data-lang={lang}>{title[lang]}</h2>)}
+      {langs.map((lang) => <span data-lang={lang}>{date[lang]}</span>)}
     </div>
-    <p>{description}</p>
+    {langs.map((lang) => <p data-lang={lang}>{description[lang]}</p>)}
     <div class="tags">
       {tags.map((tag) => <span class="tag">{tag}</span>)}
     </div>

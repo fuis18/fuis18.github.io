@@ -1,0 +1,150 @@
+{
+  "nodes": [
+    {
+      "id": "fuis18",
+      "label": "Fuis18",
+      "group": "center",
+      "description": "Ingeniero DevOps enfocado en rendimiento y productividad."
+    },
+    {
+      "id": "devops",
+      "label": "DevOps",
+      "group": "category",
+      "description": "Automatización, CI/CD e infraestructura como código."
+    },
+    {
+      "id": "web",
+      "label": "Web",
+      "group": "category",
+      "description": "Frontend, metaframeworks y rendimiento de interfaces."
+    },
+    {
+      "id": "backend",
+      "label": "Backend",
+      "group": "category",
+      "description": "Servicios, APIs y bases de datos."
+    },
+    {
+      "id": "apps",
+      "label": "Apps & Tools",
+      "group": "category",
+      "description": "Aplicaciones de escritorio y ecosistema móvil."
+    },
+    {
+      "id": "astro",
+      "label": "Astro",
+      "group": "skill",
+      "description": "Framework para sitios estáticos y contenido."
+    },
+    {
+      "id": "rust",
+      "label": "Rust",
+      "group": "skill",
+      "description": "Lenguaje de sistemas con seguridad de memoria."
+    },
+    {
+      "id": "typescript",
+      "label": "TypeScript",
+      "group": "skill",
+      "description": "Tipado estático sobre JavaScript."
+    },
+    {
+      "id": "bash",
+      "label": "Shell/Bash",
+      "group": "skill",
+      "description": "Scripting y automatización de tareas."
+    },
+    {
+      "id": "react",
+      "label": "React",
+      "group": "skill",
+      "description": "Librería para interfaces de usuario."
+    },
+    {
+      "id": "gitops",
+      "label": "GitOps",
+      "group": "skill",
+      "description": "Operaciones declarativas basadas en Git."
+    },
+    {
+      "id": "arch",
+      "label": "ArchLinux",
+      "group": "skill",
+      "description": "Distribución rolling release, mínima y manual."
+    },
+    {
+      "id": "sql",
+      "label": "SQL",
+      "group": "skill",
+      "description": "Consultas y modelado de bases relacionales."
+    },
+    {
+      "id": "tauri",
+      "label": "Tauri",
+      "group": "skill",
+      "description": "Framework de escritorio ligero sobre Rust."
+    },
+    {
+      "id": "svelte",
+      "label": "Svelte",
+      "group": "skill",
+      "description": "Framework reactivo con compilación."
+    },
+    {
+      "id": "nextjs",
+      "label": "NextJS",
+      "group": "skill",
+      "description": "Metaframework fullstack sobre React."
+    },
+    {
+      "id": "nodejs",
+      "label": "NodeJS",
+      "group": "skill",
+      "description": "Runtime JavaScript del lado del servidor."
+    },
+    {
+      "id": "fdroid",
+      "label": "f-droid",
+      "group": "skill",
+      "description": "Catálogo de software libre para Android."
+    },
+    {
+      "id": "go",
+      "label": "Go",
+      "group": "skill",
+      "description": "Lenguaje compilado para servicios y redes."
+    },
+    {
+      "id": "docker",
+      "label": "Docker",
+      "group": "skill",
+      "description": "Contenedores y empaquetado de aplicaciones."
+    }
+  ],
+  "edges": [
+    { "from": "fuis18", "to": "devops" },
+    { "from": "fuis18", "to": "web" },
+    { "from": "fuis18", "to": "backend" },
+    { "from": "fuis18", "to": "apps" },
+    { "from": "devops", "to": "docker" },
+    { "from": "docker", "to": "arch" },
+    { "from": "gitops", "to": "docker", "arrows": "to" },
+    { "from": "devops", "to": "gitops" },
+    { "from": "devops", "to": "bash" },
+    { "from": "bash", "to": "arch" },
+    { "from": "web", "to": "astro" },
+    { "from": "web", "to": "react" },
+    { "from": "react", "to": "typescript", "arrows": "to" },
+    { "from": "nextjs", "to": "react", "arrows": "to" },
+    { "from": "web", "to": "svelte" },
+    { "from": "astro", "to": "typescript", "arrows": "to" },
+    { "from": "backend", "to": "go" },
+    { "from": "backend", "to": "rust" },
+    { "from": "backend", "to": "nodejs" },
+    { "from": "nodejs", "to": "typescript", "arrows": "to" },
+    { "from": "backend", "to": "sql" },
+    { "from": "apps", "to": "tauri" },
+    { "from": "tauri", "to": "rust", "arrows": "to" },
+    { "from": "apps", "to": "fdroid" }
+  ]
+}

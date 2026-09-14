@@ -1,15 +1,23 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import ProjectCard from "@/components/ProjectCard.astro";
-import projects from "@/data/projects.json";
+import { projects } from "@/lib/projects";
+import { resolveProjectImage } from "@/lib/projectImages";
+
+const projectCards = projects.map((project) => ({
+  ...project,
+  image: resolveProjectImage(project.image),
+}));
+const isEven = projects.length % 2 === 0;
 ---
 
-<Layout title="Projects" description="My website">
+<Layout title="Projects" description="My website" background="true">
   <main transition:animate="slide">
-    <h1>Projects</h1>
-    <div class="project-container">
+    <h1 data-lang="es">Proyectos</h1>
+    <h1 data-lang="en">Projects</h1>
+    <div class:list={["project-container", { "even-count": isEven }]}>
       {
-        projects.map((project) => (
+        projectCards.map((project) => (
           <ProjectCard
             title={project.title}
             description={project.description}
@@ -63,7 +71,9 @@ import projects from "@/data/projects.json";
   @media screen and (width >= 1720px) {
     .project-container {
       grid-template-columns: 1fr 1fr;
-      padding-bottom: 0.5rem;
+    }
+    .project-container.even-count {
+      padding-bottom: 5rem;
     }
     :global(.project-container .project-card:nth-child(2n)) {
       transform: translateY(50%);

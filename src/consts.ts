@@ -8,15 +8,15 @@ export const SITE: Site = {
 
 export const LINKS: Links = [
   {
-    TEXT: "Home",
+    TEXT: { es: "Inicio", en: "Home" },
     HREF: "/",
   },
   {
-    TEXT: "Projects",
+    TEXT: { es: "Proyectos", en: "Projects" },
     HREF: "/projects",
   },
   {
-    TEXT: "Blog",
+    TEXT: { es: "Blogs", en: "Blogs" },
     HREF: "/blog",
   },
 ];

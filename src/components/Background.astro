@@ -1,0 +1,25 @@
+<div id="polygons-background" class="background" aria-hidden="true"></div>
+
+<style is:global>
+  .background {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .background .shape {
+    fill: var(--bg-primary);
+    stroke: var(--color);
+    stroke-width: 2;
+  }
+</style>
+
+<script>
+  import { initBackground } from "@/lib/background";
+
+  initBackground();
+</script>

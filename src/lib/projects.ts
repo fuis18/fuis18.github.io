@@ -14,7 +14,8 @@ export const LANG_KEYS = Object.keys(dictionaries);
 
 export type ProjectData = {
   image: string;
-  href: string;
+  repo: string;
+  website: string | null;
   tags: string[];
   title: Localized<string>;
   description: Localized<string>;
@@ -29,7 +30,8 @@ function pick(index: number, key: LocalizedKeys): Localized<string> {
 
 export const projects: ProjectData[] = projectsEn.map((entry, index) => ({
   image: entry.image,
-  href: entry.href,
+  repo: entry.repo,
+  website: entry.website,
   tags: entry.tags,
   title: pick(index, "title"),
   description: pick(index, "description"),

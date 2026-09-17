@@ -3,7 +3,8 @@
     "title": "Mi portafolio web",
     "description": "Con muchas inspiraciones y cambios, implemento no solo mi toque personal, sino también mi filosofía.",
     "date": "SEP 2026",
-    "href": "https://github.com/fuis18/fuis18.github.io",
+    "repo": "https://github.com/fuis18/fuis18.github.io",
+    "website": "https://fuis18.is-a.dev/",
     "image": "/img/img-portafolio.png",
     "tags": ["Astro", "CSS", "JS"]
   },
@@ -11,7 +12,8 @@
     "title": "Explora el Software",
     "description": "Una página simple para discernir tecnologías para desarrollar software.",
     "date": "AGO 2026",
-    "href": "https://github.com/fuis18/software",
+    "repo": "https://github.com/fuis18/software",
+    "website": "https://fuis18.is-a.dev/software",
     "image": "/img/img-software.png",
     "tags": ["@astrojs/sitemap", "MD"]
   },
@@ -19,23 +21,26 @@
     "title": "Aprende CCNA",
     "description": "Página de autoaprendizaje para aprender Packet Tracer, con ejercicios y cheat-sheet.",
     "date": "AGO 2026",
-    "href": "https://github.com/fuis18/ccna-net",
+    "repo": "https://github.com/fuis18/ccna-net",
+    "website": "https://fuis18.is-a.dev/ccna-net",
     "image": "/img/img-ccna.png",
-    "tags": ["@astrojs/starlight", "MD", "Mermaid", "KaTeX"]
+    "tags": ["@astrojs/starlight", "MD", "Mermaid"]
   },
   {
     "title": "My Dotfiles",
     "description": "A falta de RAM, me sumerjo en la eficiencia con Archlinux, discriminando cada capa para seguir programando.",
     "date": "2025 - 2026",
-    "href": "https://github.com/fuis18/dotfiles",
+    "repo": "https://github.com/fuis18/dotfiles",
+    "website": null,
     "image": "/img/img-dotfiles.png",
-    "tags": ["Achlinux", "Hyprland", "CachyOS", "Anyrun"]
+    "tags": ["Achlinux", "Hyprland", "CachyOS"]
   },
   {
     "title": "Web Spotify Fork",
     "description": "Web hecha con @midudev, para aprender Astro.",
     "date": "MAR 2026",
-    "href": "https://github.com/fuis18/spotify-astro",
+    "repo": "https://github.com/fuis18/spotify-astro",
+    "website": "https://f18-spotify-astro.vercel.app/",
     "image": "/img/img-spotify.png",
     "tags": ["Astro", "Tailwind", "React", "Svelte", "TypeScript"]
   },
@@ -43,7 +48,8 @@
     "title": "AppWeb tipo POS",
     "description": "Aplicación de punto de venta donde vuelco todas las librerías aprendidas de React en un solo proyecto.",
     "date": "ENE 2026",
-    "href": "https://github.com/fuis18/app-pos",
+    "repo": "https://github.com/fuis18/app-pos",
+    "website": null,
     "image": "/img/img-pos.png",
     "tags": ["Tauri", "React", "Tailwind", "Shadcn/ui", "Tan-Stack", "SQL"]
   },
@@ -51,7 +57,8 @@
     "title": "Mi primera AppWeb",
     "description": "Se requería un sistema que pudiera usar una impresora térmica en red para imprimir boletas.",
     "date": "DIC 2025",
-    "href": "https://github.com/fuis18/yanaira-app",
+    "repo": "https://github.com/fuis18/yanaira-app",
+    "website": null,
     "image": "/img/img-yanaira.png",
     "tags": ["React", "RHF", "Tauri"]
   },
@@ -59,7 +66,8 @@
     "title": "Healthy Life",
     "description": "Web con buen sabor para una Feria hecha con NextJS, pero migrada a Astro por rendimiento.",
     "date": "2025 / 2026",
-    "href": "https://github.com/fuis18/healthy-life",
+    "repo": "https://github.com/fuis18/healthy-life",
+    "website": "https://healthy-life-astro.vercel.app/",
     "image": "/img/img-healthy.png",
     "tags": ["Astro", "TS", "NextJS"]
   },
@@ -67,7 +75,8 @@
     "title": "Todos los Proyectos",
     "description": "Mi primer portafolio, donde incluía los proyectos que iba haciendo para aprender JavaScript con @soydalto.",
     "date": "2022 - 2024",
-    "href": "https://github.com/fuis18/All-Projects",
+    "repo": "https://github.com/fuis18/All-Projects",
+    "website": null,
     "image": "/img/img-projects.png",
     "tags": ["HTML", "CSS", "JS"]
   }

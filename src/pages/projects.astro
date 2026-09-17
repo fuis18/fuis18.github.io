@@ -21,7 +21,8 @@ const isEven = projects.length % 2 === 0;
           <ProjectCard
             title={project.title}
             description={project.description}
-            href={project.href}
+            repo={project.repo}
+            website={project.website}
             image={project.image}
             tags={project.tags}
             date={project.date}
@@ -57,20 +58,26 @@ const isEven = projects.length % 2 === 0;
       margin-inline: 2rem;
     }
   }
-  @media screen and (width >= 700px) {
+  @media screen and (width >= 670px) {
     .project-container {
       grid-template-columns: 1fr 1fr;
     }
   }
-  @media screen and (width >= 900px) {
+  @media screen and (width >= 1010px) {
+    .project-container {
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1rem;
+    }
+  }
+  @media screen and (width >= 1400px) {
     .project-container {
       grid-template-columns: 1fr;
-      gap: 2rem;
     }
   }
   @media screen and (width >= 1720px) {
     .project-container {
       grid-template-columns: 1fr 1fr;
+      gap: 2rem;
     }
     .project-container.even-count {
       padding-bottom: 5rem;
@@ -79,7 +86,7 @@ const isEven = projects.length % 2 === 0;
       transform: translateY(50%);
     }
   }
-  @media screen and (width >= 1810px) {
+  @media screen and (width >= 1800px) {
     main {
       margin-inline: 5rem;
     }

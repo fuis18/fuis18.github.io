@@ -1,6 +1,7 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import ProjectCard from "@/components/ProjectCard.astro";
+import ImageZoom from "@/components/ImageZoom.astro";
 import { projects } from "@/lib/projects";
 import { resolveProjectImage } from "@/lib/projectImages";
 
@@ -17,17 +18,25 @@ const isEven = projects.length % 2 === 0;
     <h1 data-lang="en">Projects</h1>
     <div class:list={["project-container", { "even-count": isEven }]}>
       {
-        projectCards.map((project) => (
-          <ProjectCard
-            title={project.title}
-            description={project.description}
-            repo={project.repo}
-            website={project.website}
-            image={project.image}
-            tags={project.tags}
-            date={project.date}
-          />
-        ))
+        projectCards.map((project, index) => {
+          const alt = Object.values(project.title)[0] ?? "";
+          const loading = index < 8 ? "eager" : "lazy";
+          return (
+            <div class="project-item">
+              {project.image && (
+                <ImageZoom src={project.image} alt={alt} loading={loading} />
+              )}
+              <ProjectCard
+                title={project.title}
+                description={project.description}
+                repo={project.repo}
+                website={project.website}
+                tags={project.tags}
+                date={project.date}
+              />
+            </div>
+          );
+        })
       }
     </div>
   </main>
@@ -44,8 +53,7 @@ const isEven = projects.length % 2 === 0;
     display: grid;
     gap: 1.5rem;
   }
-
-  :global(.project-container .project-card:nth-child(2n)) {
+  .project-item:nth-child(2n) {
     justify-self: end;
   }
 
@@ -73,16 +81,24 @@ const isEven = projects.length % 2 === 0;
     .project-container {
       grid-template-columns: 1fr;
     }
+    .project-item {
+      width: 60%;
+      display: grid;
+      grid-template-columns: 2fr 3fr;
+    }
   }
   @media screen and (width >= 1720px) {
     .project-container {
       grid-template-columns: 1fr 1fr;
       gap: 2rem;
     }
+    .project-item {
+      width: 100%;
+    }
     .project-container.even-count {
       padding-bottom: 5rem;
     }
-    :global(.project-container .project-card:nth-child(2n)) {
+    .project-item:nth-child(2n) {
       transform: translateY(50%);
     }
   }

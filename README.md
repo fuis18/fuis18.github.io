@@ -1,5 +1,7 @@
 # My frontend
 
+> I have to migrate to astro
+
 ```sh
 bun create vite frontend --template react-ts
 cd frontend

@@ -1,19 +1,25 @@
 import type { Localized } from "@/types";
-import projectsEs from "@/data/projects.es.json";
-import projectsEn from "@/data/projects.en.json";
+import { LANGS, DEFAULT_LANG } from "@/lib/i18n";
 
-type ProjectEntry = (typeof projectsEn)[number];
-type LocalizedKeys = "title" | "description" | "date";
-
-const dictionaries: Record<string, ProjectEntry[]> = {
-  es: projectsEs,
-  en: projectsEn,
+type LocalizedEntry = {
+  title: string;
+  description: string;
+  date: string;
 };
 
-export const LANG_KEYS = Object.keys(dictionaries);
+type ProjectFile = {
+  repo: string;
+  website: string | null;
+  image?: string | null;
+  tags: string[];
+} & Localized<LocalizedEntry>;
+
+const modules = import.meta.glob<ProjectFile>("../data/projects/*.json", {
+  eager: true,
+});
 
 export type ProjectData = {
-  image: string;
+  image: string | null;
   repo: string;
   website: string | null;
   tags: string[];
@@ -22,18 +28,21 @@ export type ProjectData = {
   date: Localized<string>;
 };
 
-function pick(index: number, key: LocalizedKeys): Localized<string> {
+function pick(entry: ProjectFile, key: keyof LocalizedEntry): Localized<string> {
   return Object.fromEntries(
-    LANG_KEYS.map((lang) => [lang, dictionaries[lang][index][key]]),
-  );
+    LANGS.map((lang) => [
+      lang,
+      entry[lang]?.[key] ?? entry[DEFAULT_LANG]?.[key] ?? "",
+    ]),
+  ) as Localized<string>;
 }
 
-export const projects: ProjectData[] = projectsEn.map((entry, index) => ({
-  image: entry.image,
+export const projects: ProjectData[] = Object.values(modules).map((entry) => ({
+  image: entry.image ?? null,
   repo: entry.repo,
   website: entry.website,
   tags: entry.tags,
-  title: pick(index, "title"),
-  description: pick(index, "description"),
-  date: pick(index, "date"),
+  title: pick(entry, "title"),
+  description: pick(entry, "description"),
+  date: pick(entry, "date"),
 }));

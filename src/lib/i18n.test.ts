@@ -25,9 +25,42 @@ describe("i18n", () => {
       expect(getLang()).toBe("es");
     });
 
+    it("retorna 'ja' cuando navigator.language empieza con 'ja'", () => {
+      Object.defineProperty(navigator, "language", {
+        value: "ja-JP",
+        configurable: true,
+      });
+      expect(getLang()).toBe("ja");
+    });
+
+    it("retorna 'de' cuando navigator.language empieza con 'de'", () => {
+      Object.defineProperty(navigator, "language", {
+        value: "de-DE",
+        configurable: true,
+      });
+      expect(getLang()).toBe("de");
+    });
+
+    it("retorna el idioma por defecto cuando navigator no es soportado", () => {
+      Object.defineProperty(navigator, "language", {
+        value: "fr-FR",
+        configurable: true,
+      });
+      expect(getLang()).toBe("en");
+    });
+
     it("retorna valor de localStorage si existe", () => {
       localStorage.setItem("lang", "es");
       expect(getLang()).toBe("es");
+    });
+
+    it("ignora un idioma no soportado en localStorage", () => {
+      localStorage.setItem("lang", "xx");
+      Object.defineProperty(navigator, "language", {
+        value: "fr-FR",
+        configurable: true,
+      });
+      expect(getLang()).toBe("en");
     });
 
     it("localStorage tiene prioridad sobre navigator.language", () => {
@@ -44,6 +77,11 @@ describe("i18n", () => {
     it("guarda en localStorage", () => {
       setLang("es");
       expect(localStorage.getItem("lang")).toBe("es");
+    });
+
+    it("guarda el idioma por defecto si el lenguaje no es soportado", () => {
+      setLang("xx");
+      expect(localStorage.getItem("lang")).toBe("en");
     });
 
     it("actualiza document.documentElement.lang", () => {

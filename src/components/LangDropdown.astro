@@ -1,5 +1,6 @@
 ---
 import TriangleIcon from "@/assets/svg-tools/triangle.svg";
+import { LANGS } from "@/lib/i18n";
 ---
 
 <div class="lang-dropdown" id="lang-dropdown">
@@ -14,21 +15,25 @@ import TriangleIcon from "@/assets/svg-tools/triangle.svg";
     <TriangleIcon class="lang-chevron" />
   </button>
   <ul class="lang-menu" id="lang-menu" role="listbox" aria-label="Language">
-    <li>
-      <button type="button" role="option" data-value="en" aria-selected="false">
-        EN
-      </button>
-    </li>
-    <li>
-      <button type="button" role="option" data-value="es" aria-selected="false">
-        ES
-      </button>
-    </li>
+    {
+      LANGS.map((lang) => (
+        <li>
+          <button
+            type="button"
+            role="option"
+            data-value={lang}
+            aria-selected="false"
+          >
+            {lang.toUpperCase()}
+          </button>
+        </li>
+      ))
+    }
   </ul>
 </div>
 
 <script>
-  import { getLang, setLang } from "@/lib/i18n";
+  import { getLang, setLang, DEFAULT_LANG } from "@/lib/i18n";
 
   let controller: AbortController | null = null;
 
@@ -93,7 +98,7 @@ import TriangleIcon from "@/assets/svg-tools/triangle.svg";
       opt.addEventListener(
         "click",
         () => {
-          const lang = opt.dataset.value ?? "en";
+          const lang = opt.dataset.value ?? DEFAULT_LANG;
           setLang(lang);
           render(lang);
           setOpen(false);

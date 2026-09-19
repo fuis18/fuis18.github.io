@@ -1,0 +1,16 @@
+{
+  "repo": "https://github.com/fuis18/software",
+  "website": "https://fuis18.is-a.dev/software",
+  "image": "img-software.png",
+  "tags": ["@astrojs/sitemap", "MD"],
+  "es": {
+    "title": "Explora el Software",
+    "description": "Una página simple para discernir tecnologías para desarrollar software.",
+    "date": "AGO 2026"
+  },
+  "en": {
+    "title": "Explore the Software",
+    "description": "A simple page to discern technologies for software development.",
+    "date": "AUG 2026"
+  }
+}

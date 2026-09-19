@@ -1,0 +1,16 @@
+{
+  "repo": "https://github.com/fuis18/spotify-astro",
+  "website": "https://f18-spotify-astro.vercel.app/",
+  "image": "img-spotify.png",
+  "tags": ["Astro", "Tailwind", "React", "Svelte", "TypeScript"],
+  "es": {
+    "title": "Web Spotify Fork",
+    "description": "Web hecha con @midudev, para aprender Astro.",
+    "date": "MAR 2026"
+  },
+  "en": {
+    "title": "Web Spotify Fork",
+    "description": "Web built with @midudev, to learn Astro.",
+    "date": "MAR 2026"
+  }
+}

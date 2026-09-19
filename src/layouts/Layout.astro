@@ -24,14 +24,11 @@ import { SITE } from "@/consts";
 </html>
 
 <script>
-  import { updateTranslations } from "@/lib/i18n";
+  import { getLang, updateTranslations } from "@/lib/i18n";
   import { applyTheme } from "@/lib/theme";
 
   function init() {
-    const lang =
-      localStorage.getItem("lang") ||
-      (navigator.language.startsWith("es") ? "es" : "en");
-    document.documentElement.lang = lang;
+    document.documentElement.lang = getLang();
     applyTheme();
     updateTranslations();
   }

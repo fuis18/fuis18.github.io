@@ -1,0 +1,16 @@
+{
+  "repo": "https://github.com/fuis18/yanaira-app",
+  "website": null,
+  "image": "img-yanaira.png",
+  "tags": ["React", "RHF", "Tauri"],
+  "es": {
+    "title": "Mi primera AppWeb",
+    "description": "Se requería un sistema que pudiera usar una impresora térmica en red para imprimir boletas.",
+    "date": "DIC 2025"
+  },
+  "en": {
+    "title": "My first AppWeb",
+    "description": "A system was needed that could use a thermal printer over the network to print receipts.",
+    "date": "DEC 2025"
+  }
+}

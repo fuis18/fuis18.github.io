@@ -1,0 +1,16 @@
+{
+  "repo": "https://github.com/fuis18/healthy-life",
+  "website": "https://healthy-life-astro.vercel.app/",
+  "image": "img-healthy.png",
+  "tags": ["Astro", "TS", "NextJS"],
+  "es": {
+    "title": "Healthy Life",
+    "description": "Web con buen sabor para una Feria hecha con NextJS, pero migrada a Astro por rendimiento.",
+    "date": "2025 / 2026"
+  },
+  "en": {
+    "title": "Healthy Life",
+    "description": "A tasteful web for a Fair built with NextJS, but migrated to Astro for performance.",
+    "date": "2025 / 2026"
+  }
+}

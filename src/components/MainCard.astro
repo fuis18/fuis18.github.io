@@ -1,5 +1,7 @@
 ---
-import homeData from "@/data/home.json";
+import homeDataRaw from "@/data/home.json";
+import { withFallback } from "@/lib/i18n";
+import type { Localized } from "@/types";
 import SkillGraph from "./SkillGraph.astro";
 import MailIcon from "@/assets/svg-links/mail.svg";
 import GithubIcon from "@/assets/svg-links/github.svg";
@@ -9,6 +11,11 @@ import KofiIcon from "@/assets/svg-links/ko-fi.svg";
 import SignalIcon from "@/assets/svg-links/signal.svg";
 import ListOutlineIcon from "@/assets/svg-tools/list-outline.svg";
 import NodesIcon from "@/assets/svg-tools/nodes.svg";
+
+type HomeBlock = (typeof homeDataRaw)["en"];
+const homeData = withFallback(
+  homeDataRaw as unknown as Localized<HomeBlock>,
+);
 
 const links = [
   { label: "Mail", url: "mailto:fuis18@proton.me", icon: MailIcon },
@@ -47,10 +54,12 @@ const links = [
     </div>
     <div class="card-content">
       <div class="card__content-text">
-        <h3 data-lang="es">{homeData.es.about.title}</h3>
-        <h3 data-lang="en">{homeData.en.about.title}</h3>
-        <p data-lang="es">{homeData.es.about.text}</p>
-        <p data-lang="en">{homeData.en.about.text}</p>
+        {Object.entries(homeData).map(([lang, block]) => (
+          <h3 data-lang={lang}>{block.about.title}</h3>
+        ))}
+        {Object.entries(homeData).map(([lang, block]) => (
+          <p data-lang={lang}>{block.about.text}</p>
+        ))}
       </div>
       <SkillGraph />
     </div>

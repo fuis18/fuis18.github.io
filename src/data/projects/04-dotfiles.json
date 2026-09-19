@@ -1,0 +1,16 @@
+{
+  "repo": "https://github.com/fuis18/dotfiles",
+  "website": null,
+  "image": "img-dotfiles.png",
+  "tags": ["Achlinux", "Hyprland", "CachyOS"],
+  "es": {
+    "title": "My Dotfiles",
+    "description": "A falta de RAM, me sumerjo en la eficiencia con Archlinux, discriminando cada capa para seguir programando.",
+    "date": "2025 - 2026"
+  },
+  "en": {
+    "title": "My Dotfiles",
+    "description": "Running low on RAM, I dive into efficiency with Arch Linux, stripping down every layer to keep programming.",
+    "date": "2025 - 2026"
+  }
+}

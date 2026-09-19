@@ -2,6 +2,7 @@
 import Layout from "@/layouts/Layout.astro";
 import ProjectCard from "@/components/ProjectCard.astro";
 import ImageZoom from "@/components/ImageZoom.astro";
+import { LANGS } from "@/lib/i18n";
 import { projects } from "@/lib/projects";
 import { resolveProjectImage } from "@/lib/projectImages";
 
@@ -10,12 +11,19 @@ const projectCards = projects.map((project) => ({
   image: resolveProjectImage(project.image),
 }));
 const isEven = projects.length % 2 === 0;
+const PAGE_TITLES: Record<string, string> = {
+  es: "Proyectos",
+  en: "Projects",
+};
 ---
 
 <Layout title="Projects" description="My website" background="true">
   <main transition:animate="slide">
-    <h1 data-lang="es">Proyectos</h1>
-    <h1 data-lang="en">Projects</h1>
+    {
+      LANGS.map((lang) => (
+        <h1 data-lang={lang}>{PAGE_TITLES[lang] ?? "Projects"}</h1>
+      ))
+    }
     <div class:list={["project-container", { "even-count": isEven }]}>
       {
         projectCards.map((project, index) => {
@@ -23,9 +31,7 @@ const isEven = projects.length % 2 === 0;
           const loading = index < 8 ? "eager" : "lazy";
           return (
             <div class="project-item">
-              {project.image && (
-                <ImageZoom src={project.image} alt={alt} loading={loading} />
-              )}
+              <ImageZoom src={project.image} alt={alt} loading={loading} />
               <ProjectCard
                 title={project.title}
                 description={project.description}

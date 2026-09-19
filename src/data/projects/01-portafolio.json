@@ -1,0 +1,16 @@
+{
+  "repo": "https://github.com/fuis18/fuis18.github.io",
+  "website": "https://fuis18.is-a.dev/",
+  "image": "img-portafolio.png",
+  "tags": ["Astro", "CSS", "JS"],
+  "es": {
+    "title": "Mi portafolio web",
+    "description": "Con muchas inspiraciones y cambios, implemento no solo mi toque personal, sino también mi filosofía.",
+    "date": "SEP 2026"
+  },
+  "en": {
+    "title": "My web portfolio",
+    "description": "Filled with many inspirations and changes, I implement my personal touch and my philosophy.",
+    "date": "SEP 2026"
+  }
+}

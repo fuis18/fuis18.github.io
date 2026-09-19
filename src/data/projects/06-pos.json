@@ -1,0 +1,16 @@
+{
+  "repo": "https://github.com/fuis18/app-pos",
+  "website": null,
+  "image": "img-pos.png",
+  "tags": ["Tauri", "React", "Tailwind", "Shadcn/ui", "Tan-Stack", "SQL"],
+  "es": {
+    "title": "AppWeb tipo POS",
+    "description": "Aplicación de punto de venta donde vuelco todas las librerías aprendidas de React en un solo proyecto.",
+    "date": "ENE 2026"
+  },
+  "en": {
+    "title": "POS Web App",
+    "description": "Point-of-sale application where I pour all the React libraries I've learned into a single project.",
+    "date": "JAN 2026"
+  }
+}

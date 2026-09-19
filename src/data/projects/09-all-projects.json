@@ -1,0 +1,16 @@
+{
+  "repo": "https://github.com/fuis18/All-Projects",
+  "website": null,
+  "image": "img-projects.png",
+  "tags": ["HTML", "CSS", "JS"],
+  "es": {
+    "title": "Todos los Proyectos",
+    "description": "Mi primer portafolio, donde incluía los proyectos que iba haciendo para aprender JavaScript con @soydalto.",
+    "date": "2022 - 2024"
+  },
+  "en": {
+    "title": "All Projects",
+    "description": "My first portfolio, which included the projects I was building to learn JavaScript with @soydalto.",
+    "date": "2022 - 2024"
+  }
+}

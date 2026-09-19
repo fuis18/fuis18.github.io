@@ -1,0 +1,16 @@
+{
+  "repo": "https://github.com/fuis18/ccna-net",
+  "website": "https://fuis18.is-a.dev/ccna-net",
+  "image": "img-ccna.png",
+  "tags": ["@astrojs/starlight", "MD", "Mermaid"],
+  "es": {
+    "title": "Aprende CCNA",
+    "description": "Página de autoaprendizaje para aprender Packet Tracer, con ejercicios y cheat-sheet.",
+    "date": "AGO 2026"
+  },
+  "en": {
+    "title": "Learn CCNA",
+    "description": "Self-learning page to learn Packet Tracer, with exercises and a cheat-sheet.",
+    "date": "AUG 2026"
+  }
+}

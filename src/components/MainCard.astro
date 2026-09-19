@@ -92,7 +92,9 @@ const links = [
     const title = document.querySelector<HTMLElement>(
       "[data-i18n='about-title']",
     );
-    const text = document.querySelector<HTMLElement>("[data-i18n='about-text']");
+    const text = document.querySelector<HTMLElement>(
+      "[data-i18n='about-text']",
+    );
     if (title) title.textContent = about.title;
     if (text) text.textContent = about.text;
   }

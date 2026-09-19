@@ -7,7 +7,7 @@ import {
   toLocale,
 } from "@/paraglide/runtime";
 
-export const LANGS: readonly Lang[] = locales;
+export const LANGS = locales;
 export type Lang = (typeof LANGS)[number];
 export const DEFAULT_LANG: Lang = baseLocale as Lang;
 

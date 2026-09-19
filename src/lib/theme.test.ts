@@ -1,5 +1,11 @@
 import { describe, it, expect, beforeEach, vi } from "vitest";
-import { getTheme, setTheme, getSystemTheme, applyTheme } from "./theme";
+import {
+  getTheme,
+  setTheme,
+  getSystemTheme,
+  applyTheme,
+  watchSystemTheme,
+} from "./theme";
 
 describe("theme", () => {
   beforeEach(() => {
@@ -102,6 +108,35 @@ describe("theme", () => {
       });
       applyTheme("system");
       expect(document.documentElement.classList.contains("light")).toBe(true);
+    });
+  });
+
+  describe("watchSystemTheme", () => {
+    it("solo re-aplica el tema cuando el guardado es 'system'", () => {
+      const addEventListener = vi.fn();
+      Object.defineProperty(window, "matchMedia", {
+        value: vi.fn(() => ({ matches: true, addEventListener })),
+        configurable: true,
+      });
+
+      // Tema 'system': el cambio del SO re-aplica el esquema
+      localStorage.setItem("theme", "system");
+      applyTheme("light");
+      expect(document.documentElement.classList.contains("light")).toBe(true);
+
+      watchSystemTheme();
+      const onChange = addEventListener.mock.calls[0]?.[1] as () => void;
+      onChange();
+
+      expect(document.documentElement.classList.contains("dark")).toBe(true);
+      expect(document.documentElement.classList.contains("light")).toBe(false);
+
+      // Tema explícito: el cambio del SO no fuerza nada
+      localStorage.setItem("theme", "light");
+      applyTheme("dark");
+      onChange();
+      expect(document.documentElement.classList.contains("dark")).toBe(true);
+      expect(document.documentElement.classList.contains("light")).toBe(false);
     });
   });
 });

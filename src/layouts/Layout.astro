@@ -26,11 +26,12 @@ import { DEFAULT_LANG } from "@/lib/i18n";
 
 <script>
   import { initLang } from "@/lib/i18n";
-  import { applyTheme } from "@/lib/theme";
+  import { applyTheme, watchSystemTheme } from "@/lib/theme";
 
   function init() {
     initLang();
     applyTheme();
+    watchSystemTheme();
   }
 
   init();

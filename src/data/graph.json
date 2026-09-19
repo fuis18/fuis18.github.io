@@ -4,147 +4,507 @@
       "id": "fuis18",
       "label": "Fuis18",
       "group": "center",
-      "description": "Ingeniero DevOps enfocado en rendimiento y productividad."
+      "description": {
+        "en": "DevOps engineer focused on performance and productivity.",
+        "es": "Ingeniero DevOps enfocado en rendimiento y productividad.",
+        "ja": "パフォーマンスと生産性に特化したDevOpsエンジニア",
+        "de": "DevOps-Ingenieur, fokussiert auf Leistung und Produktivität."
+      }
     },
     {
-      "id": "devops",
-      "label": "DevOps",
+      "id": "dev",
+      "label": "Dev",
       "group": "category",
-      "description": "Automatización, CI/CD e infraestructura como código."
+      "description": {
+        "en": "Software development: interfaces, services and tools.",
+        "es": "Desarrollo de software: interfaces, servicios y herramientas.",
+        "ja": "ソフトウェア開発：インターフェース、サービス、ツール",
+        "de": "Softwareentwicklung: Oberflächen, Dienste und Werkzeuge."
+      }
+    },
+    {
+      "id": "ops",
+      "label": "Ops",
+      "group": "category",
+      "description": {
+        "en": "Operations: automation, infrastructure and environments.",
+        "es": "Operaciones: automatización, infraestructura y entornos.",
+        "ja": "運用：自動化、インフラ、環境構築",
+        "de": "Betrieb: Automatisierung, Infrastruktur und Umgebungen."
+      }
+    },
+    {
+      "id": "linux",
+      "label": "Linux",
+      "group": "category",
+      "description": {
+        "en": "Linux as a daily driver: terminal, apps and desktop.",
+        "es": "Linux como sistema de uso diario: terminal, aplicaciones y escritorio.",
+        "ja": "毎日使うLinux：ターミナル、アプリ、デスクトップ",
+        "de": "Linux als tägliches System: Terminal, Apps und Desktop."
+      }
     },
     {
       "id": "web",
       "label": "Web",
-      "group": "category",
-      "description": "Frontend, metaframeworks y rendimiento de interfaces."
-    },
-    {
-      "id": "backend",
-      "label": "Backend",
-      "group": "category",
-      "description": "Servicios, APIs y bases de datos."
-    },
-    {
-      "id": "apps",
-      "label": "Apps & Tools",
-      "group": "category",
-      "description": "Aplicaciones de escritorio y ecosistema móvil."
-    },
-    {
-      "id": "astro",
-      "label": "Astro",
       "group": "skill",
-      "description": "Framework para sitios estáticos y contenido."
+      "description": {
+        "en": "Web development: interfaces, meta-frameworks and performance.",
+        "es": "Desarrollo web: interfaces, meta-frameworks y rendimiento.",
+        "ja": "ウェブ開発：インターフェース、メタフレームワーク、パフォーマンス",
+        "de": "Webentwicklung: Oberflächen, Meta-Frameworks und Performance."
+      }
     },
     {
-      "id": "rust",
-      "label": "Rust",
+      "id": "web-stack",
+      "label": "Stack Front",
       "group": "skill",
-      "description": "Lenguaje de sistemas con seguridad de memoria."
+      "description": {
+        "en": "Core frontend stack: languages, tooling and package management.",
+        "es": "Stack base de frontend: lenguajes, tooling y gestión de paquetes.",
+        "ja": "フロントエンドの基盤：言語、ツール、パッケージ管理",
+        "de": "Kern-Stack des Frontends: Sprachen, Tooling und Paketverwaltung."
+      }
+    },
+    {
+      "id": "javascript",
+      "label": "JS",
+      "group": "skill",
+      "description": {
+        "en": "JavaScript: the language of the web and its ecosystem.",
+        "es": "JavaScript: el lenguaje de la web y su ecosistema.",
+        "ja": "JavaScript：ウェブの言語とそのエコシステム",
+        "de": "JavaScript: die Sprache des Webs und ihr Ökosystem."
+      }
     },
     {
       "id": "typescript",
       "label": "TypeScript",
       "group": "skill",
-      "description": "Tipado estático sobre JavaScript."
+      "description": {
+        "en": "TypeScript: static types and safer refactoring.",
+        "es": "TypeScript: tipos estáticos y refactorización más segura.",
+        "ja": "TypeScript：静的型付けと安全なリファクタリング",
+        "de": "TypeScript: statische Typen und sichereres Refactoring."
+      }
     },
     {
-      "id": "bash",
-      "label": "Shell/Bash",
+      "id": "pnpm",
+      "label": "pnpm",
       "group": "skill",
-      "description": "Scripting y automatización de tareas."
+      "description": {
+        "en": "pnpm: fast, disk-efficient package manager.",
+        "es": "pnpm: gestor de paquetes rápido y eficiente en disco.",
+        "ja": "pnpm：高速でディスク効率の良いパッケージマネージャー",
+        "de": "pnpm: schneller, platzsparender Paketmanager."
+      }
+    },
+    {
+      "id": "web-framework",
+      "label": "Frameworks",
+      "group": "skill",
+      "description": {
+        "en": "Meta-frameworks and component libraries.",
+        "es": "Meta-frameworks y librerías de componentes.",
+        "ja": "メタフレームワークとコンポーネントライブラリ",
+        "de": "Meta-Frameworks und Komponentenbibliotheken."
+      }
+    },
+    {
+      "id": "astro",
+      "label": "Astro",
+      "group": "skill",
+      "description": {
+        "en": "Astro: building content-focused static sites.",
+        "es": "Astro: construcción de sitios estáticos orientados al contenido.",
+        "ja": "Astro：コンテンツ中心の静的サイト構築",
+        "de": "Astro: content-orientierte statische Websites."
+      }
     },
     {
       "id": "react",
       "label": "React",
       "group": "skill",
-      "description": "Librería para interfaces de usuario."
-    },
-    {
-      "id": "gitops",
-      "label": "GitOps",
-      "group": "skill",
-      "description": "Operaciones declarativas basadas en Git."
-    },
-    {
-      "id": "arch",
-      "label": "ArchLinux",
-      "group": "skill",
-      "description": "Distribución rolling release, mínima y manual."
-    },
-    {
-      "id": "sql",
-      "label": "SQL",
-      "group": "skill",
-      "description": "Consultas y modelado de bases relacionales."
-    },
-    {
-      "id": "tauri",
-      "label": "Tauri",
-      "group": "skill",
-      "description": "Framework de escritorio ligero sobre Rust."
+      "description": {
+        "en": "React: library for building user interfaces.",
+        "es": "React: librería para construir interfaces de usuario.",
+        "ja": "React：ユーザーインターフェース構築のためのライブラリ",
+        "de": "React: Bibliothek für Benutzeroberflächen."
+      }
     },
     {
       "id": "svelte",
       "label": "Svelte",
       "group": "skill",
-      "description": "Framework reactivo con compilación."
+      "description": {
+        "en": "Svelte: compiler-based framework with reactive UI.",
+        "es": "Svelte: framework basado en compilador con UI reactiva.",
+        "ja": "Svelte：コンパイラベースのリアクティブUIフレームワーク",
+        "de": "Svelte: compilerbasiertes Framework mit reaktiver UI."
+      }
     },
     {
-      "id": "nextjs",
-      "label": "NextJS",
+      "id": "tauri",
+      "label": "Tauri",
       "group": "skill",
-      "description": "Metaframework fullstack sobre React."
+      "description": {
+        "en": "Tauri: lightweight desktop apps with web technologies.",
+        "es": "Tauri: aplicaciones de escritorio ligeras con tecnologías web.",
+        "ja": "Tauri：ウェブ技術による軽量なデスクトップアプリ",
+        "de": "Tauri: leichte Desktop-Apps mit Web-Technologien."
+      }
+    },
+    {
+      "id": "backend",
+      "label": "Backend",
+      "group": "skill",
+      "description": {
+        "en": "Backend: services, APIs and data persistence.",
+        "es": "Backend: servicios, APIs y persistencia de datos.",
+        "ja": "バックエンド：サービス、API、データ永続化",
+        "de": "Backend: Dienste, APIs und Datenpersistenz."
+      }
+    },
+    {
+      "id": "back-stack",
+      "label": "Stack",
+      "group": "skill",
+      "description": {
+        "en": "Backend languages and runtimes.",
+        "es": "Lenguajes y runtimes de backend.",
+        "ja": "バックエンドの言語とランタイム",
+        "de": "Backend-Sprachen und Laufzeitumgebungen."
+      }
+    },
+    {
+      "id": "rust",
+      "label": "Rust",
+      "group": "skill",
+      "description": {
+        "en": "Rust: performance with memory safety.",
+        "es": "Rust: rendimiento con seguridad de memoria.",
+        "ja": "Rust：メモリ安全性とパフォーマンス",
+        "de": "Rust: Leistung mit Speichersicherheit."
+      }
     },
     {
       "id": "nodejs",
-      "label": "NodeJS",
+      "label": "NodeJs",
       "group": "skill",
-      "description": "Runtime JavaScript del lado del servidor."
-    },
-    {
-      "id": "fdroid",
-      "label": "f-droid",
-      "group": "skill",
-      "description": "Catálogo de software libre para Android."
+      "description": {
+        "en": "Node.js: JavaScript on the server.",
+        "es": "Node.js: JavaScript en el servidor.",
+        "ja": "Node.js：サーバーサイドJavaScript",
+        "de": "Node.js: JavaScript auf dem Server."
+      }
     },
     {
       "id": "go",
-      "label": "Go",
+      "label": "GO",
       "group": "skill",
-      "description": "Lenguaje compilado para servicios y redes."
+      "description": {
+        "en": "Go: simple, concurrent and fast services.",
+        "es": "Go: servicios simples, concurrentes y rápidos.",
+        "ja": "Go：シンプルで並行処理に強い高速なサービス",
+        "de": "Go: einfache, nebenläufige und schnelle Dienste."
+      }
     },
     {
-      "id": "docker",
-      "label": "Docker",
+      "id": "back-sql",
+      "label": "Bases Datos",
       "group": "skill",
-      "description": "Contenedores y empaquetado de aplicaciones."
+      "description": {
+        "en": "Databases: relational engines and queries.",
+        "es": "Bases de datos: motores relacionales y consultas.",
+        "ja": "データベース：リレーショナルエンジンとクエリ",
+        "de": "Datenbanken: relationale Engines und Abfragen."
+      }
+    },
+    {
+      "id": "sqllite",
+      "label": "SQL Lite",
+      "group": "skill",
+      "description": {
+        "en": "SQLite: embedded, zero-configuration database.",
+        "es": "SQLite: base de datos embebida sin configuración.",
+        "ja": "SQLite：組み込み・設定不要のデータベース",
+        "de": "SQLite: eingebettete Datenbank ohne Konfiguration."
+      }
+    },
+    {
+      "id": "posgresql",
+      "label": "PosgreSQL",
+      "group": "skill",
+      "description": {
+        "en": "PostgreSQL: open-source relational database.",
+        "es": "PostgreSQL: base de datos relacional de código abierto.",
+        "ja": "PostgreSQL：オープンソースのリレーショナルデータベース",
+        "de": "PostgreSQL: relationale Open-Source-Datenbank."
+      }
+    },
+    {
+      "id": "browsers",
+      "label": "Navegadores",
+      "group": "skill",
+      "description": {
+        "en": "Privacy-focused web browsers.",
+        "es": "Navegadores web centrados en la privacidad.",
+        "ja": "プライバシー重視のウェブブラウザ",
+        "de": "Datenschutzorientierte Webbrowser."
+      }
+    },
+    {
+      "id": "brave",
+      "label": "Brave",
+      "group": "skill",
+      "description": {
+        "en": "Brave: privacy-first browser with built-in blockers.",
+        "es": "Brave: navegador centrado en privacidad con bloqueadores integrados.",
+        "ja": "Brave：内蔵ブロッカーを備えたプライバシー第一のブラウザ",
+        "de": "Brave: datenschutzorientierter Browser mit integrierten Blockern."
+      }
+    },
+    {
+      "id": "zen-browser",
+      "label": "Zen Browser",
+      "group": "skill",
+      "description": {
+        "en": "Zen Browser: minimal, focused Firefox-based browser.",
+        "es": "Zen Browser: navegador minimalista basado en Firefox.",
+        "ja": "Zen Browser：Firefoxベースのミニマルなブラウザ",
+        "de": "Zen Browser: minimalistischer, fokussierter Browser auf Firefox-Basis."
+      }
+    },
+    {
+      "id": "helium",
+      "label": "Helium",
+      "group": "skill",
+      "description": {
+        "en": "Helium: a browser fighting for an open web.",
+        "es": "Helium: un navegador que defiende una web abierta.",
+        "ja": "Helium：オープンなウェブを目ざすブラウザ",
+        "de": "Helium: ein Browser für ein offenes Web."
+      }
+    },
+    {
+      "id": "epiphany",
+      "label": "Epiphany",
+      "group": "skill",
+      "description": {
+        "en": "Epiphany: GNOME's simple web browser.",
+        "es": "Epiphany: el navegador sencillo de GNOME.",
+        "ja": "Epiphany：GNOMEのシンプルなウェブブラウザ",
+        "de": "Epiphany: der schlichte Browser von GNOME."
+      }
+    },
+    {
+      "id": "mullvad",
+      "label": "Mullvad Browser",
+      "group": "skill",
+      "description": {
+        "en": "Mullvad Browser: Tor-based browser from Mullvad VPN.",
+        "es": "Mullvad Browser: navegador basado en Tor de Mullvad VPN.",
+        "ja": "Mullvad Browser：Mullvad VPNによるTorベースのブラウザ",
+        "de": "Mullvad Browser: Tor-basierter Browser von Mullvad VPN."
+      }
+    },
+    {
+      "id": "development",
+      "label": "Development",
+      "group": "skill",
+      "description": {
+        "en": "Development environment: editor, terminal and Git.",
+        "es": "Entorno de desarrollo: editor, terminal y Git.",
+        "ja": "開発環境：エディタ、ターミナル、Git",
+        "de": "Entwicklungsumgebung: Editor, Terminal und Git."
+      }
+    },
+    {
+      "id": "opencode",
+      "label": "Opencode",
+      "group": "skill",
+      "description": {
+        "en": "OpenCode: AI coding agent in the terminal.",
+        "es": "OpenCode: agente de desarrollo con IA en la terminal.",
+        "ja": "OpenCode：ターミナルで動くAIコーディングエージェント",
+        "de": "OpenCode: KI-Coding-Agent in der Konsole."
+      }
+    },
+    {
+      "id": "nvim",
+      "label": "Lazyvim",
+      "group": "skill",
+      "description": {
+        "en": "Neovim with LazyVim: modern modal editing.",
+        "es": "Neovim con LazyVim: edición modal moderna.",
+        "ja": "Neovim + LazyVim：モダンなモーダル編集",
+        "de": "Neovim mit LazyVim: moderne modale Bearbeitung."
+      }
+    },
+    {
+      "id": "git",
+      "label": "Lazygit",
+      "group": "skill",
+      "description": {
+        "en": "Lazygit: simple Git in a terminal UI.",
+        "es": "Lazygit: Git simple en una interfaz de terminal.",
+        "ja": "Lazygit：ターミナルUIで使うシンプルなGit",
+        "de": "Lazygit: einfaches Git in einer Terminal-Oberfläche."
+      }
+    },
+    {
+      "id": "apps-desk",
+      "label": "Apps",
+      "group": "skill",
+      "description": {
+        "en": "Desktop apps for the daily workflow.",
+        "es": "Aplicaciones de escritorio para el día a día.",
+        "ja": "毎日のワークフローに使うデスクトップアプリ",
+        "de": "Desktop-Apps für den täglichen Workflow."
+      }
+    },
+    {
+      "id": "kitty",
+      "label": "Kitty",
+      "group": "skill",
+      "description": {
+        "en": "Kitty: fast GPU-accelerated terminal.",
+        "es": "Kitty: terminal rápido acelerado por GPU.",
+        "ja": "Kitty：GPUアクセラレーション対応の高速ターミナル",
+        "de": "Kitty: schnelles GPU-beschleunigtes Terminal."
+      }
+    },
+    {
+      "id": "ghostty",
+      "label": "Ghostty",
+      "group": "skill",
+      "description": {
+        "en": "Ghostty: fast native terminal emulator.",
+        "es": "Ghostty: emulador de terminal nativo y rápido.",
+        "ja": "Ghostty：高速なネイティブターミナルエミュレータ",
+        "de": "Ghostty: schneller nativer Terminal-Emulator."
+      }
+    },
+    {
+      "id": "yazi",
+      "label": "Yazi",
+      "group": "skill",
+      "description": {
+        "en": "Yazi: blazing-fast terminal file manager.",
+        "es": "Yazi: gestor de archivos ultrarápido en terminal.",
+        "ja": "Yazi：ターミナルの超高速ファイルマネージャー",
+        "de": "Yazi: blitzschneller Dateimanager im Terminal."
+      }
+    },
+    {
+      "id": "nautilus",
+      "label": "Nautilus",
+      "group": "skill",
+      "description": {
+        "en": "Nautilus: GNOME's file manager.",
+        "es": "Nautilus: el gestor de archivos de GNOME.",
+        "ja": "Nautilus：GNOMEのファイルマネージャー",
+        "de": "Nautilus: der Dateimanager von GNOME."
+      }
+    },
+    {
+      "id": "rclone",
+      "label": "RClone",
+      "group": "skill",
+      "description": {
+        "en": "Rclone: sync files with cloud storage.",
+        "es": "Rclone: sincroniza archivos con almacenamiento en la nube.",
+        "ja": "Rclone：クラウドストレージとのファイル同期",
+        "de": "Rclone: Dateisynchronisierung mit Cloud-Speichern."
+      }
+    },
+    {
+      "id": "obsidian",
+      "label": "Obsidian",
+      "group": "skill",
+      "description": {
+        "en": "Obsidian: notes and knowledge base on local Markdown.",
+        "es": "Obsidian: notas y base de conocimiento en Markdown local.",
+        "ja": "Obsidian：ローカルMarkdownのノートとナレッジベース",
+        "de": "Obsidian: Notizen und Wissensdatenbank auf lokalem Markdown."
+      }
+    },
+    {
+      "id": "system",
+      "label": "System",
+      "group": "skill",
+      "description": {
+        "en": "System: window managers and desktop environments.",
+        "es": "Sistema: gestores de ventanas y entornos de escritorio.",
+        "ja": "システム：ウィンドウマネージャーとデスクトップ環境",
+        "de": "System: Fenstermanager und Desktop-Umgebungen."
+      }
+    },
+    {
+      "id": "hyprland",
+      "label": "Hyprland",
+      "group": "skill",
+      "description": {
+        "en": "Hyprland: dynamic tiling Wayland compositor.",
+        "es": "Hyprland: compositor Wayland con tiling dinámico.",
+        "ja": "Hyprland：動的なタイル型Waylandコンポジタ",
+        "de": "Hyprland: dynamischer Tiling-Wayland-Compositor."
+      }
+    },
+    {
+      "id": "niri",
+      "label": "Niri",
+      "group": "skill",
+      "description": {
+        "en": "Niri: scrollable-tiling Wayland compositor.",
+        "es": "Niri: compositor Wayland con tiling en scroll.",
+        "ja": "Niri：スクロール式タイル型Waylandコンポジタ",
+        "de": "Niri: Wayland-Compositor mit scrollbarem Tiling."
+      }
     }
   ],
   "edges": [
-    { "from": "fuis18", "to": "devops" },
-    { "from": "fuis18", "to": "web" },
-    { "from": "fuis18", "to": "backend" },
-    { "from": "fuis18", "to": "apps" },
-    { "from": "devops", "to": "docker" },
-    { "from": "docker", "to": "arch" },
-    { "from": "gitops", "to": "docker", "arrows": "to" },
-    { "from": "devops", "to": "gitops" },
-    { "from": "devops", "to": "bash" },
-    { "from": "bash", "to": "arch" },
-    { "from": "web", "to": "astro" },
-    { "from": "web", "to": "react" },
-    { "from": "react", "to": "typescript", "arrows": "to" },
-    { "from": "nextjs", "to": "react", "arrows": "to" },
-    { "from": "web", "to": "svelte" },
-    { "from": "astro", "to": "typescript", "arrows": "to" },
-    { "from": "backend", "to": "go" },
-    { "from": "backend", "to": "rust" },
-    { "from": "backend", "to": "nodejs" },
-    { "from": "nodejs", "to": "typescript", "arrows": "to" },
-    { "from": "backend", "to": "sql" },
-    { "from": "apps", "to": "tauri" },
-    { "from": "tauri", "to": "rust", "arrows": "to" },
-    { "from": "apps", "to": "fdroid" }
+    { "from": "fuis18", "to": "dev" },
+    { "from": "fuis18", "to": "ops" },
+    { "from": "fuis18", "to": "linux" },
+    { "from": "dev", "to": "web" },
+    { "from": "dev", "to": "backend" },
+    { "from": "web", "to": "web-stack" },
+    { "from": "web-stack", "to": "javascript" },
+    { "from": "web-stack", "to": "typescript" },
+    { "from": "web-stack", "to": "pnpm" },
+    { "from": "web", "to": "web-framework" },
+    { "from": "web-framework", "to": "astro" },
+    { "from": "web-framework", "to": "react" },
+    { "from": "web-framework", "to": "svelte" },
+    { "from": "web", "to": "tauri" },
+    { "from": "backend", "to": "tauri" },
+    { "from": "backend", "to": "back-stack" },
+    { "from": "back-stack", "to": "rust" },
+    { "from": "back-stack", "to": "nodejs" },
+    { "from": "back-stack", "to": "go" },
+    { "from": "backend", "to": "back-sql" },
+    { "from": "back-sql", "to": "sqllite" },
+    { "from": "back-sql", "to": "posgresql" },
+    { "from": "linux", "to": "browsers" },
+    { "from": "linux", "to": "development" },
+    { "from": "linux", "to": "apps-desk" },
+    { "from": "linux", "to": "system" },
+    { "from": "browsers", "to": "brave" },
+    { "from": "browsers", "to": "zen-browser" },
+    { "from": "browsers", "to": "helium" },
+    { "from": "browsers", "to": "mullvad" },
+    { "from": "browsers", "to": "epiphany" },
+    { "from": "development", "to": "opencode" },
+    { "from": "development", "to": "nvim" },
+    { "from": "development", "to": "git" },
+    { "from": "apps-desk", "to": "kitty" },
+    { "from": "apps-desk", "to": "ghostty" },
+    { "from": "apps-desk", "to": "yazi" },
+    { "from": "apps-desk", "to": "nautilus" },
+    { "from": "apps-desk", "to": "rclone" },
+    { "from": "apps-desk", "to": "obsidian" },
+    { "from": "system", "to": "hyprland" },
+    { "from": "system", "to": "niri" }
   ]
 }

@@ -6,6 +6,10 @@
   --bg-primary: #ffffff;
   --bg-secondary: #ffffff;
   --bg-hover: #f5f5f5;
+  --graph-node: #4a4a4a;
+  --graph-node-border: #4a4a4a;
+  --graph-node-hover: #0a0a0a;
+  --graph-edge: #c0c0c0;
 }
 
 .dark {
@@ -16,6 +20,10 @@
   --bg-primary: #101010;
   --bg-secondary: #1a1a1a;
   --bg-hover: #272727;
+  --graph-node: #c9c9c9;
+  --graph-node-border: #c9c9c9;
+  --graph-node-hover: #ffffff;
+  --graph-edge: #4d4d4d;
 }
 
 * {

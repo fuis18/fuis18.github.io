@@ -10,28 +10,32 @@
 <script>
   import graph from "@/data/graph.json";
   import { GRAPH_MODE_EVENT } from "@/lib/events";
-  import type { DataSet, Network } from "vis-network/standalone";
+  import { pickLocalized, syncOnLangChange } from "@/lib/i18n";
+  import type { Localized } from "@/types";
+  import type { DataSet, Edge, Network } from "vis-network/standalone";
 
   interface GraphNode {
     id: string;
     label: string;
     group: "center" | "category" | "skill";
-    description?: string;
+    description?: Localized<string>;
   }
 
-  interface GraphEdge {
-    from: string;
-    to: string;
-    arrows?: "to";
-  }
+  /** Nodo con la descripción resuelta al idioma activo (el que vive en el DataSet). */
+  type ResolvedGraphNode = Omit<GraphNode, "description"> & {
+    description?: string;
+  };
 
   let network: Network | null = null;
-  let nodesDataSet: DataSet | null = null;
+  let nodesDataSet: DataSet<ResolvedGraphNode> | null = null;
   let ensurePromise: Promise<void> | null = null;
   let controller: AbortController | null = null;
   let infoEl: HTMLElement | null = null;
   let infoTitle: HTMLElement | null = null;
   let infoText: HTMLElement | null = null;
+  let currentInfoId: string | null = null;
+
+  const rawNodes = graph.nodes as GraphNode[];
 
   function cssVar(name: string): string {
     return getComputedStyle(document.documentElement)
@@ -42,13 +46,26 @@
   function buildOptions() {
     const color = cssVar("--color");
     const title = cssVar("--color-title");
-    const hover = cssVar("--color-hover");
-    const border = cssVar("--border");
+    const node = cssVar("--graph-node") || color;
+    const nodeBorder = cssVar("--graph-node-border") || node;
+    const nodeHover = cssVar("--graph-node-hover") || color;
+    const edge = cssVar("--graph-edge") || cssVar("--border");
+
+    (
+      window as Window & {
+        __fuisGraphColors?: {
+          node: string;
+          nodeBorder: string;
+          nodeHover: string;
+          edge: string;
+        };
+      }
+    ).__fuisGraphColors = { node, nodeBorder, nodeHover, edge };
 
     const nodeColors = {
-      background: color,
-      border: color,
-      highlight: { background: hover, border: hover },
+      background: node,
+      border: nodeBorder,
+      highlight: { background: nodeHover, border: nodeHover },
     };
 
     return {
@@ -77,7 +94,7 @@
         skill: nodeColors,
       },
       edges: {
-        color: { color: border, highlight: border },
+        color: { color: edge, highlight: edge },
         width: 1.5,
         smooth: { enabled: true, type: "continuous", roundness: 0.5 },
         arrows: {},
@@ -90,14 +107,24 @@
     };
   }
 
-  function showInfo(node: GraphNode) {
+  /** Nodos con la descripción resuelta para el idioma activo. */
+  function nodesForLang(): ResolvedGraphNode[] {
+    return rawNodes.map((node) => ({
+      ...node,
+      description: pickLocalized(node.description ?? {}),
+    }));
+  }
+
+  function showInfo(node: ResolvedGraphNode) {
     if (!infoEl || !infoTitle || !infoText) return;
+    currentInfoId = node.id;
     infoTitle.textContent = node.label;
     infoText.textContent = node.description || "";
     infoEl.hidden = false;
   }
 
   function hideInfo() {
+    currentInfoId = null;
     if (infoEl) infoEl.hidden = true;
   }
 
@@ -111,8 +138,8 @@
     ensurePromise = (async () => {
       const { Network, DataSet } = await import("vis-network/standalone");
 
-      nodesDataSet = new DataSet(graph.nodes as GraphNode[]);
-      const edgesDataSet = new DataSet(graph.edges as GraphEdge[]);
+      nodesDataSet = new DataSet<ResolvedGraphNode>(nodesForLang());
+      const edgesDataSet = new DataSet<Edge>(graph.edges as Edge[]);
 
       network = new Network(
         netEl,
@@ -126,7 +153,7 @@
           hideInfo();
           return;
         }
-        const node = nodesDataSet?.get(id) as GraphNode | null;
+        const node = nodesDataSet?.get(id) as ResolvedGraphNode | null;
         if (node?.description) showInfo(node);
         else hideInfo();
       });
@@ -141,7 +168,10 @@
       });
 
       const observer = new MutationObserver(() => {
-        if (network) network.setOptions(buildOptions());
+        if (network) {
+          network.setOptions(buildOptions());
+          network.redraw();
+        }
       });
       observer.observe(document.documentElement, {
         attributes: true,
@@ -151,6 +181,24 @@
 
     return ensurePromise;
   }
+
+  /** Actualiza las descripciones de los nodos y el panel abierto al cambiar de idioma. */
+  function applyNodeLang() {
+    if (!nodesDataSet) return;
+    rawNodes.forEach((node) => {
+      nodesDataSet?.update({
+        id: node.id,
+        description: pickLocalized(node.description ?? {}),
+      });
+    });
+    if (!infoEl || infoEl.hidden || !currentInfoId) return;
+    const node = nodesDataSet.get(currentInfoId) as ResolvedGraphNode | null;
+    if (!node) return;
+    infoTitle!.textContent = node.label;
+    infoText!.textContent = node.description || "";
+  }
+
+  syncOnLangChange(applyNodeLang);
 
   function setup() {
     const host = document.querySelector(".skill-graph");

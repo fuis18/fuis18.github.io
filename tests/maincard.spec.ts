@@ -48,6 +48,52 @@ async function graphSize(page: Page): Promise<{
   return { width: box!.width, height: box!.height };
 }
 
+const langOption = (page: Page, value: string) =>
+  page.locator(`#lang-menu [role="option"][data-value="${value}"]`);
+
+async function switchTo(page: Page, value: string) {
+  await page.click("#lang-trigger");
+  await langOption(page, value).click();
+}
+
+async function openGraph(page: Page) {
+  const graphBtn = page.getByRole("button", { name: "Graph mode" });
+  await graphBtn.click();
+  await expect(page.locator("#network canvas")).toBeVisible();
+  await page.waitForFunction(() =>
+    Boolean(
+      (
+        window as Window & {
+          __fuisNetworkStabilized?: unknown;
+        }
+      ).__fuisNetworkStabilized,
+    ),
+  );
+  await page.locator("#network canvas").waitFor({ state: "visible" });
+}
+
+async function clickNode(page: Page, id: string) {
+  const { x, y } = await page.evaluate((nodeId) => {
+    const network = (
+      window as Window & {
+        __fuisNetwork?: {
+          getPositions: (
+            ids: string[],
+          ) => Record<string, { x: number; y: number }>;
+          canvasToDOM: (pos: { x: number; y: number }) => {
+            x: number;
+            y: number;
+          };
+        };
+      }
+    ).__fuisNetwork!;
+    const pos = network.getPositions([nodeId])[nodeId];
+    return network.canvasToDOM(pos);
+  }, id);
+  const canvasBox = await page.locator("#network canvas").boundingBox();
+  await page.mouse.click(canvasBox!.x + x, canvasBox!.y + y);
+}
+
 async function modesPosition(page: Page): Promise<string> {
   return page.evaluate(
     () => getComputedStyle(document.querySelector(".card__modes")!).position,
@@ -124,47 +170,74 @@ test.describe("MainCard modes", () => {
   });
 
   test("4. Clic en un nodo muestra el texto de info", async ({ page }) => {
-    const graphBtn = page.getByRole("button", { name: "Graph mode" });
     const info = page.locator("#network-info");
 
-    await graphBtn.click();
-    await expect(page.locator("#network canvas")).toBeVisible();
+    await openGraph(page);
 
-    await page.waitForFunction(() =>
-      Boolean(
-        (window as Window & { __fuisNetworkStabilized?: unknown })
-          .__fuisNetworkStabilized,
-      ),
-    );
-    await expect(page.locator("#network canvas")).toHaveCount(1);
-    await page.locator("#network canvas").waitFor({ state: "visible" });
-
-    const { x, y } = await page.evaluate(() => {
-      const network = (
-        window as Window & {
-          __fuisNetwork?: {
-            getPositions: (
-              ids: string[],
-            ) => Record<string, { x: number; y: number }>;
-            canvasToDOM: (pos: { x: number; y: number }) => {
-              x: number;
-              y: number;
-            };
-          };
-        }
-      ).__fuisNetwork!;
-      const pos = network.getPositions(["fuis18"])["fuis18"];
-      return network.canvasToDOM(pos);
-    });
-
-    const canvasBox = await page.locator("#network canvas").boundingBox();
-    await page.mouse.click(canvasBox!.x + x, canvasBox!.y + y);
+    await clickNode(page, "fuis18");
 
     await expect(info).toBeVisible();
     await expect(page.locator("#network-info-title")).toHaveText("Fuis18");
+    await expect(page.locator("#network-info-text")).toHaveText(
+      "DevOps engineer focused on performance and productivity.",
+    );
 
     await page.locator("#network-info-close").click();
     await expect(info).toBeHidden();
+  });
+
+  test("6. Cambiar de idioma actualiza la descripción del nodo visible", async ({
+    page,
+  }) => {
+    await openGraph(page);
+    await clickNode(page, "fuis18");
+
+    await expect(page.locator("#network-info-title")).toHaveText("Fuis18");
+    await expect(page.locator("#network-info-text")).toHaveText(
+      "DevOps engineer focused on performance and productivity.",
+    );
+
+    await switchTo(page, "es");
+
+    await expect(page.locator("#network-info-text")).toHaveText(
+      "Ingeniero DevOps enfocado en rendimiento y productividad.",
+    );
+
+    // Tras cambiar de idioma, un nuevo clic sigue mostrando el idioma activo
+    await page.locator("#network-info-close").click();
+    await clickNode(page, "fuis18");
+    await expect(page.locator("#network-info-title")).toHaveText("Fuis18");
+    await expect(page.locator("#network-info-text")).toHaveText(
+      "Ingeniero DevOps enfocado en rendimiento y productividad.",
+    );
+  });
+
+  test("7. Cambiar de tema actualiza los colores del grafo", async ({
+    page,
+  }) => {
+    await openGraph(page);
+
+    const nodeColor = () =>
+      page.evaluate(() => {
+        const colors = (
+          window as Window & {
+            __fuisGraphColors?: { node: string };
+          }
+        ).__fuisGraphColors!;
+        return colors.node;
+      });
+
+    await expect.poll(nodeColor).toBe("#4a4a4a");
+
+    await page.click("#theme-toggle");
+    await expect(page.locator("html")).toHaveClass(/dark/);
+
+    await expect.poll(nodeColor).toBe("#c9c9c9");
+
+    await page.click("#theme-toggle");
+    await expect(page.locator("html")).toHaveClass(/light/);
+
+    await expect.poll(nodeColor).toBe("#4a4a4a");
   });
 
   test("5. En móvil (<768px) el modo grafo mantiene 2 columnas", async ({

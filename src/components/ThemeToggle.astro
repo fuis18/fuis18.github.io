@@ -63,13 +63,22 @@
       moonIcon.classList.toggle("hidden", !isDark);
     }
 
-    btn.addEventListener("click", () => {
-      const current = getTheme();
-      const next = current === "dark" ? "light" : "dark";
-      setTheme(next);
-      applyTheme(next);
-      updateIcon();
-    }, { signal: controller.signal });
+    btn.addEventListener(
+      "click",
+      () => {
+        const current = getTheme();
+        const next = current === "dark" ? "light" : "dark";
+        setTheme(next);
+        applyTheme(next);
+        updateIcon();
+      },
+      { signal: controller.signal },
+    );
+
+    // Si el tema es "system", el icono debe seguir al esquema del SO.
+    window
+      .matchMedia("(prefers-color-scheme: dark)")
+      .addEventListener?.("change", updateIcon, { signal: controller.signal });
 
     updateIcon();
   }
@@ -83,7 +92,7 @@
     background: none;
     border: none;
     cursor: pointer;
-    color: var(--color-title)
+    color: var(--color-title);
     padding: 0.5rem;
     display: flex;
     align-items: center;

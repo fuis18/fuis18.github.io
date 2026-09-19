@@ -1,5 +1,6 @@
 ---
 import type { Localized } from "@/types";
+import { DEFAULT_LANG, getLang } from "@/lib/i18n";
 import Web from "@/assets/svg-tools/web.svg";
 
 interface Props {
@@ -19,8 +20,6 @@ const {
   tags = [],
   date,
 } = Astro.props;
-
-const langs = Object.keys(title);
 ---
 
 <div class="card-container project-card">
@@ -33,10 +32,12 @@ const langs = Object.keys(title);
           </a>
         )
       }
-      {langs.map((lang) => <h2 data-lang={lang}>{title[lang]}</h2>)}
-      {langs.map((lang) => <span data-lang={lang}>{date[lang]}</span>)}
+      <h2 data-project-field="title">{title[getLang()] ?? title[DEFAULT_LANG]}</h2>
+      <span data-project-field="date">{date[getLang()] ?? date[DEFAULT_LANG]}</span>
     </div>
-    {langs.map((lang) => <p data-lang={lang}>{description[lang]}</p>)}
+    <p data-project-field="description">
+      {description[getLang()] ?? description[DEFAULT_LANG]}
+    </p>
     <div class="tags">
       {tags.map((tag) => <span class="tag">{tag}</span>)}
     </div>

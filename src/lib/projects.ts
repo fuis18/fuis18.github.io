@@ -28,7 +28,10 @@ export type ProjectData = {
   date: Localized<string>;
 };
 
-function pick(entry: ProjectFile, key: keyof LocalizedEntry): Localized<string> {
+function pick(
+  entry: ProjectFile,
+  key: keyof LocalizedEntry,
+): Localized<string> {
   return Object.fromEntries(
     LANGS.map((lang) => [
       lang,

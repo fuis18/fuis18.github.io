@@ -18,7 +18,6 @@ export function resolveProjectImage(
   filename: string | null | undefined,
 ): ImageMetadata {
   return (
-    (filename && imageByFilename[filename]) ||
-    imageByFilename[FALLBACK_IMAGE]
+    (filename && imageByFilename[filename]) || imageByFilename[FALLBACK_IMAGE]
   );
 }

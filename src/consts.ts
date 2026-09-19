@@ -7,16 +7,7 @@ export const SITE: Site = {
 };
 
 export const LINKS: Links = [
-  {
-    TEXT: { es: "Inicio", en: "Home" },
-    HREF: "/",
-  },
-  {
-    TEXT: { es: "Proyectos", en: "Projects" },
-    HREF: "/projects",
-  },
-  {
-    TEXT: { es: "Blogs", en: "Blogs" },
-    HREF: "/blog",
-  },
+  { KEY: "nav_home", HREF: "/" },
+  { KEY: "nav_projects", HREF: "/projects" },
+  { KEY: "nav_blog", HREF: "/blog" },
 ];

@@ -1,6 +1,6 @@
 ---
 import homeDataRaw from "@/data/home.json";
-import { withFallback } from "@/lib/i18n";
+import { pickLocalized } from "@/lib/i18n";
 import type { Localized } from "@/types";
 import SkillGraph from "./SkillGraph.astro";
 import MailIcon from "@/assets/svg-links/mail.svg";
@@ -13,7 +13,7 @@ import ListOutlineIcon from "@/assets/svg-tools/list-outline.svg";
 import NodesIcon from "@/assets/svg-tools/nodes.svg";
 
 type HomeBlock = (typeof homeDataRaw)["en"];
-const homeData = withFallback(homeDataRaw as unknown as Localized<HomeBlock>);
+const homeData = homeDataRaw as unknown as Localized<HomeBlock>;
 
 const links = [
   { label: "Mail", url: "mailto:fuis18@proton.me", icon: MailIcon },
@@ -52,16 +52,8 @@ const links = [
     </div>
     <div class="card-content">
       <div class="card__content-text">
-        {
-          Object.entries(homeData).map(([lang, block]) => (
-            <h3 data-lang={lang}>{block.about.title}</h3>
-          ))
-        }
-        {
-          Object.entries(homeData).map(([lang, block]) => (
-            <p data-lang={lang}>{block.about.text}</p>
-          ))
-        }
+        <h3 data-i18n="about-title">{pickLocalized(homeData).about.title}</h3>
+        <p data-i18n="about-text">{pickLocalized(homeData).about.text}</p>
       </div>
       <SkillGraph />
     </div>
@@ -81,14 +73,32 @@ const links = [
 
 <script>
   import { GRAPH_MODE_EVENT } from "@/lib/events";
+  import homeDataRaw from "@/data/home.json";
+  import { pickLocalized, syncOnLangChange } from "@/lib/i18n";
+  import type { Localized } from "@/types";
 
   type Mode = "about" | "graph";
+  type HomeBlock = (typeof homeDataRaw)["en"];
 
   let container: HTMLElement | null = null;
   let listBtn: HTMLButtonElement | null = null;
   let graphBtn: HTMLButtonElement | null = null;
   let links: HTMLElement | null = null;
   let mode: Mode = "about";
+
+  function syncAbout() {
+    const homeData = homeDataRaw as unknown as Localized<HomeBlock>;
+    const about = pickLocalized(homeData).about;
+    const title = document.querySelector<HTMLElement>(
+      "[data-i18n='about-title']",
+    );
+    const text = document.querySelector<HTMLElement>("[data-i18n='about-text']");
+    if (title) title.textContent = about.title;
+    if (text) text.textContent = about.text;
+  }
+
+  syncOnLangChange(syncAbout);
+  document.addEventListener("astro:page-load", syncAbout);
 
   function dispatchGraphMode(active: boolean) {
     document.dispatchEvent(

@@ -2,7 +2,7 @@
 import Layout from "@/layouts/Layout.astro";
 import ProjectCard from "@/components/ProjectCard.astro";
 import ImageZoom from "@/components/ImageZoom.astro";
-import { LANGS } from "@/lib/i18n";
+import { m } from "@/paraglide/messages";
 import { projects } from "@/lib/projects";
 import { resolveProjectImage } from "@/lib/projectImages";
 
@@ -11,26 +11,18 @@ const projectCards = projects.map((project) => ({
   image: resolveProjectImage(project.image),
 }));
 const isEven = projects.length % 2 === 0;
-const PAGE_TITLES: Record<string, string> = {
-  es: "Proyectos",
-  en: "Projects",
-};
 ---
 
 <Layout title="Projects" description="My website" background="true">
   <main transition:animate="slide">
-    {
-      LANGS.map((lang) => (
-        <h1 data-lang={lang}>{PAGE_TITLES[lang] ?? "Projects"}</h1>
-      ))
-    }
+    <h1 data-i18n="projects-title">{m.projects_title()}</h1>
     <div class:list={["project-container", { "even-count": isEven }]}>
       {
         projectCards.map((project, index) => {
           const alt = Object.values(project.title)[0] ?? "";
           const loading = index < 8 ? "eager" : "lazy";
           return (
-            <div class="project-item">
+            <div class="project-item" data-project-index={index}>
               <ImageZoom src={project.image} alt={alt} loading={loading} />
               <ProjectCard
                 title={project.title}
@@ -47,6 +39,40 @@ const PAGE_TITLES: Record<string, string> = {
     </div>
   </main>
 </Layout>
+
+<script>
+  import { m } from "@/paraglide/messages";
+  import { projects } from "@/lib/projects";
+  import { DEFAULT_LANG, getLang, syncOnLangChange } from "@/lib/i18n";
+
+  function syncProjects() {
+    const heading = document.querySelector<HTMLElement>(
+      "[data-i18n='projects-title']",
+    );
+    if (heading) heading.textContent = m.projects_title();
+
+    document
+      .querySelectorAll<HTMLElement>("[data-project-index]")
+      .forEach((card) => {
+        const index = Number(card.dataset.projectIndex);
+        const project = projects[index];
+        if (!project) return;
+        card
+          .querySelectorAll<HTMLElement>("[data-project-field]")
+          .forEach((el) => {
+            const field = el.dataset.projectField as
+              | "title"
+              | "description"
+              | "date";
+            const localized = project[field];
+            el.textContent = localized[getLang()] ?? localized[DEFAULT_LANG];
+          });
+      });
+  }
+
+  syncOnLangChange(syncProjects);
+  document.addEventListener("astro:page-load", syncProjects);
+</script>
 
 <style>
   main {

@@ -1,6 +1,6 @@
 ---
 import { SITE, LINKS } from "@/consts";
-import { LANGS, DEFAULT_LANG } from "@/lib/i18n";
+import { m } from "@/paraglide/messages";
 const { pathname } = Astro.url;
 
 import LangDropdown from "./LangDropdown.astro";
@@ -18,12 +18,12 @@ import ThemeToggle from "./ThemeToggle.astro";
         const isActive =
           LINK.HREF === "/" ? pathname === "/" : pathname.startsWith(LINK.HREF);
         return (
-          <a href={LINK.HREF} class:list={[{ active: isActive }]}>
-            {LANGS.map((lang) => (
-              <span data-lang={lang}>
-                {LINK.TEXT[lang] ?? LINK.TEXT[DEFAULT_LANG]}
-              </span>
-            ))}
+          <a
+            href={LINK.HREF}
+            data-message={LINK.KEY}
+            class:list={[{ active: isActive }]}
+          >
+            {m[LINK.KEY]()}
           </a>
         );
       })
@@ -101,6 +101,9 @@ import ThemeToggle from "./ThemeToggle.astro";
 </style>
 
 <script>
+  import { m } from "@/paraglide/messages";
+  import { syncOnLangChange } from "@/lib/i18n";
+
   const addZeros = (n: number): string => {
     return n.toString().length < 2 ? `0${n}` : n.toString();
   };
@@ -132,6 +135,21 @@ import ThemeToggle from "./ThemeToggle.astro";
     indicator.style.height = linkRect.height + "px";
   }
 
+  function syncNav() {
+    const messages: Record<string, () => string> = {
+      nav_home: m.nav_home,
+      nav_projects: m.nav_projects,
+      nav_blog: m.nav_blog,
+    };
+    document.querySelectorAll<HTMLAnchorElement>("[data-message]").forEach((a) => {
+      const key = a.dataset.message ?? "";
+      const message = messages[key];
+      if (typeof message === "function") a.textContent = message();
+    });
+  }
+
+  syncOnLangChange(syncNav);
+  document.addEventListener("astro:page-load", syncNav);
   document.addEventListener("astro:page-load", initClock);
   document.addEventListener("astro:page-load", initIndicator);
 </script>

@@ -1,0 +1,8 @@
+{
+  "$schema": "https://inlang.com/schema/inlang-message-format",
+  "nav_home": "ホーム",
+  "nav_projects": "プロジェクト",
+  "nav_blog": "ブログ",
+  "projects_title": "プロジェクト",
+  "blog_title": "ブログ"
+}

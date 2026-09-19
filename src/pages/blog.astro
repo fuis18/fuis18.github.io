@@ -1,9 +1,25 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import { m } from "@/paraglide/messages";
 ---
 
 <Layout title="Home" description="My website">
   <main transition:animate="slide">
-    <h1>Blogs</h1>
+    <h1 data-i18n="blog-title">{m.blog_title()}</h1>
   </main>
 </Layout>
+
+<script>
+  import { m } from "@/paraglide/messages";
+  import { syncOnLangChange } from "@/lib/i18n";
+
+  function syncTitle() {
+    const heading = document.querySelector<HTMLElement>(
+      "[data-i18n='blog-title']",
+    );
+    if (heading) heading.textContent = m.blog_title();
+  }
+
+  syncOnLangChange(syncTitle);
+  document.addEventListener("astro:page-load", syncTitle);
+</script>

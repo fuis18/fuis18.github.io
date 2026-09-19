@@ -1,24 +1,37 @@
 ---
 import homeDataRaw from "@/data/home.json";
-import { withFallback } from "@/lib/i18n";
+import { pickLocalized } from "@/lib/i18n";
 import type { Localized } from "@/types";
 
 type HomeBlock = (typeof homeDataRaw)["en"];
-const homeData = withFallback(
-  homeDataRaw as unknown as Localized<HomeBlock>,
-);
+const homeData = homeDataRaw as unknown as Localized<HomeBlock>;
 ---
 
 <div class="main-card">
   <h1>Luis Roman Cieza</h1>
   <div class="subtitle">
-    {Object.entries(homeData).map(([lang, block]) => (
-      <h2 data-lang={lang}>{block.role}</h2>
-    ))}
+    <h2 data-i18n="role">{pickLocalized(homeData).role}</h2>
     <span>/</span>
     <span>@fuis18</span>
   </div>
 </div>
+
+<script>
+  import homeDataRaw from "@/data/home.json";
+  import { pickLocalized, syncOnLangChange } from "@/lib/i18n";
+  import type { Localized } from "@/types";
+
+  type HomeBlock = (typeof homeDataRaw)["en"];
+
+  function syncRole() {
+    const homeData = homeDataRaw as unknown as Localized<HomeBlock>;
+    const role = document.querySelector<HTMLElement>("[data-i18n='role']");
+    if (role) role.textContent = pickLocalized(homeData).role;
+  }
+
+  syncOnLangChange(syncRole);
+  document.addEventListener("astro:page-load", syncRole);
+</script>
 
 <style>
   h2 {

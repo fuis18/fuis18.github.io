@@ -1,46 +1,61 @@
 import type { Localized } from "@/types";
+import {
+  baseLocale,
+  getLocale,
+  locales,
+  setLocale,
+  toLocale,
+} from "@/paraglide/runtime";
 
-export const LANGS = ["en", "es", "jp", "de"] as const;
+export const LANGS: readonly Lang[] = locales;
 export type Lang = (typeof LANGS)[number];
-export const DEFAULT_LANG: Lang = "en";
+export const DEFAULT_LANG: Lang = baseLocale as Lang;
 
-function isLang(value: string): value is Lang {
-  return (LANGS as readonly string[]).includes(value);
+export function getLang(): Lang {
+  return getLocale() as Lang;
 }
 
-export function resolveLang(): Lang {
-  const stored = localStorage.getItem("lang");
-  if (stored && isLang(stored)) return stored;
-
-  const detected = LANGS.find((lang) =>
-    navigator.language.toLowerCase().startsWith(lang),
-  );
-  return detected ?? DEFAULT_LANG;
+/** Normaliza un valor a un idioma soportado (o al idioma base). */
+function resolveLang(lang: string): Lang {
+  return toLocale(lang) ?? DEFAULT_LANG;
 }
 
-export function getLang(): string {
-  return resolveLang();
+/** Aplica el idioma guardado/detectado y dispara el primer re-render. */
+export function initLang(): void {
+  const lang = getLang();
+  document.documentElement.lang = lang;
+  document.dispatchEvent(new CustomEvent("lang-change", { detail: { lang } }));
 }
 
-export function setLang(lang: string) {
-  const next = isLang(lang) ? lang : DEFAULT_LANG;
-  localStorage.setItem("lang", next);
+/** Cambia el idioma activo (persistido en localStorage por paraglide). */
+export function setLang(lang: string): void {
+  const next = resolveLang(lang);
+  setLocale(next, { reload: false });
   document.documentElement.lang = next;
   document.dispatchEvent(
     new CustomEvent("lang-change", { detail: { lang: next } }),
   );
 }
 
-export function updateTranslations() {
-  const lang = getLang();
-  document.querySelectorAll<HTMLElement>("[data-lang]").forEach((el) => {
-    el.style.display = el.dataset.lang === lang ? "" : "none";
-  });
+/** Selecciona el valor localizado para el idioma activo (con fallback). */
+export function pickLocalized<T>(localized: Localized<T>): T {
+  return localized[getLang()] ?? localized[DEFAULT_LANG];
 }
 
-export function withFallback<T>(localized: Localized<T>): Localized<T> {
-  const fallback = localized[DEFAULT_LANG];
-  return Object.fromEntries(
-    LANGS.map((lang) => [lang, localized[lang] ?? fallback]),
-  ) as Localized<T>;
+const syncers = new Set<() => void>();
+let bound = false;
+
+/**
+ * Registra un re-render de texto que corre de inmediato (primer render)
+ * y en cada cambio de idioma (`lang-change`).
+ */
+export function syncOnLangChange(fn: () => void): void {
+  syncers.add(fn);
+  if (!bound) {
+    bound = true;
+    document.addEventListener("lang-change", () => {
+      syncers.forEach((syncer) => syncer());
+    });
+  }
+  fn();
 }

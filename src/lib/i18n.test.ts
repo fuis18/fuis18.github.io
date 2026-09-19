@@ -1,49 +1,57 @@
 import { describe, it, expect, beforeEach, vi } from "vitest";
-import { getLang, setLang, updateTranslations } from "./i18n";
+import {
+  getLang,
+  setLang,
+  initLang,
+  syncOnLangChange,
+  DEFAULT_LANG,
+  LANGS,
+} from "./i18n";
 
 describe("i18n", () => {
   beforeEach(() => {
     localStorage.clear();
+    Object.defineProperty(navigator, "languages", {
+      value: ["en-US"],
+      configurable: true,
+    });
     document.documentElement.lang = "en";
     document.body.innerHTML = "";
   });
 
-  describe("getLang", () => {
-    it("retorna 'en' por defecto cuando navigator no es 'es'", () => {
-      Object.defineProperty(navigator, "language", {
-        value: "en-US",
-        configurable: true,
-      });
-      expect(getLang()).toBe("en");
-    });
+  it("expone los idiomas soportados (con 'ja' BCP-47) y el idioma por defecto", () => {
+    expect(LANGS).toEqual(["en", "es", "ja", "de"]);
+    expect(DEFAULT_LANG).toBe("en");
+  });
 
-    it("retorna 'es' cuando navigator.language empieza con 'es'", () => {
-      Object.defineProperty(navigator, "language", {
-        value: "es-MX",
+  describe("getLang", () => {
+    it("detecta 'es' cuando navigator.languages incluye 'es-MX'", () => {
+      Object.defineProperty(navigator, "languages", {
+        value: ["es-MX"],
         configurable: true,
       });
       expect(getLang()).toBe("es");
     });
 
-    it("retorna 'ja' cuando navigator.language empieza con 'ja'", () => {
-      Object.defineProperty(navigator, "language", {
-        value: "ja-JP",
+    it("detecta 'ja' cuando navigator.languages incluye 'ja-JP'", () => {
+      Object.defineProperty(navigator, "languages", {
+        value: ["ja-JP"],
         configurable: true,
       });
       expect(getLang()).toBe("ja");
     });
 
-    it("retorna 'de' cuando navigator.language empieza con 'de'", () => {
-      Object.defineProperty(navigator, "language", {
-        value: "de-DE",
+    it("detecta 'de' cuando navigator.languages incluye 'de-DE'", () => {
+      Object.defineProperty(navigator, "languages", {
+        value: ["de-DE"],
         configurable: true,
       });
       expect(getLang()).toBe("de");
     });
 
     it("retorna el idioma por defecto cuando navigator no es soportado", () => {
-      Object.defineProperty(navigator, "language", {
-        value: "fr-FR",
+      Object.defineProperty(navigator, "languages", {
+        value: ["fr-FR"],
         configurable: true,
       });
       expect(getLang()).toBe("en");
@@ -56,16 +64,16 @@ describe("i18n", () => {
 
     it("ignora un idioma no soportado en localStorage", () => {
       localStorage.setItem("lang", "xx");
-      Object.defineProperty(navigator, "language", {
-        value: "fr-FR",
+      Object.defineProperty(navigator, "languages", {
+        value: ["fr-FR"],
         configurable: true,
       });
       expect(getLang()).toBe("en");
     });
 
-    it("localStorage tiene prioridad sobre navigator.language", () => {
-      Object.defineProperty(navigator, "language", {
-        value: "en-US",
+    it("localStorage tiene prioridad sobre navigator.languages", () => {
+      Object.defineProperty(navigator, "languages", {
+        value: ["en-US"],
         configurable: true,
       });
       localStorage.setItem("lang", "es");
@@ -74,9 +82,14 @@ describe("i18n", () => {
   });
 
   describe("setLang", () => {
-    it("guarda en localStorage", () => {
+    it("persiste en localStorage", () => {
       setLang("es");
       expect(localStorage.getItem("lang")).toBe("es");
+    });
+
+    it("persiste 'ja' (código BCP-47)", () => {
+      setLang("ja");
+      expect(localStorage.getItem("lang")).toBe("ja");
     });
 
     it("guarda el idioma por defecto si el lenguaje no es soportado", () => {
@@ -89,51 +102,43 @@ describe("i18n", () => {
       expect(document.documentElement.lang).toBe("es");
     });
 
-    it("dispatch event lang-change", () => {
+    it("dispatch event lang-change con el detail correcto", () => {
       const handler = vi.fn();
       document.addEventListener("lang-change", handler);
-      setLang("es");
+      setLang("ja");
       expect(handler).toHaveBeenCalled();
+      const event = handler.mock.calls[0][0] as CustomEvent;
+      expect(event.detail.lang).toBe("ja");
       document.removeEventListener("lang-change", handler);
-    });
-
-    it("el event detail contiene el lang correcto", () => {
-      let detail: string = "";
-      document.addEventListener("lang-change", ((e: CustomEvent) => {
-        detail = e.detail.lang;
-      }) as EventListener);
-      setLang("es");
-      expect(detail).toBe("es");
     });
   });
 
-  describe("updateTranslations", () => {
-    it("muestra elementos con data-lang correcto", () => {
-      document.body.innerHTML = `
-        <span data-lang="es">Hola</span>
-        <span data-lang="en">Hello</span>
-      `;
-      localStorage.setItem("lang", "en");
-      updateTranslations();
-
-      const esEl = document.querySelector('[data-lang="es"]') as HTMLElement;
-      const enEl = document.querySelector('[data-lang="en"]') as HTMLElement;
-      expect(esEl.style.display).toBe("none");
-      expect(enEl.style.display).toBe("");
-    });
-
-    it("oculta elementos con data-lang incorrecto", () => {
-      document.body.innerHTML = `
-        <span data-lang="es">Hola</span>
-        <span data-lang="en">Hello</span>
-      `;
+  describe("initLang", () => {
+    it("aplica el idioma persistido a document.documentElement.lang", () => {
       localStorage.setItem("lang", "es");
-      updateTranslations();
+      initLang();
+      expect(document.documentElement.lang).toBe("es");
+    });
+  });
 
-      const esEl = document.querySelector('[data-lang="es"]') as HTMLElement;
-      const enEl = document.querySelector('[data-lang="en"]') as HTMLElement;
-      expect(esEl.style.display).toBe("");
-      expect(enEl.style.display).toBe("none");
+  describe("syncOnLangChange", () => {
+    it("re-renderiza el texto via textContent sin nodos duplicados ni display:none", () => {
+      document.body.innerHTML = `<span data-message="x">x</span>`;
+      const el = () =>
+        document.querySelector<HTMLElement>("[data-message='x']");
+
+      syncOnLangChange(() => {
+        const node = el();
+        if (node) node.textContent = getLang().toUpperCase();
+      });
+
+      // Primer render con el idioma por defecto
+      expect(el()?.textContent).toBe("EN");
+      // Cambio de idioma re-renderiza el mismo nodo
+      setLang("es");
+      expect(el()?.textContent).toBe("ES");
+      // El mecanismo nunca usa display:none
+      expect(el()?.style.display).toBe("");
     });
   });
 });

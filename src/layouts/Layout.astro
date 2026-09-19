@@ -8,10 +8,11 @@ import Background from "@/components/Background.astro";
 
 const { title, description, background } = Astro.props;
 import { SITE } from "@/consts";
+import { DEFAULT_LANG } from "@/lib/i18n";
 ---
 
 <!doctype html>
-<html lang="en" transition:animate="none">
+<html lang={DEFAULT_LANG} transition:animate="none">
   <head>
     <Head title={`${title} - ${SITE.TITLE}`} description={description} />
   </head>
@@ -24,16 +25,14 @@ import { SITE } from "@/consts";
 </html>
 
 <script>
-  import { getLang, updateTranslations } from "@/lib/i18n";
+  import { initLang } from "@/lib/i18n";
   import { applyTheme } from "@/lib/theme";
 
   function init() {
-    document.documentElement.lang = getLang();
+    initLang();
     applyTheme();
-    updateTranslations();
   }
 
   init();
-  document.addEventListener("lang-change", init);
   document.addEventListener("astro:page-load", init);
 </script>

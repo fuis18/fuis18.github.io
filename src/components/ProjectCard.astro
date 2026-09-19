@@ -57,13 +57,17 @@ const langs = Object.keys(title);
     background-color: var(--bg-secondary);
   }
 
-  html.dark .project-card {
+  html.light .project-card {
+    border: none;
+  }
+
+  .project-card {
     border-left: none;
     border-right: none;
     border-radius: initial;
   }
 
-  html.dark .project-card:hover::before {
+  .project-card:hover::before {
     content: "";
     position: absolute;
     top: 0;

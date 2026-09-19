@@ -32,17 +32,12 @@ const { src, alt, loading = "lazy" } = Astro.props;
   .img-container img {
     object-fit: cover;
     width: 100%;
-    border-radius: 0.5rem;
     transition: scale 0.1s ease;
     height: 100%;
     aspect-ratio: 16/9;
     z-index: 50;
   }
 
-  html.dark .img-container img {
-    border-top-left-radius: inherit;
-    border-bottom-left-radius: inherit;
-  }
   .img-tool {
     bottom: 0.5rem;
     right: 0.5rem;
@@ -56,6 +51,7 @@ const { src, alt, loading = "lazy" } = Astro.props;
     font-size: 0.75rem;
     opacity: 0;
     transition: opacity 0.5s ease;
+    z-index: 60;
   }
   .img-container:hover img {
     scale: 1.02;

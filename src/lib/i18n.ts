@@ -1,6 +1,6 @@
 import type { Localized } from "@/types";
 
-export const LANGS = ["en", "es", "ja", "de"] as const;
+export const LANGS = ["en", "es", "jp", "de"] as const;
 export type Lang = (typeof LANGS)[number];
 export const DEFAULT_LANG: Lang = "en";
 

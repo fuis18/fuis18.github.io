@@ -7,14 +7,21 @@ test.describe("Language switching", () => {
     await page.reload();
   });
 
-  test("1. Click en selector y cambiar a ES", async ({ page }) => {
-    const select = page.locator("#lang-select");
-    await expect(select).toBeVisible();
+  const optionEs = (page: import("@playwright/test").Page) =>
+    page.locator('#lang-menu [role="option"][data-value="es"]');
+  const optionEn = (page: import("@playwright/test").Page) =>
+    page.locator('#lang-menu [role="option"][data-value="en"]');
 
-    await select.selectOption("es");
+  test("1. Click en selector y cambiar a ES", async ({ page }) => {
+    const triggerValue = page.locator("#lang-value");
+    await expect(page.locator("#lang-trigger")).toBeVisible();
+
+    await page.click("#lang-trigger");
+    await optionEs(page).click();
 
     await expect(page.locator("html")).toHaveAttribute("lang", "es");
-    await expect(select).toHaveValue("es");
+    await expect(triggerValue).toHaveText("ES");
+    await expect(optionEs(page)).toHaveAttribute("aria-selected", "true");
 
     const esContent = page.locator('[data-lang="es"]').first();
     await expect(esContent).toBeVisible();
@@ -24,14 +31,17 @@ test.describe("Language switching", () => {
   });
 
   test("2. Cambiar de ES a EN", async ({ page }) => {
-    const select = page.locator("#lang-select");
+    const triggerValue = page.locator("#lang-value");
 
-    await select.selectOption("es");
+    await page.click("#lang-trigger");
+    await optionEs(page).click();
     await expect(page.locator("html")).toHaveAttribute("lang", "es");
 
-    await select.selectOption("en");
+    await page.click("#lang-trigger");
+    await optionEn(page).click();
     await expect(page.locator("html")).toHaveAttribute("lang", "en");
-    await expect(select).toHaveValue("en");
+    await expect(triggerValue).toHaveText("EN");
+    await expect(optionEn(page)).toHaveAttribute("aria-selected", "true");
 
     const enContent = page.locator('[data-lang="en"]').first();
     await expect(enContent).toBeVisible();
@@ -41,15 +51,16 @@ test.describe("Language switching", () => {
   });
 
   test("3. Persistencia entre páginas", async ({ page }) => {
-    const select = page.locator("#lang-select");
+    const triggerValue = page.locator("#lang-value");
 
-    await select.selectOption("es");
+    await page.click("#lang-trigger");
+    await optionEs(page).click();
     await expect(page.locator("html")).toHaveAttribute("lang", "es");
 
     await page.click('a[href="/projects"]');
     await page.waitForURL("**/projects");
 
     await expect(page.locator("html")).toHaveAttribute("lang", "es");
-    await expect(select).toHaveValue("es");
+    await expect(triggerValue).toHaveText("ES");
   });
 });

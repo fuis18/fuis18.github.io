@@ -35,15 +35,13 @@ import ThemeToggle from "./ThemeToggle.astro";
 <style>
   header {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     height: 4rem;
   }
-  .header-left {
-    display: none;
-  }
+  .header-left,
   .header-rigth {
-    display: inherit;
+    display: none;
   }
   .header-left,
   .header-rigth {
@@ -52,8 +50,8 @@ import ThemeToggle from "./ThemeToggle.astro";
   }
   .clock {
     font-family: digital-7;
-    font-size: 1.25rem;
-    font-weight: 700;
+    font-size: 1.5rem;
+    line-height: 1.8;
   }
   .JP {
     color: var(--color-title);
@@ -80,17 +78,43 @@ import ThemeToggle from "./ThemeToggle.astro";
     background-color: var(--bg-hover);
     color: var(--color-title);
   }
+
+  @media screen and (width >= 425px) {
+    header {
+      justify-content: space-between;
+    }
+    .header-rigth {
+      display: inline-flex;
+    }
+  }
   @media screen and (width >= 640px) {
     nav a {
       margin-inline: 1rem;
     }
     .header-left {
-      display: inherit;
+      display: inline-flex;
     }
   }
 </style>
 
 <script>
+  const addZeros = (n: number): string => {
+    return n.toString().length < 2 ? `0${n}` : n.toString();
+  };
+
+  function initClock() {
+    const clock = document.querySelector(".clock");
+    if (!clock) return;
+
+    const update = () => {
+      const now = new Date();
+      clock.textContent = `${addZeros(now.getHours())}:${addZeros(now.getMinutes())}`;
+    };
+
+    update();
+    setInterval(update, 1000);
+  }
+
   function initIndicator() {
     const nav = document.querySelector("nav");
     const indicator = document.querySelector(".nav-indicator") as HTMLElement;
@@ -105,5 +129,6 @@ import ThemeToggle from "./ThemeToggle.astro";
     indicator.style.height = linkRect.height + "px";
   }
 
+  document.addEventListener("astro:page-load", initClock);
   document.addEventListener("astro:page-load", initIndicator);
 </script>

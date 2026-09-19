@@ -34,8 +34,6 @@ import { SITE } from "@/consts";
     document.documentElement.lang = lang;
     applyTheme();
     updateTranslations();
-    const select = document.getElementById("lang-select") as HTMLSelectElement;
-    if (select) select.value = lang;
   }
 
   init();

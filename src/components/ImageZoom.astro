@@ -36,6 +36,7 @@ const { src, alt, loading = "lazy" } = Astro.props;
     transition: scale 0.1s ease;
     height: 100%;
     aspect-ratio: 16/9;
+    z-index: 50;
   }
 
   html.dark .img-container img {
@@ -79,8 +80,8 @@ const { src, alt, loading = "lazy" } = Astro.props;
 <script>
   function setup() {
     document.querySelectorAll(".img-container").forEach((container) => {
-      const img = container.children[0];
-      if (img.dataset.zoom) return;
+      const img = container.querySelector("img");
+      if (!img || img.dataset.zoom) return;
       img.dataset.zoom = "true";
       img.addEventListener("click", () => {
         const rect = img.getBoundingClientRect();

@@ -13,9 +13,7 @@ import ListOutlineIcon from "@/assets/svg-tools/list-outline.svg";
 import NodesIcon from "@/assets/svg-tools/nodes.svg";
 
 type HomeBlock = (typeof homeDataRaw)["en"];
-const homeData = withFallback(
-  homeDataRaw as unknown as Localized<HomeBlock>,
-);
+const homeData = withFallback(homeDataRaw as unknown as Localized<HomeBlock>);
 
 const links = [
   { label: "Mail", url: "mailto:fuis18@proton.me", icon: MailIcon },
@@ -54,12 +52,16 @@ const links = [
     </div>
     <div class="card-content">
       <div class="card__content-text">
-        {Object.entries(homeData).map(([lang, block]) => (
-          <h3 data-lang={lang}>{block.about.title}</h3>
-        ))}
-        {Object.entries(homeData).map(([lang, block]) => (
-          <p data-lang={lang}>{block.about.text}</p>
-        ))}
+        {
+          Object.entries(homeData).map(([lang, block]) => (
+            <h3 data-lang={lang}>{block.about.title}</h3>
+          ))
+        }
+        {
+          Object.entries(homeData).map(([lang, block]) => (
+            <p data-lang={lang}>{block.about.text}</p>
+          ))
+        }
       </div>
       <SkillGraph />
     </div>
@@ -236,7 +238,7 @@ const links = [
     }
   }
 
-  @media screen and (width >= 768px) {
+  @media screen and (width >= 760px) {
     .card-container {
       grid-template-areas: "modes about links";
       grid-template-columns: 3fr min-content;

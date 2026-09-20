@@ -143,3 +143,11 @@ a {
     max-width: 1024px;
   }
 }
+
+/* --- Animación de texto construir/desconstruir (textFx) --- */
+.textfx-destroying {
+  white-space: pre-wrap;
+}
+.textfx-destroying .textfx-char {
+  display: inline-block;
+}

@@ -21,6 +21,7 @@ import ThemeToggle from "./ThemeToggle.astro";
           <a
             href={LINK.HREF}
             data-message={LINK.KEY}
+            data-textfx
             class:list={[{ active: isActive }]}
           >
             {m[LINK.KEY]()}

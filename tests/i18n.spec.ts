@@ -30,6 +30,9 @@ test.describe("Language switching", () => {
       "DevOps Engineer",
     );
     await expect(page.locator("[data-i18n='role']")).toBeVisible();
+
+    // Tras la animación de entrada el DOM queda limpio (sin spans)
+    await expect(page.locator(".textfx-char")).toHaveCount(0);
   });
 
   test("2. Cambiar a ES traduce todo el contenido visible", async ({
@@ -52,6 +55,9 @@ test.describe("Language switching", () => {
 
     // Nunca hay nodos duplicados ocultos
     await expect(page.locator("[data-lang]")).toHaveCount(0);
+
+    // Tras la animación del cambio de idioma el DOM queda limpio
+    await expect(page.locator(".textfx-char")).toHaveCount(0);
   });
 
   test("3. Persistencia entre páginas", async ({ page }) => {
@@ -73,6 +79,9 @@ test.describe("Language switching", () => {
       .locator("[data-project-index='0']")
       .locator("[data-project-field='title']");
     await expect(firstCard).toHaveText("Mi portafolio web");
+
+    // Tras la navegación, la construcción de entrada deja el DOM limpio
+    await expect(page.locator(".textfx-char")).toHaveCount(0);
   });
 
   test("4. El selector muestra las 4 opciones (incluyendo JA)", async ({

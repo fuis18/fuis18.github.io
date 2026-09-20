@@ -32,10 +32,14 @@ const {
           </a>
         )
       }
-      <h2 data-project-field="title">{title[getLang()] ?? title[DEFAULT_LANG]}</h2>
-      <span data-project-field="date">{date[getLang()] ?? date[DEFAULT_LANG]}</span>
+      <h2 data-project-field="title" data-textfx>
+        {title[getLang()] ?? title[DEFAULT_LANG]}
+      </h2>
+      <span data-project-field="date" data-textfx>
+        {date[getLang()] ?? date[DEFAULT_LANG]}
+      </span>
     </div>
-    <p data-project-field="description">
+    <p data-project-field="description" data-textfx>
       {description[getLang()] ?? description[DEFAULT_LANG]}
     </p>
     <div class="tags">

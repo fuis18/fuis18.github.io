@@ -27,13 +27,51 @@ import { DEFAULT_LANG } from "@/lib/i18n";
 <script>
   import { initLang } from "@/lib/i18n";
   import { applyTheme, watchSystemTheme } from "@/lib/theme";
+  import { buildText, rebuildText, FX_SELECTOR } from "@/lib/textFx";
+
+  let lastOldTexts = new Map<HTMLElement, string>();
+
+  function fxElements(): HTMLElement[] {
+    return Array.from(document.querySelectorAll<HTMLElement>(FX_SELECTOR));
+  }
+
+  // Fase de captura: snapshot del texto viejo ANTES de que los syncers
+  // (burbuja) escriban el nuevo. Así la desconstrucción muestra el idioma previo.
+  document.addEventListener(
+    "lang-change",
+    () => {
+      const snapshot = new Map<HTMLElement, string>();
+      for (const el of fxElements()) snapshot.set(el, el.textContent ?? "");
+      lastOldTexts = snapshot;
+    },
+    true,
+  );
+
+  // Tras el dispatch los syncers ya escribieron el texto nuevo: animamos.
+  document.addEventListener("lang-change", () => {
+    requestAnimationFrame(() => {
+      const olds = lastOldTexts;
+      lastOldTexts = new Map();
+      for (const el of fxElements()) {
+        const old = olds.get(el);
+        if (old === undefined) buildText(el);
+        else rebuildText(el, old);
+      }
+    });
+  });
 
   function init() {
-    initLang();
     applyTheme();
     watchSystemTheme();
   }
 
   init();
-  document.addEventListener("astro:page-load", init);
+
+  // `initLang()` se dispara con `astro:page-load` (una vez en la carga inicial
+  // y en cada navegación). Si también se llamara directo aquí, el dispatch
+  // duplicado invalidaría la construcción de entrada a mitad de la animación.
+  document.addEventListener("astro:page-load", () => {
+    initLang();
+    init();
+  });
 </script>

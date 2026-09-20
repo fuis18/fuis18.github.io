@@ -15,7 +15,7 @@ const isEven = projects.length % 2 === 0;
 
 <Layout title="Projects" description="My website" background="true">
   <main transition:animate="slide">
-    <h1 data-i18n="projects-title">{m.projects_title()}</h1>
+    <h1 data-i18n="projects-title" data-textfx>{m.projects_title()}</h1>
     <div class:list={["project-container", { "even-count": isEven }]}>
       {
         projectCards.map((project, index) => {

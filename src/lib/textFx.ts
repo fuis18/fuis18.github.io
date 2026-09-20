@@ -2,24 +2,26 @@
  * Animación de texto "construir / desconstruir".
  *
  * Desconstruye el texto anterior del último carácter al primero (borrado en
- * reversa) y construye el nuevo (escritura por frases). Cada frase recibe un
- * presupuesto de tiempo fijo, de modo que un texto largo no vuelve lenta la
- * animación.
+ * reversa) y construye el nuevo con líneas simultáneas: el texto se parte en
+ * sus líneas visuales reales y todas se escriben a la vez (avanzan en cada
+ * tick), de modo que un texto de N líneas se llena como un bloque único con
+ * un presupuesto fijo, sin importar su longitud.
  *
  * Garantías:
  * - Estado final = `textContent` plano (sin spans), manteniendo el requisito
  *   de "single rendered text".
  * - `prefers-reduced-motion` desactiva la animación (texto directo).
  * - Un token por elemento cancela la animación en curso si se dispara otra.
+ * - Sin medición de líneas (oculto/jsdom) cae a un tipeo de una sola pasada.
  */
 
 export const FX_SELECTOR = "[data-textfx]";
 
 /** Intervalo mínimo entre ticks de escritura (ms). */
 const STEP_MS = 15;
-/** Presupuesto de tiempo por segmento/frase (ms). */
-const SEGMENT_BUDGET_MS = 500;
-/** Máximo de caracteres revelados por tick (para no parecer un borrón). */
+/** Presupuesto de tiempo total de la construcción (ms), compartido por todas las líneas. */
+const LINE_BUDGET_MS = 450;
+/** Máximo de caracteres revelados por tick y por línea (para no parecer un borrón). */
 const MAX_CHARS_PER_STEP = 6;
 /** Duración total de la desconstrucción (ms). */
 const DESTROY_MS = 350;
@@ -48,22 +50,50 @@ function isCurrent(el: HTMLElement, token: number): boolean {
 }
 
 /**
- * Divide el texto en segmentos (frases) para animar "por línea".
- * Separa en signos de puntuación seguidos de espacio (sin lookbehind,
- * compatible con navegadores más antiguos).
+ * Mide en qué offsets termina cada línea visual del texto (fines exclusivos,
+ * sin incluir la última línea). Requiere que el elemento contenga el texto
+ * completo en un nodo de texto. Devuelve `null` si no se puede medir
+ * (elemento oculto, sin layout, jsdom o texto de una sola línea).
  */
-export function splitSegments(text: string): string[] {
-  if (!text) return [];
-  const segments: string[] = [];
-  const re = /[.!?;:]\s+/g;
-  let last = 0;
-  let m: RegExpExecArray | null;
-  while ((m = re.exec(text)) !== null) {
-    segments.push(text.slice(last, m.index + 1));
-    last = m.index + m[0].length;
+export function measureLineBreaks(
+  el: HTMLElement,
+  text: string,
+): number[] | null {
+  const node = [...el.childNodes].find(
+    (n): n is Text => n.nodeType === Node.TEXT_NODE && n.textContent === text,
+  );
+  if (!node) return null;
+
+  try {
+    const range = document.createRange();
+    range.selectNodeContents(node);
+    const total = range.getClientRects().length;
+    if (total <= 1) return null; // oculto, sin layout o una sola línea
+
+    const bounds: number[] = [];
+    let lineStart = 0;
+    for (let target = 2; target <= total; target++) {
+      let lo = lineStart + 1;
+      let hi = text.length;
+      let best = -1;
+      while (lo <= hi) {
+        const mid = Math.floor((lo + hi) / 2);
+        range.setEnd(node, mid);
+        if (range.getClientRects().length >= target) {
+          best = mid;
+          hi = mid - 1;
+        } else {
+          lo = mid + 1;
+        }
+      }
+      if (best < 0) return null;
+      bounds.push(best - 1); // fin exclusivo de la línea anterior
+      lineStart = best;
+    }
+    return bounds;
+  } catch {
+    return null;
   }
-  segments.push(text.slice(last));
-  return segments.map((s) => s.trim()).filter(Boolean);
 }
 
 function construct(
@@ -71,41 +101,28 @@ function construct(
   text: string,
   token: number,
   reservedHeight?: number,
+  lineBounds?: number[] | null,
 ): void {
-  const segments = splitSegments(text);
-  if (segments.length === 0) {
+  if (!text) {
     el.textContent = text;
     return;
   }
 
-  const maxSteps = Math.max(2, Math.floor(SEGMENT_BUDGET_MS / STEP_MS));
-  const plan: Array<{ start: number; perStep: number }> = [];
-  let offset = 0;
-  for (const seg of segments) {
-    const len = seg.length;
-    const perStep = Math.min(
-      MAX_CHARS_PER_STEP,
-      Math.max(1, Math.ceil(len / maxSteps)),
-    );
-    plan.push({ start: offset, perStep });
-    offset += len;
-  }
+  const bounds =
+    lineBounds !== undefined ? lineBounds : measureLineBreaks(el, text);
 
   // Reserva la altura final del texto mientras se escribe. Sin esto, al
   // vaciar el elemento su altura colapsa a 0 y el layout "parpadea".
   // Se mide sobre el texto completo (ya presente, o medido por `rebuildText`
   // antes de desconstruir) y se suelta al terminar.
-  const height =
-    reservedHeight ?? (text ? Math.ceil(el.getBoundingClientRect().height) : 0);
+  const height = reservedHeight ?? Math.ceil(el.getBoundingClientRect().height);
   if (height > 0) el.style.minHeight = `${height}px`;
 
-  el.textContent = "";
-  const textNode = document.createTextNode("");
-  el.appendChild(textNode);
+  const maxSteps = Math.max(2, Math.floor(LINE_BUDGET_MS / STEP_MS));
+  const perStepFor = (len: number) =>
+    Math.min(MAX_CHARS_PER_STEP, Math.max(1, Math.ceil(len / maxSteps)));
 
-  let pos = 0;
   let timer: ReturnType<typeof setTimeout> | undefined;
-
   const finish = () => {
     if (!isCurrent(el, token)) return;
     if (timer !== undefined) clearTimeout(timer);
@@ -113,28 +130,70 @@ function construct(
     el.style.minHeight = "";
   };
 
+  // Parte el texto por sus líneas visuales medidas (fallback: una sola línea).
+  const lines: string[] = [];
+  if (bounds !== null) {
+    let prev = 0;
+    for (const end of bounds) {
+      const line = text.slice(prev, end);
+      if (line.length > 0) lines.push(line);
+      prev = end;
+    }
+    lines.push(text.slice(prev));
+  } else {
+    lines.push(text);
+  }
+
+  el.textContent = "";
+
+  if (lines.length <= 1) {
+    // Una sola línea (o sin medición): un nodo de texto, sin spans.
+    const textNode = document.createTextNode("");
+    el.appendChild(textNode);
+    const perStep = perStepFor(lines[0].length);
+    let pos = 0;
+    const step = () => {
+      if (!isCurrent(el, token)) return;
+      pos = Math.min(text.length, pos + perStep);
+      textNode.nodeValue = text.slice(0, pos);
+      if (pos >= text.length) {
+        finish();
+        return;
+      }
+      timer = setTimeout(step, STEP_MS);
+    };
+    timer = setTimeout(step, STEP_MS);
+    return;
+  }
+
+  // Varias líneas: un span block por línea; todas avanzan en cada tick.
+  const frag = document.createDocumentFragment();
+  const jobs = lines.map((line) => {
+    const span = document.createElement("span");
+    span.className = "textfx-line";
+    span.style.display = "block";
+    const node = document.createTextNode("");
+    span.appendChild(node);
+    frag.appendChild(span);
+    return { text: line, node, pos: 0, perStep: perStepFor(line.length) };
+  });
+  el.appendChild(frag);
+
   const step = () => {
     if (!isCurrent(el, token)) return;
-    if (pos >= text.length) {
-      finish();
-      return;
+    let pending = false;
+    for (const job of jobs) {
+      if (job.pos >= job.text.length) continue;
+      job.pos = Math.min(job.text.length, job.pos + job.perStep);
+      job.node.nodeValue = job.text.slice(0, job.pos);
+      pending = true;
     }
-    let perStep = MAX_CHARS_PER_STEP;
-    for (let i = plan.length - 1; i >= 0; i--) {
-      if (pos >= plan[i].start) {
-        perStep = plan[i].perStep;
-        break;
-      }
-    }
-    pos = Math.min(text.length, pos + perStep);
-    textNode.nodeValue = text.slice(0, pos);
-    if (pos >= text.length) {
+    if (!pending) {
       finish();
       return;
     }
     timer = setTimeout(step, STEP_MS);
   };
-
   timer = setTimeout(step, STEP_MS);
 }
 
@@ -231,13 +290,17 @@ export function rebuildText(el: HTMLElement, oldText: string): void {
     return;
   }
 
-  // Mide la altura del texto completo ANTES de desconstruir (en este punto el
-  // elemento ya contiene el texto nuevo escrito por los syncers): la reserva
-  // evita que el layout salte mientras se desconstruye y reconstruye.
+  // Mide la altura y las líneas visuales del texto completo ANTES de
+  // desconstruir (en este punto el elemento ya contiene el texto nuevo escrito
+  // por los syncers): la reserva evita que el layout salte y los límites de
+  // línea permiten construir con líneas simultáneas tras la desconstrucción.
   const reservedHeight = Math.ceil(el.getBoundingClientRect().height);
   if (reservedHeight > 0) el.style.minHeight = `${reservedHeight}px`;
+  const lineBounds = measureLineBreaks(el, newText);
 
   destroy(el, oldText, token, () => {
-    if (isCurrent(el, token)) construct(el, newText, token, reservedHeight);
+    if (isCurrent(el, token)) {
+      construct(el, newText, token, reservedHeight, lineBounds);
+    }
   });
 }

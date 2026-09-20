@@ -1,5 +1,10 @@
 import { describe, it, expect, vi, afterEach, beforeEach } from "vitest";
-import { buildText, rebuildText, splitSegments, FX_SELECTOR } from "./textFx";
+import {
+  buildText,
+  rebuildText,
+  measureLineBreaks,
+  FX_SELECTOR,
+} from "./textFx";
 
 function makeEl(text: string): HTMLElement {
   const el = document.createElement("p");
@@ -10,6 +15,7 @@ function makeEl(text: string): HTMLElement {
 function hasLeftovers(el: HTMLElement): boolean {
   return (
     el.querySelector(".textfx-char") !== null ||
+    el.querySelector(".textfx-line") !== null ||
     el.classList.contains("textfx-destroying")
   );
 }
@@ -28,27 +34,71 @@ function stubMatchMedia(matches: boolean) {
   });
 }
 
-describe("splitSegments", () => {
-  it("divide por frases conservando la puntuación", () => {
-    expect(splitSegments("Hello world. Two. Three!")).toEqual([
-      "Hello world.",
-      "Two.",
-      "Three!",
-    ]);
+/**
+ * Simula el layout: `getClientRects()` cuenta una línea por cada salto de
+ * línea superado (`jumpAt` = offset donde empiezan las líneas 2..n).
+ * Bajo este mock, "abcdefghij" con saltos en 4 y 8 se parte en
+ * "abcd"/"efgh"/"ij".
+ */
+function mockLineRects(jumpAt: number[]) {
+  const proto = Range.prototype as { getClientRects?: unknown };
+  const original = proto.getClientRects;
+  Object.defineProperty(proto, "getClientRects", {
+    configurable: true,
+    writable: true,
+    value: function (this: Range) {
+      const k = this.endOffset;
+      let lines = 1;
+      for (const j of jumpAt) if (k > j) lines++;
+      return Array.from(
+        { length: lines },
+        () => ({}),
+      ) as unknown as DOMRectList;
+    },
+  });
+  return () => {
+    if (original === undefined) {
+      delete proto.getClientRects;
+    } else {
+      Object.defineProperty(proto, "getClientRects", {
+        configurable: true,
+        writable: true,
+        value: original,
+      });
+    }
+  };
+}
+
+describe("measureLineBreaks", () => {
+  let restoreRects: (() => void) | undefined;
+
+  afterEach(() => {
+    restoreRects?.();
+    restoreRects = undefined;
   });
 
-  it("mantiene frases cortas sin puntuación como un solo segmento", () => {
-    expect(splitSegments("SEP 2026")).toEqual(["SEP 2026"]);
-    expect(splitSegments("DevOps Engineer")).toEqual(["DevOps Engineer"]);
+  it("calcula los fines exclusivos de cada línea visual", () => {
+    const el = makeEl("abcdefghij");
+    restoreRects = mockLineRects([4, 8]);
+    expect(measureLineBreaks(el, "abcdefghij")).toEqual([4, 8]);
   });
 
-  it("no genera segmentos vacíos ni con espacios de más", () => {
-    expect(splitSegments("  Hola.  ¿Todo bien?  ")).toEqual([
-      "Hola.",
-      "¿Todo bien?",
-    ]);
-    expect(splitSegments("")).toEqual([]);
-    expect(splitSegments("   ")).toEqual([]);
+  it("devuelve null para un texto de una sola línea", () => {
+    const el = makeEl("Home");
+    restoreRects = mockLineRects([]);
+    expect(measureLineBreaks(el, "Home")).toBeNull();
+  });
+
+  it("devuelve null sin layout (jsdom no calcula rects)", () => {
+    const el = makeEl("Una frase que envuelve en varias líneas");
+    expect(
+      measureLineBreaks(el, "Una frase que envuelve en varias líneas"),
+    ).toBeNull();
+  });
+
+  it("devuelve null si el elemento no contiene el texto completo", () => {
+    const el = makeEl("Holo");
+    expect(measureLineBreaks(el, "Hello")).toBeNull();
   });
 });
 
@@ -81,9 +131,9 @@ describe("buildText", () => {
       elapsed += 50;
     }
     expect(el.textContent).toBe(longText);
-    // Presupuesto por segmento (frase), no por carácter: la duración queda
-    // acotada incluso para textos largos (~8 fases × ~300ms).
-    expect(elapsed).toBeLessThanOrEqual(3_500);
+    // Presupuesto fijo compartido (LINE_BUDGET_MS), no por carácter: la
+    // duración queda acotada incluso para textos muy largos.
+    expect(elapsed).toBeLessThanOrEqual(2_000);
     expect(hasLeftovers(el)).toBe(false);
   });
 
@@ -197,6 +247,77 @@ describe("rebuildText", () => {
     rebuildText(el, "Holo");
     vi.advanceTimersByTime(1_000);
     expect(el.textContent).toBe("Hello");
+    expect(hasLeftovers(el)).toBe(false);
+  });
+});
+
+describe("construcción por líneas (simultánea)", () => {
+  let restoreRects: (() => void) | undefined;
+
+  beforeEach(() => {
+    stubMatchMedia(false);
+    restoreRects = mockLineRects([4, 8]);
+  });
+
+  afterEach(() => {
+    restoreRects?.();
+    restoreRects = undefined;
+  });
+
+  it("parte en un span por línea y las avanza en el mismo tick", () => {
+    vi.useFakeTimers();
+    const el = makeEl("abcdefghij");
+    buildText(el);
+
+    // Tras el primer tick, todas las líneas ya tienen texto parcial a la vez.
+    vi.advanceTimersByTime(15);
+    const spans = el.querySelectorAll(".textfx-line");
+    expect(spans.length).toBe(3);
+    spans.forEach((s) => expect(s.style.display).toBe("block"));
+    expect(Array.from(spans).map((s) => s.textContent)).toEqual([
+      "a",
+      "e",
+      "i",
+    ]);
+
+    vi.advanceTimersByTime(5_000);
+    expect(el.textContent).toBe("abcdefghij");
+    expect(el.querySelector(".textfx-line")).toBeNull();
+    expect(hasLeftovers(el)).toBe(false);
+  });
+
+  it("todas las líneas terminan juntas y dejan el DOM limpio", () => {
+    vi.useFakeTimers();
+    const el = makeEl("abcdefghij");
+    buildText(el);
+
+    let elapsed = 0;
+    while (el.querySelector(".textfx-line") && elapsed < 2_000) {
+      vi.advanceTimersByTime(15);
+      elapsed += 15;
+    }
+    expect(el.textContent).toBe("abcdefghij");
+    expect(el.querySelector(".textfx-line")).toBeNull();
+    expect(hasLeftovers(el)).toBe(false);
+    // Presupuesto compartido: pocas líneas cortas terminan muy rápido.
+    expect(elapsed).toBeLessThanOrEqual(600);
+  });
+
+  it("rebuildText mide las líneas antes de desconstruir y las usa tras", () => {
+    vi.useFakeTimers();
+    const el = makeEl("Holo");
+    buildText(el);
+    vi.advanceTimersByTime(1_000);
+
+    // El sync ya escribió el nuevo texto; rebuildText recibe el viejo.
+    el.textContent = "abcdefghij";
+    rebuildText(el, "Holo");
+
+    vi.advanceTimersByTime(470); // desconstrucción completa (350+120)
+    expect(el.querySelectorAll(".textfx-line").length).toBe(3);
+
+    vi.advanceTimersByTime(5_000);
+    expect(el.textContent).toBe("abcdefghij");
     expect(hasLeftovers(el)).toBe(false);
   });
 });

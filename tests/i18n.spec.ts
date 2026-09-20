@@ -33,6 +33,7 @@ test.describe("Language switching", () => {
 
     // Tras la animación de entrada el DOM queda limpio (sin spans)
     await expect(page.locator(".textfx-char")).toHaveCount(0);
+    await expect(page.locator(".textfx-line")).toHaveCount(0);
   });
 
   test("2. Cambiar a ES traduce todo el contenido visible", async ({
@@ -58,6 +59,7 @@ test.describe("Language switching", () => {
 
     // Tras la animación del cambio de idioma el DOM queda limpio
     await expect(page.locator(".textfx-char")).toHaveCount(0);
+    await expect(page.locator(".textfx-line")).toHaveCount(0);
   });
 
   test("3. Persistencia entre páginas", async ({ page }) => {
@@ -82,6 +84,7 @@ test.describe("Language switching", () => {
 
     // Tras la navegación, la construcción de entrada deja el DOM limpio
     await expect(page.locator(".textfx-char")).toHaveCount(0);
+    await expect(page.locator(".textfx-line")).toHaveCount(0);
   });
 
   test("4. Cambiar a JA traduce toda la portada", async ({ page }) => {
@@ -105,6 +108,7 @@ test.describe("Language switching", () => {
 
     // Tras la animación del cambio de idioma el DOM queda limpio
     await expect(page.locator(".textfx-char")).toHaveCount(0);
+    await expect(page.locator(".textfx-line")).toHaveCount(0);
   });
 
   test("5. Cambiar a DE traduce toda la portada", async ({ page }) => {
@@ -128,6 +132,7 @@ test.describe("Language switching", () => {
 
     // Tras la animación del cambio de idioma el DOM queda limpio
     await expect(page.locator(".textfx-char")).toHaveCount(0);
+    await expect(page.locator(".textfx-line")).toHaveCount(0);
   });
 
   test("6. El selector muestra las 4 opciones (incluyendo JA)", async ({
@@ -169,6 +174,7 @@ test.describe("Language switching", () => {
 
     // Tras la animación del cambio de idioma el DOM queda limpio
     await expect(page.locator(".textfx-char")).toHaveCount(0);
+    await expect(page.locator(".textfx-line")).toHaveCount(0);
   });
 
   test("8. En /projects, cambiar a DE traduce las tarjetas", async ({
@@ -200,5 +206,6 @@ test.describe("Language switching", () => {
 
     // Tras la animación del cambio de idioma el DOM queda limpio
     await expect(page.locator(".textfx-char")).toHaveCount(0);
+    await expect(page.locator(".textfx-line")).toHaveCount(0);
   });
 });

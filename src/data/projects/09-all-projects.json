@@ -12,5 +12,15 @@
     "title": "All Projects",
     "description": "My first portfolio, which included the projects I was building to learn JavaScript with @soydalto.",
     "date": "2022 - 2024"
+  },
+  "ja": {
+    "title": "すべてのプロジェクト",
+    "description": "@soydalto と一緒に JavaScript を学ぶために作っていたプロジェクトを収めた、最初のポートフォリオ。",
+    "date": "2022 - 2024"
+  },
+  "de": {
+    "title": "Alle Projekte",
+    "description": "Mein erstes Portfolio, das die Projekte enthielt, mit denen ich mit @soydalto JavaScript gelernt habe.",
+    "date": "2022 - 2024"
   }
 }

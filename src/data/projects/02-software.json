@@ -12,5 +12,15 @@
     "title": "Explore the Software",
     "description": "A simple page to discern technologies for software development.",
     "date": "AUG 2026"
+  },
+  "ja": {
+    "title": "ソフトウェアを探る",
+    "description": "ソフトウェア開発のための技術を見極めるシンプルなページ。",
+    "date": "2026年8月"
+  },
+  "de": {
+    "title": "Software entdecken",
+    "description": "Eine einfache Seite, um Technologien für die Softwareentwicklung zu bewerten.",
+    "date": "AUG 2026"
   }
 }

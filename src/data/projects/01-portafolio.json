@@ -12,5 +12,15 @@
     "title": "My web portfolio",
     "description": "Filled with many inspirations and changes, I implement my personal touch and my philosophy.",
     "date": "SEP 2026"
+  },
+  "ja": {
+    "title": "私の Web ポートフォリオ",
+    "description": "多くのインスピレーションと変化を詰め込み、私自身の個性と哲学を実装しています。",
+    "date": "2026年9月"
+  },
+  "de": {
+    "title": "Mein Web-Portfolio",
+    "description": "Gefüllt mit vielen Inspirationen und Veränderungen, setze ich meine persönliche Note und meine Philosophie um.",
+    "date": "SEP 2026"
   }
 }

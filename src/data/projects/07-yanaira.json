@@ -12,5 +12,15 @@
     "title": "My first AppWeb",
     "description": "A system was needed that could use a thermal printer over the network to print receipts.",
     "date": "DEC 2025"
+  },
+  "ja": {
+    "title": "初めての Web アプリ",
+    "description": "ネットワーク経由でサーマルプリンターを使い、レシートを印刷できるシステムが必要でした。",
+    "date": "2025年12月"
+  },
+  "de": {
+    "title": "Meine erste Web-App",
+    "description": "Es wurde ein System benötigt, das einen Thermodrucker im Netzwerk zum Drucken von Belegen nutzen kann.",
+    "date": "DEZ 2025"
   }
 }

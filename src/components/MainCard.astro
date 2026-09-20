@@ -147,6 +147,14 @@ const links = [
     display: grid;
     grid-template-columns: 1fr;
   }
+  .card-container:hover .card__modes button {
+    background-color: var(--bg-primary);
+  }
+
+  .card-container:hover .card__modes button.is-active {
+    background-color: var(--bg-hover);
+  }
+
   .card-container-content {
     display: flex;
   }
@@ -162,7 +170,7 @@ const links = [
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    background: none;
+    background: var(--bg-secondary);
     color: var(--color);
     font: inherit;
     line-height: 1;

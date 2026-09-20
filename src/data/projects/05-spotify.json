@@ -12,5 +12,15 @@
     "title": "Web Spotify Fork",
     "description": "Web built with @midudev, to learn Astro.",
     "date": "MAR 2026"
+  },
+  "ja": {
+    "title": "Web Spotify Fork",
+    "description": "Astro を学ぶために @midudev と一緒に作った Web。",
+    "date": "2026年3月"
+  },
+  "de": {
+    "title": "Web Spotify Fork",
+    "description": "Web, gebaut mit @midudev, um Astro zu lernen.",
+    "date": "MAR 2026"
   }
 }

@@ -84,7 +84,53 @@ test.describe("Language switching", () => {
     await expect(page.locator(".textfx-char")).toHaveCount(0);
   });
 
-  test("4. El selector muestra las 4 opciones (incluyendo JA)", async ({
+  test("4. Cambiar a JA traduce toda la portada", async ({ page }) => {
+    await switchTo(page, "ja");
+
+    await expect(page.locator("html")).toHaveAttribute("lang", "ja");
+    await expect(page.locator("#lang-value")).toHaveText("JA");
+    await expect(option(page, "ja")).toHaveAttribute("aria-selected", "true");
+
+    await expect(page.locator("nav a", { hasText: "ホーム" })).toHaveCount(1);
+    await expect(page.locator("nav a", { hasText: "Home" })).toHaveCount(0);
+    await expect(page.locator("[data-i18n='role']")).toHaveText(
+      "DevOps エンジニア",
+    );
+    await expect(page.locator("[data-i18n='about-title']")).toHaveText(
+      "私について",
+    );
+
+    // Nunca hay nodos duplicados ocultos
+    await expect(page.locator("[data-lang]")).toHaveCount(0);
+
+    // Tras la animación del cambio de idioma el DOM queda limpio
+    await expect(page.locator(".textfx-char")).toHaveCount(0);
+  });
+
+  test("5. Cambiar a DE traduce toda la portada", async ({ page }) => {
+    await switchTo(page, "de");
+
+    await expect(page.locator("html")).toHaveAttribute("lang", "de");
+    await expect(page.locator("#lang-value")).toHaveText("DE");
+    await expect(option(page, "de")).toHaveAttribute("aria-selected", "true");
+
+    await expect(page.locator("nav a", { hasText: "Start" })).toHaveCount(1);
+    await expect(page.locator("nav a", { hasText: "Home" })).toHaveCount(0);
+    await expect(page.locator("[data-i18n='role']")).toHaveText(
+      "DevOps-Ingenieur",
+    );
+    await expect(page.locator("[data-i18n='about-title']")).toHaveText(
+      "Über mich",
+    );
+
+    // Nunca hay nodos duplicados ocultos
+    await expect(page.locator("[data-lang]")).toHaveCount(0);
+
+    // Tras la animación del cambio de idioma el DOM queda limpio
+    await expect(page.locator(".textfx-char")).toHaveCount(0);
+  });
+
+  test("6. El selector muestra las 4 opciones (incluyendo JA)", async ({
     page,
   }) => {
     await page.click("#lang-trigger");
@@ -92,5 +138,67 @@ test.describe("Language switching", () => {
       await expect(option(page, value)).toBeVisible();
       await expect(option(page, value)).toHaveText(value.toUpperCase());
     }
+  });
+
+  test("7. En /projects, cambiar a JA traduce las tarjetas", async ({
+    page,
+  }) => {
+    await page.goto("/projects");
+    await switchTo(page, "ja");
+
+    await expect(page.locator("html")).toHaveAttribute("lang", "ja");
+    await expect(page.locator("#lang-value")).toHaveText("JA");
+    await expect(page.locator("[data-i18n='projects-title']")).toHaveText(
+      "プロジェクト",
+    );
+
+    const card0 = page.locator("[data-project-index='0']");
+    await expect(card0.locator("[data-project-field='title']")).toHaveText(
+      "私の Web ポートフォリオ",
+    );
+    await expect(card0.locator("[data-project-field='date']")).toHaveText(
+      "2026年9月",
+    );
+    const card8 = page.locator("[data-project-index='8']");
+    await expect(card8.locator("[data-project-field='title']")).toHaveText(
+      "すべてのプロジェクト",
+    );
+
+    // Nunca hay nodos duplicados ocultos
+    await expect(page.locator("[data-lang]")).toHaveCount(0);
+
+    // Tras la animación del cambio de idioma el DOM queda limpio
+    await expect(page.locator(".textfx-char")).toHaveCount(0);
+  });
+
+  test("8. En /projects, cambiar a DE traduce las tarjetas", async ({
+    page,
+  }) => {
+    await page.goto("/projects");
+    await switchTo(page, "de");
+
+    await expect(page.locator("html")).toHaveAttribute("lang", "de");
+    await expect(page.locator("#lang-value")).toHaveText("DE");
+    await expect(page.locator("[data-i18n='projects-title']")).toHaveText(
+      "Projekte",
+    );
+
+    const card0 = page.locator("[data-project-index='0']");
+    await expect(card0.locator("[data-project-field='title']")).toHaveText(
+      "Mein Web-Portfolio",
+    );
+    await expect(card0.locator("[data-project-field='date']")).toHaveText(
+      "SEP 2026",
+    );
+    const card8 = page.locator("[data-project-index='8']");
+    await expect(card8.locator("[data-project-field='title']")).toHaveText(
+      "Alle Projekte",
+    );
+
+    // Nunca hay nodos duplicados ocultos
+    await expect(page.locator("[data-lang]")).toHaveCount(0);
+
+    // Tras la animación del cambio de idioma el DOM queda limpio
+    await expect(page.locator(".textfx-char")).toHaveCount(0);
   });
 });

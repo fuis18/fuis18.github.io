@@ -12,5 +12,19 @@
       "title": "Who I Am?",
       "text": "DevOps engineer with experience in Web architecture, focused on performance and productivity.  I am a free software enthusiast, I like to automate processes and discover new innovative technologies and architectures with technical excellence."
     }
+  },
+  "ja": {
+    "role": "DevOps エンジニア",
+    "about": {
+      "title": "私について",
+      "text": "Web アーキテクチャの経験を持つ DevOps エンジニアで、パフォーマンスと生産性を重視しています。フリーソフトウェアの愛好者であり、プロセスの自動化や、革新的な新技術・技術的に優れたアーキテクチャの発見を好んでいます。"
+    }
+  },
+  "de": {
+    "role": "DevOps-Ingenieur",
+    "about": {
+      "title": "Über mich",
+      "text": "DevOps-Ingenieur mit Erfahrung in Web-Architektur, fokussiert auf Performance und Produktivität. Ich begeistere mich für freie Software, automatisiere gern Prozesse und entdecke neue innovative Technologien und Architekturen mit technischer Exzellenz."
+    }
   }
 }

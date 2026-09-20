@@ -12,5 +12,15 @@
     "title": "My Dotfiles",
     "description": "Running low on RAM, I dive into efficiency with Arch Linux, stripping down every layer to keep programming.",
     "date": "2025 - 2026"
+  },
+  "ja": {
+    "title": "私の Dotfiles",
+    "description": "RAM が少ないので、効率の追求に飛び込み、Arch Linux で各レイヤーを削ぎ落としながらプログラミングを続けています。",
+    "date": "2025 - 2026"
+  },
+  "de": {
+    "title": "Meine Dotfiles",
+    "description": "Mit wenig RAM tauche ich in Effizienz ein und reduziere mit Arch Linux jede Schicht, um weiter zu programmieren.",
+    "date": "2025 - 2026"
   }
 }

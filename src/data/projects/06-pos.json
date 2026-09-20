@@ -12,5 +12,15 @@
     "title": "POS Web App",
     "description": "Point-of-sale application where I pour all the React libraries I've learned into a single project.",
     "date": "JAN 2026"
+  },
+  "ja": {
+    "title": "POS ウェブアプリ",
+    "description": "学んだ React ライブラリをすべて一つのプロジェクトに注ぎ込んだ、POS アプリケーション。",
+    "date": "2026年1月"
+  },
+  "de": {
+    "title": "POS-Web-App",
+    "description": "Point-of-Sale-Anwendung, in der ich alle gelernten React-Bibliotheken in einem einzigen Projekt vereine.",
+    "date": "JAN 2026"
   }
 }

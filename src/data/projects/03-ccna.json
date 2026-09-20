@@ -12,5 +12,15 @@
     "title": "Learn CCNA",
     "description": "Self-learning page to learn Packet Tracer, with exercises and a cheat-sheet.",
     "date": "AUG 2026"
+  },
+  "ja": {
+    "title": "CCNA を学ぶ",
+    "description": "演習とチートシート付きで Packet Tracer を学ぶための自学ページ。",
+    "date": "2026年8月"
+  },
+  "de": {
+    "title": "CCNA lernen",
+    "description": "Selbstlern-Seite zum Erlernen von Packet Tracer, mit Übungen und einem Cheat-Sheet.",
+    "date": "AUG 2026"
   }
 }

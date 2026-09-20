@@ -12,5 +12,15 @@
     "title": "Healthy Life",
     "description": "A tasteful web for a Fair built with NextJS, but migrated to Astro for performance.",
     "date": "2025 / 2026"
+  },
+  "ja": {
+    "title": "Healthy Life",
+    "description": "NextJS で作った、イベント向けのセンスの良い Web。パフォーマンスのために Astro へ移行しました。",
+    "date": "2025 / 2026"
+  },
+  "de": {
+    "title": "Healthy Life",
+    "description": "Eine geschmackvolle Webseite für eine Messe, gebaut mit NextJS, aber aus Performance-Gründen zu Astro migriert.",
+    "date": "2025 / 2026"
   }
 }

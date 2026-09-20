@@ -73,25 +73,88 @@ async function openGraph(page: Page) {
 }
 
 async function clickNode(page: Page, id: string) {
-  const { x, y } = await page.evaluate((nodeId) => {
-    const network = (
-      window as Window & {
-        __fuisNetwork?: {
-          getPositions: (
-            ids: string[],
-          ) => Record<string, { x: number; y: number }>;
-          canvasToDOM: (pos: { x: number; y: number }) => {
-            x: number;
-            y: number;
-          };
-        };
-      }
-    ).__fuisNetwork!;
+  const { x, y } = await nodeCanvasPos(page, id);
+  const canvasBox = await page.locator("#network canvas").boundingBox();
+  await page.mouse.click(canvasBox!.x + x, canvasBox!.y + y);
+}
+
+type GraphNetworkForTest = {
+  getPositions: (ids: string[]) => Record<string, { x: number; y: number }>;
+  canvasToDOM: (pos: { x: number; y: number }) => {
+    x: number;
+    y: number;
+  };
+};
+
+async function nodeCanvasPos(
+  page: Page,
+  id: string,
+): Promise<{
+  x: number;
+  y: number;
+}> {
+  return page.evaluate((nodeId) => {
+    const network = (window as Window & { __fuisNetwork?: GraphNetworkForTest })
+      .__fuisNetwork!;
     const pos = network.getPositions([nodeId])[nodeId];
     return network.canvasToDOM(pos);
   }, id);
-  const canvasBox = await page.locator("#network canvas").boundingBox();
-  await page.mouse.click(canvasBox!.x + x, canvasBox!.y + y);
+}
+
+type BadgeStateForTest = {
+  base: string;
+  hover: string;
+  active: "base" | "hover";
+};
+
+async function badgeState(page: Page, id: string): Promise<BadgeStateForTest> {
+  return page.evaluate((nodeId) => {
+    const badges = (
+      window as Window & {
+        __fuisGraphBadges?: Record<string, BadgeStateForTest>;
+      }
+    ).__fuisGraphBadges!;
+    return badges[nodeId];
+  }, id);
+}
+
+/**
+ * Devuelve un punto del canvas (coords de viewport) que no tiene ningún nodo
+ * encima ni está tapado por otros elementos (p. ej. los botones de modo).
+ */
+async function emptyCanvasPoint(page: Page): Promise<{ x: number; y: number }> {
+  const point = await page.evaluate(() => {
+    const canvas = document.querySelector(
+      "#network canvas",
+    ) as HTMLCanvasElement | null;
+    if (!canvas) return null;
+    const rect = canvas.getBoundingClientRect();
+    const network = (
+      window as Window & {
+        __fuisNetwork?: {
+          getNodeAt: (pos: { x: number; y: number }) => unknown;
+        };
+      }
+    ).__fuisNetwork!;
+    const inViewport = (x: number, y: number) =>
+      x >= 0 && y >= 0 && x <= innerWidth && y <= innerHeight;
+    for (let y = 5; y < rect.height - 5; y += 12) {
+      for (let x = 5; x < rect.width - 5; x += 12) {
+        const px = rect.left + x;
+        const py = rect.top + y;
+        if (
+          inViewport(px, py) &&
+          document.elementFromPoint(px, py) === canvas &&
+          network.getNodeAt({ x, y }) === undefined
+        ) {
+          return { x: px, y: py };
+        }
+      }
+    }
+    return null;
+  });
+  if (!point) throw new Error("No empty canvas point found");
+  return point;
 }
 
 async function modesPosition(page: Page): Promise<string> {
@@ -227,17 +290,138 @@ test.describe("MainCard modes", () => {
         return colors.node;
       });
 
+    // Color real del nodo (no solo la variable JS): el bug era que los nodos
+    // del grupo "skill" no actualizaban su color al cambiar de tema.
+    const skillNodeColors = () =>
+      page.evaluate(() => {
+        const network = (
+          window as Window & {
+            __fuisNetwork?: {
+              body: {
+                nodes: Record<
+                  string,
+                  {
+                    options: {
+                      color: {
+                        background: string;
+                        hover: { background: string };
+                        highlight: { background: string };
+                      };
+                    };
+                  }
+                >;
+              };
+            };
+          }
+        ).__fuisNetwork!;
+        const { color } = network.body.nodes["astro"]!.options;
+        return {
+          bg: color.background,
+          hover: color.hover.background,
+          highlight: color.highlight.background,
+        };
+      });
+
     await expect.poll(nodeColor).toBe("#4a4a4a");
+    let colors = await skillNodeColors();
+    expect(colors.bg).toBe("#4a4a4a");
+    expect(colors.hover).toBe(colors.highlight);
 
     await page.click("#theme-toggle");
     await expect(page.locator("html")).toHaveClass(/dark/);
 
     await expect.poll(nodeColor).toBe("#c9c9c9");
+    await expect.poll(async () => (await skillNodeColors()).bg).toBe("#c9c9c9");
+    colors = await skillNodeColors();
+    expect(colors.hover).toBe(colors.highlight);
 
     await page.click("#theme-toggle");
     await expect(page.locator("html")).toHaveClass(/light/);
 
     await expect.poll(nodeColor).toBe("#4a4a4a");
+    await expect.poll(async () => (await skillNodeColors()).bg).toBe("#4a4a4a");
+    colors = await skillNodeColors();
+    expect(colors.hover).toBe(colors.highlight);
+  });
+
+  test("8. Hover y clic cambian el nodo a la variante -dark del badge", async ({
+    page,
+  }) => {
+    await openGraph(page);
+    await page.locator("#network canvas").scrollIntoViewIfNeeded();
+
+    const canvasBox = await page.locator("#network canvas").boundingBox();
+    const pos = await nodeCanvasPos(page, "rust");
+    const away = await emptyCanvasPoint(page);
+
+    // Nodos sin badge no exponen estado
+    expect(await badgeState(page, "astro")).toBeUndefined();
+
+    // Estado inicial: variante base (logo de marca), tinte oscuro en tema light
+    const initial = await badgeState(page, "rust");
+    expect(initial.active).toBe("base");
+    expect(initial.base).toMatch(/^data:image\/svg\+xml/);
+    expect(initial.hover).toContain("%230a0a0a");
+    expect(initial.hover).not.toBe(initial.base);
+
+    // Hover -> variante -dark (emit directo: el hover real del canvas emite lo mismo)
+    await page.evaluate(() => {
+      const network = (
+        window as Window & {
+          __fuisNetwork?: { emit: (ev: string, p: unknown) => void };
+        }
+      ).__fuisNetwork!;
+      network.emit("hoverNode", { node: "rust" });
+    });
+    await expect
+      .poll(async () => (await badgeState(page, "rust")).active)
+      .toBe("hover");
+
+    // Fuera del nodo -> vuelve a la variante base
+    await page.evaluate(() => {
+      const network = (
+        window as Window & {
+          __fuisNetwork?: { emit: (ev: string, p: unknown) => void };
+        }
+      ).__fuisNetwork!;
+      network.emit("blurNode", { node: "rust" });
+    });
+    await expect
+      .poll(async () => (await badgeState(page, "rust")).active)
+      .toBe("base");
+
+    // Clic selecciona (active) -> variante -dark
+    await page.mouse.click(canvasBox!.x + pos.x, canvasBox!.y + pos.y);
+    await expect
+      .poll(async () => (await badgeState(page, "rust")).active)
+      .toBe("hover");
+
+    // Clic en un punto vacío del canvas deselecciona -> variante base
+    await page.mouse.click(away.x, away.y);
+    await expect
+      .poll(async () => (await badgeState(page, "rust")).active)
+      .toBe("base");
+
+    // Cambiar de tema intercambia las variantes:
+    // light: reposo a color / hover-activo monocromático tintado.
+    // dark: reposo monocromático tintado / hover-activo a color.
+    await page.click("#theme-toggle");
+    await expect(page.locator("html")).toHaveClass(/dark/);
+    await expect
+      .poll(async () => (await badgeState(page, "rust")).base)
+      .toContain("%23ccc");
+    await expect
+      .poll(async () => (await badgeState(page, "rust")).hover)
+      .not.toContain("%23ccc");
+
+    await page.click("#theme-toggle");
+    await expect(page.locator("html")).toHaveClass(/light/);
+    await expect
+      .poll(async () => (await badgeState(page, "rust")).base)
+      .not.toContain("%23ccc");
+    await expect
+      .poll(async () => (await badgeState(page, "rust")).hover)
+      .toContain("%230a0a0a");
   });
 
   test("5. En móvil (<768px) el modo grafo mantiene 2 columnas", async ({

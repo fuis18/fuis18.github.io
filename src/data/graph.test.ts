@@ -1,6 +1,7 @@
 import { describe, it, expect } from "vitest";
 import graph from "./graph.json";
 import { DEFAULT_LANG, LANGS, pickLocalized, setLang } from "@/lib/i18n";
+import { resolveBadges } from "@/lib/badges";
 
 type Locale = (typeof LANGS)[number];
 
@@ -53,5 +54,23 @@ describe("graph.json", () => {
     const partial = { en: desc[DEFAULT_LANG], es: "solo es" };
     setLang("ja");
     expect(pickLocalized(partial)).toBe(partial.en);
+  });
+
+  it("cada badge referenciado existe en svg-badges", () => {
+    const files = import.meta.glob("../assets/svg-badges/*.svg", {
+      eager: true,
+      query: "?raw",
+      import: "default",
+    }) as Record<string, string>;
+    const assets = resolveBadges(files);
+
+    for (const node of graph.nodes) {
+      if (node.badge) {
+        expect(
+          assets[node.badge],
+          `${node.id} -> badge '${node.badge}'`,
+        ).toBeTruthy();
+      }
+    }
   });
 });

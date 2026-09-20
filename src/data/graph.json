@@ -37,6 +37,7 @@
       "id": "linux",
       "label": "Linux",
       "group": "category",
+      "badge": "linux",
       "description": {
         "en": "Linux as a daily driver: terminal, apps and desktop.",
         "es": "Linux como sistema de uso diario: terminal, aplicaciones y escritorio.",
@@ -70,6 +71,7 @@
       "id": "javascript",
       "label": "JS",
       "group": "skill",
+      "badge": "javascript",
       "description": {
         "en": "JavaScript: the language of the web and its ecosystem.",
         "es": "JavaScript: el lenguaje de la web y su ecosistema.",
@@ -81,6 +83,7 @@
       "id": "typescript",
       "label": "TypeScript",
       "group": "skill",
+      "badge": "typescript",
       "description": {
         "en": "TypeScript: static types and safer refactoring.",
         "es": "TypeScript: tipos estáticos y refactorización más segura.",
@@ -125,6 +128,7 @@
       "id": "react",
       "label": "React",
       "group": "skill",
+      "badge": "react",
       "description": {
         "en": "React: library for building user interfaces.",
         "es": "React: librería para construir interfaces de usuario.",
@@ -147,6 +151,7 @@
       "id": "tauri",
       "label": "Tauri",
       "group": "skill",
+      "badge": "tauri",
       "description": {
         "en": "Tauri: lightweight desktop apps with web technologies.",
         "es": "Tauri: aplicaciones de escritorio ligeras con tecnologías web.",
@@ -180,6 +185,7 @@
       "id": "rust",
       "label": "Rust",
       "group": "skill",
+      "badge": "rust",
       "description": {
         "en": "Rust: performance with memory safety.",
         "es": "Rust: rendimiento con seguridad de memoria.",
@@ -191,6 +197,7 @@
       "id": "nodejs",
       "label": "NodeJs",
       "group": "skill",
+      "badge": "nodejs",
       "description": {
         "en": "Node.js: JavaScript on the server.",
         "es": "Node.js: JavaScript en el servidor.",
@@ -221,9 +228,10 @@
       }
     },
     {
-      "id": "sqllite",
-      "label": "SQL Lite",
+      "id": "sqlite",
+      "label": "SQLite",
       "group": "skill",
+      "badge": "sqlite",
       "description": {
         "en": "SQLite: embedded, zero-configuration database.",
         "es": "SQLite: base de datos embebida sin configuración.",
@@ -235,6 +243,7 @@
       "id": "posgresql",
       "label": "PosgreSQL",
       "group": "skill",
+      "badge": "postgresql",
       "description": {
         "en": "PostgreSQL: open-source relational database.",
         "es": "PostgreSQL: base de datos relacional de código abierto.",
@@ -257,6 +266,7 @@
       "id": "brave",
       "label": "Brave",
       "group": "skill",
+      "badge": "brave",
       "description": {
         "en": "Brave: privacy-first browser with built-in blockers.",
         "es": "Brave: navegador centrado en privacidad con bloqueadores integrados.",
@@ -334,6 +344,7 @@
       "id": "nvim",
       "label": "Lazyvim",
       "group": "skill",
+      "badge": "neovim",
       "description": {
         "en": "Neovim with LazyVim: modern modal editing.",
         "es": "Neovim con LazyVim: edición modal moderna.",
@@ -345,6 +356,7 @@
       "id": "git",
       "label": "Lazygit",
       "group": "skill",
+      "badge": "git",
       "description": {
         "en": "Lazygit: simple Git in a terminal UI.",
         "es": "Lazygit: Git simple en una interfaz de terminal.",
@@ -411,6 +423,7 @@
       "id": "rclone",
       "label": "RClone",
       "group": "skill",
+      "badge": "rclone",
       "description": {
         "en": "Rclone: sync files with cloud storage.",
         "es": "Rclone: sincroniza archivos con almacenamiento en la nube.",
@@ -422,6 +435,7 @@
       "id": "obsidian",
       "label": "Obsidian",
       "group": "skill",
+      "badge": "obsidian",
       "description": {
         "en": "Obsidian: notes and knowledge base on local Markdown.",
         "es": "Obsidian: notas y base de conocimiento en Markdown local.",
@@ -484,7 +498,7 @@
     { "from": "back-stack", "to": "nodejs" },
     { "from": "back-stack", "to": "go" },
     { "from": "backend", "to": "back-sql" },
-    { "from": "back-sql", "to": "sqllite" },
+    { "from": "back-sql", "to": "sqlite" },
     { "from": "back-sql", "to": "posgresql" },
     { "from": "linux", "to": "browsers" },
     { "from": "linux", "to": "development" },

@@ -9,6 +9,7 @@
 
 <script>
   import graph from "@/data/graph.json";
+  import { resolveBadges, tintForTheme, toDataUri } from "@/lib/badges";
   import { GRAPH_MODE_EVENT } from "@/lib/events";
   import { pickLocalized, syncOnLangChange } from "@/lib/i18n";
   import type { Localized } from "@/types";
@@ -18,12 +19,15 @@
     id: string;
     label: string;
     group: "center" | "category" | "skill";
+    badge?: string;
     description?: Localized<string>;
   }
 
   /** Nodo con la descripción resuelta al idioma activo (el que vive en el DataSet). */
   type ResolvedGraphNode = Omit<GraphNode, "description"> & {
     description?: string;
+    shape?: "image";
+    image?: string;
   };
 
   let network: Network | null = null;
@@ -36,6 +40,75 @@
   let currentInfoId: string | null = null;
 
   const rawNodes = graph.nodes as GraphNode[];
+
+  const badgeFiles = import.meta.glob("@/assets/svg-badges/*.svg", {
+    eager: true,
+    query: "?raw",
+    import: "default",
+  }) as Record<string, string>;
+  const badgeAssets = resolveBadges(badgeFiles);
+
+  /** Estado de cada nodo con badge: URIs y variante activa (base | hover). */
+  const badgeState: Record<
+    string,
+    { base: string; hover: string; active: "base" | "hover" }
+  > = {};
+
+  /** Nodos con badge marcados en hover por selección (no por hover de ratón). */
+  const selectedBadgeIds = new Set<string>();
+
+  function currentTint(): string {
+    return tintForTheme(document.documentElement.classList.contains("dark"));
+  }
+
+  /**
+   * Variantes de un badge según el tema:
+   * - Tema light: reposo a color y hover/active monocromático tintado.
+   * - Tema dark: reposo monocromático tintado y hover/active a color.
+   */
+  function badgeUris(
+    asset: { base: string; dark?: string },
+    tint: string,
+  ): { base: string; hover: string } {
+    const color = toDataUri(asset.base);
+    const mono = toDataUri(asset.dark ?? asset.base, tint);
+    const isDark = document.documentElement.classList.contains("dark");
+    return isDark ? { base: mono, hover: color } : { base: color, hover: mono };
+  }
+
+  function initBadgeState() {
+    const tint = currentTint();
+    for (const node of rawNodes) {
+      const asset = node.badge ? badgeAssets[node.badge] : undefined;
+      if (!asset) continue;
+      badgeState[node.id] = { ...badgeUris(asset, tint), active: "base" };
+    }
+    (
+      window as Window & { __fuisGraphBadges?: typeof badgeState }
+    ).__fuisGraphBadges = badgeState;
+  }
+
+  /**
+   * Recalcula las variantes de cada badge al cambiar de tema y refresca la
+   * imagen del nodo con la variante activa (reposo o hover/active).
+   */
+  function refreshBadgeVariants() {
+    const tint = currentTint();
+    for (const node of rawNodes) {
+      const state = badgeState[node.id];
+      const asset = node.badge ? badgeAssets[node.badge] : undefined;
+      if (!state || !asset) continue;
+      const next = badgeUris(asset, tint);
+      if (next.base === state.base && next.hover === state.hover) continue;
+      state.base = next.base;
+      state.hover = next.hover;
+      nodesDataSet?.update({
+        id: node.id,
+        shape: "image",
+        image: state[state.active],
+      });
+    }
+  }
 
   function cssVar(name: string): string {
     return getComputedStyle(document.documentElement)
@@ -65,7 +138,10 @@
     const nodeColors = {
       background: node,
       border: nodeBorder,
+      // Hover y selección comparten color (`--graph-node-hover`), que ya cambia
+      // con el tema; así se evita el azul por defecto de vis en hover.
       highlight: { background: nodeHover, border: nodeHover },
+      hover: { background: nodeHover, border: nodeHover },
     };
 
     return {
@@ -91,7 +167,7 @@
           font: { color, size: 13, face: "Inter" },
           color: nodeColors,
         },
-        skill: nodeColors,
+        skill: { color: nodeColors },
       },
       edges: {
         color: { color: edge, highlight: edge },
@@ -109,10 +185,14 @@
 
   /** Nodos con la descripción resuelta para el idioma activo. */
   function nodesForLang(): ResolvedGraphNode[] {
-    return rawNodes.map((node) => ({
-      ...node,
-      description: pickLocalized(node.description ?? {}),
-    }));
+    return rawNodes.map((node) => {
+      const badge = node.badge ? badgeState[node.id]?.base : undefined;
+      return {
+        ...node,
+        description: pickLocalized(node.description ?? {}),
+        ...(badge ? { shape: "image" as const, image: badge } : {}),
+      };
+    });
   }
 
   function showInfo(node: ResolvedGraphNode) {
@@ -140,6 +220,7 @@
 
       nodesDataSet = new DataSet<ResolvedGraphNode>(nodesForLang());
       const edgesDataSet = new DataSet<Edge>(graph.edges as Edge[]);
+      refreshBadgeVariants();
 
       network = new Network(
         netEl,
@@ -151,6 +232,10 @@
         const id = params.nodes?.[0];
         if (id === undefined) {
           hideInfo();
+          // Click en espacio vacío: vis deselecciona sin emitir deselectNode.
+          for (const badgeId of selectedBadgeIds)
+            setBadgeImage(badgeId, "base");
+          selectedBadgeIds.clear();
           return;
         }
         const node = nodesDataSet?.get(id) as ResolvedGraphNode | null;
@@ -158,10 +243,49 @@
         else hideInfo();
       });
 
+      const setBadgeImage = (id: string | number, target: "base" | "hover") => {
+        const nodeId = String(id);
+        const state = badgeState[nodeId];
+        if (!state || state.active === target) return;
+        state.active = target;
+        nodesDataSet?.update({
+          id: nodeId,
+          shape: "image",
+          image: target === "hover" ? state.hover : state.base,
+        });
+      };
+
+      network.on("hoverNode", (params: { node?: string | number }) => {
+        if (params.node !== undefined) setBadgeImage(params.node, "hover");
+      });
+
+      network.on("blurNode", (params: { node?: string | number }) => {
+        const id = params.node;
+        if (id !== undefined && !selectedBadgeIds.has(String(id))) {
+          setBadgeImage(id, "base");
+        }
+      });
+
+      network.on("selectNode", (params: { nodes?: Array<string | number> }) => {
+        params.nodes?.forEach((id) => {
+          selectedBadgeIds.add(String(id));
+          setBadgeImage(id, "hover");
+        });
+      });
+
+      network.on(
+        "deselectNode",
+        (params: { nodes?: Array<string | number> }) => {
+          params.nodes?.forEach((id) => {
+            selectedBadgeIds.delete(String(id));
+            setBadgeImage(id, "base");
+          });
+        },
+      );
+
       (window as Window & { __fuisNetwork?: Network }).__fuisNetwork = network;
 
       network.once("stabilizationIterationsDone", () => {
-        network?.setOptions({ physics: false });
         (
           window as Window & { __fuisNetworkStabilized?: boolean }
         ).__fuisNetworkStabilized = true;
@@ -172,6 +296,7 @@
           network.setOptions(buildOptions());
           network.redraw();
         }
+        refreshBadgeVariants();
       });
       observer.observe(document.documentElement, {
         attributes: true,
@@ -186,9 +311,13 @@
   function applyNodeLang() {
     if (!nodesDataSet) return;
     rawNodes.forEach((node) => {
+      const badge = node.badge ? badgeState[node.id]?.base : undefined;
       nodesDataSet?.update({
         id: node.id,
         description: pickLocalized(node.description ?? {}),
+        // Reafirma el shape "image": un update parcial reaplica el shape del
+        // grupo ("dot") sobre nodos con badge y el logo se convierte en círculo.
+        ...(badge ? { shape: "image" as const } : {}),
       });
     });
     if (!infoEl || infoEl.hidden || !currentInfoId) return;
@@ -245,6 +374,7 @@
   }
 
   setup();
+  initBadgeState();
   document.addEventListener("astro:page-load", setup);
 </script>
 

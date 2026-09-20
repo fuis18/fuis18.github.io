@@ -1,5 +1,5 @@
 ---
-import { Image } from "astro:assets";
+import { Image, getImage } from "astro:assets";
 import type { ImageMetadata } from "astro";
 
 interface Props {
@@ -9,15 +9,19 @@ interface Props {
 }
 
 const { src, alt, loading = "lazy" } = Astro.props;
+
+// Versión completa (WebP a resolución nativa 16:9) solo para el zoom.
+// Se genera en build pero NO se carga con la página: se precarga al pasar el cursor.
+const zoomImage = await getImage({ src, format: "webp" });
 ---
 
-<div class="img-container">
+<div class="img-container" data-zoom-src={zoomImage.src}>
   <Image
     src={src}
     alt={alt}
     format="webp"
-    widths={[480, 960, 1600]}
-    sizes="(min-width: 900px) 40vw, 100vw"
+    widths={[480, 640, 960, 1280]}
+    sizes="(min-width: 1720px) 20vw, (min-width: 1400px) 24vw, (min-width: 1010px) 32vw, (min-width: 670px) 46vw, 100vw"
     loading={loading}
   />
   <span class="img-tool">Expand</span>
@@ -79,6 +83,23 @@ const { src, alt, loading = "lazy" } = Astro.props;
       const img = container.querySelector("img");
       if (!img || img.dataset.zoom) return;
       img.dataset.zoom = "true";
+
+      const zoomSrc = container.dataset.zoomSrc;
+      let zoomImg: HTMLImageElement | null = null;
+      let zoomReady = false;
+
+      const prefetchZoom = () => {
+        if (zoomReady || !zoomSrc || zoomImg) return;
+        zoomImg = new Image();
+        zoomImg.onload = () => {
+          zoomReady = true;
+        };
+        zoomImg.src = zoomSrc;
+      };
+
+      container.addEventListener("mouseenter", prefetchZoom);
+      container.addEventListener("touchstart", prefetchZoom, { passive: true });
+
       img.addEventListener("click", () => {
         const rect = img.getBoundingClientRect();
 
@@ -86,7 +107,20 @@ const { src, alt, loading = "lazy" } = Astro.props;
         overlay.classList.add("zoom");
 
         const picture = document.createElement("img");
-        picture.src = img.src;
+        picture.src =
+          zoomReady && zoomImg ? zoomImg.src : img.currentSrc || img.src;
+        if (!zoomReady && zoomSrc) {
+          prefetchZoom();
+          const upgrade = () => {
+            if (zoomReady && zoomImg) picture.src = zoomImg.src;
+          };
+          if (zoomImg) {
+            zoomImg.onload = () => {
+              zoomReady = true;
+              upgrade();
+            };
+          }
+        }
         picture.style.position = "fixed";
         picture.style.left = rect.left + "px";
         picture.style.top = rect.top + "px";

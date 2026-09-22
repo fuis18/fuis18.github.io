@@ -11,6 +11,12 @@ export const LANGS = locales;
 export type Lang = (typeof LANGS)[number];
 export const DEFAULT_LANG: Lang = baseLocale as Lang;
 
+/**
+ * Constante compartida entre MainCard y SkillGraph. Vive aquí porque es el
+ * módulo que ambos ya importan: evita un chunk/hop extra en la carga.
+ */
+export const GRAPH_MODE_EVENT = "maincard:graph-mode";
+
 export function getLang(): Lang {
   return getLocale() as Lang;
 }

@@ -67,6 +67,12 @@ import { DEFAULT_LANG } from "@/lib/i18n";
 
   init();
 
+  // Service Worker: cache-first para /fonts/* y /_astro/* (GitHub Pages impone
+  // Cache-Control de 10 min y no permite cabeceras propias). Solo en producción.
+  if (import.meta.env.PROD && "serviceWorker" in navigator) {
+    navigator.serviceWorker.register("/sw.js");
+  }
+
   // `initLang()` se dispara con `astro:page-load` (una vez en la carga inicial
   // y en cada navegación). Si también se llamara directo aquí, el dispatch
   // duplicado invalidaría la construcción de entrada a mitad de la animación.

@@ -94,7 +94,7 @@ a {
 
 @font-face {
   font-family: "digital-7";
-  src: url(/fonts/digital-7.ttf) format("truetype");
+  src: url(/fonts/digital-7.woff2) format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -102,7 +102,7 @@ a {
 
 @font-face {
   font-family: "Yuji Mai";
-  src: url(/fonts/YujiMai-Regular.ttf) format("truetype");
+  src: url(/fonts/YujiMai-Regular.woff2) format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;

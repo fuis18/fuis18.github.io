@@ -205,7 +205,9 @@ test.describe("MainCard modes", () => {
     await expect(graphBtn).toHaveClass(/is-active/);
     expect(await linkColumns(page)).toBe(1);
     expect(await evenLinkBorderLeft(page)).toBe("0px");
-    expect(await cardContentPadding(page)).toBe("0px");
+    // Padding superior: despeja la mitad inferior de la legenda del borde
+    // para que el grafo no se dibuje debajo de ella.
+    expect(await cardContentPadding(page)).toBe("20px 0px 0px");
     expect(await penultimateLinkBorderBottom(page)).toBe("1px");
     expect(await linkTopRightRadius(page, 0)).not.toBe("0px");
     expect(await linkTopRightRadius(page, 1)).toBe("0px");

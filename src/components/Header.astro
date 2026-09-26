@@ -51,7 +51,7 @@ import ThemeToggle from "./ThemeToggle.astro";
   .header-rigth {
     gap: 12px;
     color: var(--color-title);
-align-items: center;
+    align-items: center;
   }
   .clock {
     font-family: digital-7;
@@ -71,7 +71,7 @@ align-items: center;
   nav a {
     display: inline-block;
     margin-inline: 0.5rem;
-    padding-inline: 1rem;
+    padding-inline: 0.5rem;
     height: 2.25rem;
     font-weight: 500;
     align-content: center;
@@ -84,7 +84,7 @@ align-items: center;
     color: var(--color-title);
   }
 
-  @media screen and (width >= 425px) {
+  @media screen and (width >= 430px) {
     header {
       justify-content: space-between;
     }
@@ -92,12 +92,18 @@ align-items: center;
       display: inline-flex;
     }
   }
-  @media screen and (width >= 640px) {
+  @media screen and (width >= 500px) {
     nav a {
-      margin-inline: 1rem;
+      padding-inline: 1rem;
     }
+  @media screen and (width >= 640px) {
     .header-left {
       display: inline-flex;
+    }
+  }
+  @media screen and (width >= 960px) {
+    nav a {
+      margin-inline: 1rem;
     }
   }
 </style>
@@ -143,11 +149,13 @@ align-items: center;
       nav_projects: m.nav_projects,
       nav_blog: m.nav_blog,
     };
-    document.querySelectorAll<HTMLAnchorElement>("[data-message]").forEach((a) => {
-      const key = a.dataset.message ?? "";
-      const message = messages[key];
-      if (typeof message === "function") a.textContent = message();
-    });
+    document
+      .querySelectorAll<HTMLAnchorElement>("[data-message]")
+      .forEach((a) => {
+        const key = a.dataset.message ?? "";
+        const message = messages[key];
+        if (typeof message === "function") a.textContent = message();
+      });
   }
 
   syncOnLangChange(syncNav);

@@ -1,11 +1,18 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import { m } from "@/paraglide/messages";
+import BlogCard from "@/components/BlogCard.astro";
 ---
 
 <Layout title="Home" description="My website">
   <main transition:animate="slide">
     <h1 data-i18n="blog-title" data-textfx>{m.blog_title()}</h1>
+    <div class="blog-container card-handler">
+      <BlogCard />
+      <BlogCard />
+      <BlogCard />
+      <BlogCard />
+    </div>
   </main>
 </Layout>
 
@@ -23,3 +30,11 @@ import { m } from "@/paraglide/messages";
   syncOnLangChange(syncTitle);
   document.addEventListener("astro:page-load", syncTitle);
 </script>
+
+<style>
+  @media screen and (width >= 1000px) {
+    .blog-container {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>

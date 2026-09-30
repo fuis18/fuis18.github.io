@@ -16,7 +16,13 @@ const isEven = projects.length % 2 === 0;
 <Layout title="Projects" description="My website" background="true">
   <main transition:animate="slide">
     <h1 data-i18n="projects-title" data-textfx>{m.projects_title()}</h1>
-    <div class:list={["project-container", { "even-count": isEven }]}>
+    <div
+      class:list={[
+        "project-container",
+        "card-handler",
+        { "even-count": isEven },
+      ]}
+    >
       {
         projectCards.map((project, index) => {
           const alt = Object.values(project.title)[0] ?? "";
@@ -61,9 +67,7 @@ const isEven = projects.length % 2 === 0;
           .querySelectorAll<HTMLElement>("[data-project-field]")
           .forEach((el) => {
             const field = el.dataset.projectField as
-              | "title"
-              | "description"
-              | "date";
+              "title" | "description" | "date";
             const localized = project[field];
             el.textContent = localized[getLang()] ?? localized[DEFAULT_LANG];
           });
@@ -82,8 +86,6 @@ const isEven = projects.length % 2 === 0;
   }
   .project-container {
     grid-template-columns: 1fr;
-    display: grid;
-    gap: 1.5rem;
   }
   .project-item {
     height: min-content;
@@ -114,7 +116,6 @@ const isEven = projects.length % 2 === 0;
   @media screen and (width >= 1010px) {
     .project-container {
       grid-template-columns: 1fr 1fr 1fr;
-      gap: 1rem;
     }
   }
   @media screen and (width >= 1400px) {
@@ -130,7 +131,6 @@ const isEven = projects.length % 2 === 0;
   @media screen and (width >= 1720px) {
     .project-container {
       grid-template-columns: 1fr 1fr;
-      gap: 2rem;
     }
     .project-item {
       width: 100%;
@@ -148,3 +148,4 @@ const isEven = projects.length % 2 === 0;
     }
   }
 </style>
+

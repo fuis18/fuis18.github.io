@@ -67,6 +67,17 @@ a {
   text-decoration: inherit;
 }
 
+.card-handler {
+  gap: 1.5rem;
+  display: grid;
+}
+
+.card-tooltip {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+}
+
 .card-container,
 .main-card {
   border: 1px solid var(--border);
@@ -81,6 +92,7 @@ a {
 
 .card-content,
 .main-card {
+  display: grid;
   padding: 2rem;
 }
 

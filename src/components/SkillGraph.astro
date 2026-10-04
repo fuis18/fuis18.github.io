@@ -10,7 +10,11 @@
 <script>
   import graph from "@/data/graph.json";
   import { resolveBadges, tintForTheme, toDataUri } from "@/lib/badges";
-  import { GRAPH_MODE_EVENT, pickLocalized, syncOnLangChange } from "@/lib/i18n";
+  import {
+    GRAPH_MODE_EVENT,
+    pickLocalized,
+    syncOnLangChange,
+  } from "@/lib/i18n";
   import type { Localized } from "@/types";
   import type { DataSet, Edge, Network } from "vis-network/standalone";
 
@@ -22,7 +26,6 @@
     description?: Localized<string>;
   }
 
-  /** Nodo con la descripción resuelta al idioma activo (el que vive en el DataSet). */
   type ResolvedGraphNode = Omit<GraphNode, "description"> & {
     description?: string;
     shape?: "image";
@@ -47,24 +50,17 @@
   }) as Record<string, string>;
   const badgeAssets = resolveBadges(badgeFiles);
 
-  /** Estado de cada nodo con badge: URIs y variante activa (base | hover). */
   const badgeState: Record<
     string,
     { base: string; hover: string; active: "base" | "hover" }
   > = {};
 
-  /** Nodos con badge marcados en hover por selección (no por hover de ratón). */
   const selectedBadgeIds = new Set<string>();
 
   function currentTint(): string {
     return tintForTheme(document.documentElement.classList.contains("dark"));
   }
 
-  /**
-   * Variantes de un badge según el tema:
-   * - Tema light: reposo a color y hover/active monocromático tintado.
-   * - Tema dark: reposo monocromático tintado y hover/active a color.
-   */
   function badgeUris(
     asset: { base: string; dark?: string },
     tint: string,
@@ -87,10 +83,6 @@
     ).__fuisGraphBadges = badgeState;
   }
 
-  /**
-   * Recalcula las variantes de cada badge al cambiar de tema y refresca la
-   * imagen del nodo con la variante activa (reposo o hover/active).
-   */
   function refreshBadgeVariants() {
     const tint = currentTint();
     for (const node of rawNodes) {
@@ -137,8 +129,6 @@
     const nodeColors = {
       background: node,
       border: nodeBorder,
-      // Hover y selección comparten color (`--graph-node-hover`), que ya cambia
-      // con el tema; así se evita el azul por defecto de vis en hover.
       highlight: { background: nodeHover, border: nodeHover },
       hover: { background: nodeHover, border: nodeHover },
     };
@@ -231,7 +221,6 @@
         const id = params.nodes?.[0];
         if (id === undefined) {
           hideInfo();
-          // Click en espacio vacío: vis deselecciona sin emitir deselectNode.
           for (const badgeId of selectedBadgeIds)
             setBadgeImage(badgeId, "base");
           selectedBadgeIds.clear();
@@ -306,7 +295,6 @@
     return ensurePromise;
   }
 
-  /** Actualiza las descripciones de los nodos y el panel abierto al cambiar de idioma. */
   function applyNodeLang() {
     if (!nodesDataSet) return;
     rawNodes.forEach((node) => {
@@ -314,8 +302,6 @@
       nodesDataSet?.update({
         id: node.id,
         description: pickLocalized(node.description ?? {}),
-        // Reafirma el shape "image": un update parcial reaplica el shape del
-        // grupo ("dot") sobre nodos con badge y el logo se convierte en círculo.
         ...(badge ? { shape: "image" as const } : {}),
       });
     });

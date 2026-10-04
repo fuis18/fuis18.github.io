@@ -75,7 +75,6 @@
       { signal: controller.signal },
     );
 
-    // Si el tema es "system", el icono debe seguir al esquema del SO.
     window
       .matchMedia("(prefers-color-scheme: dark)")
       .addEventListener?.("change", updateIcon, { signal: controller.signal });

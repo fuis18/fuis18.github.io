@@ -3,3 +3,4 @@ dist
 node_modules
 pnpm-lock.yaml
 public/robots.txt
+project.inlang

@@ -1,6 +1,6 @@
 {
   "name": "fuis18.github.io",
-  "version": "5.0.0",
+  "version": "5.1.0",
   "author": "Fuis18",
   "license": "MIT",
   "type": "module",
@@ -43,7 +43,7 @@
     "jsdom": "30.0.1",
     "prettier": "3.9.6",
     "prettier-plugin-astro": "0.14.1",
-    "sharp": "^0.35.4",
+    "sharp": "0.35.4",
     "typescript": "7.0.2",
     "vitest": "5.0.0"
   }

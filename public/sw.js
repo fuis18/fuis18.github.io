@@ -1,8 +1,4 @@
 const CACHE_NAME = "fuis18-static-v2";
-
-// Solo cachea recursos inmutables o estables por URL:
-// - /fonts/*       → fuentes (nombres estables; subir la versión de la caché al actualizarlas)
-// - /_astro/*      → assets con hash de contenido (inmutables por deploy)
 const CACHEABLE_PREFIXES = ["/fonts/", "/_astro/"];
 
 self.addEventListener("install", () => {

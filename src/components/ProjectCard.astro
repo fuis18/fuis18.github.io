@@ -23,7 +23,13 @@ const {
 ---
 
 <div class="card-container project-card">
-  <div class="card-content" data-repo={repo} role="link" tabindex="0">
+  <div
+    class="card-content"
+    data-size="sm"
+    data-repo={repo}
+    role="link"
+    tabindex="0"
+  >
     <div class:list={["project-title", website ? "has-web" : "no-web"]}>
       {
         website && (
@@ -32,7 +38,7 @@ const {
           </a>
         )
       }
-      <h2 data-project-field="title" data-textfx>
+      <h2 class="card-title" data-project-field="title" data-textfx>
         {title[getLang()] ?? title[DEFAULT_LANG]}
       </h2>
       <span data-project-field="date" data-textfx>
@@ -42,7 +48,7 @@ const {
     <p data-project-field="description" data-textfx>
       {description[getLang()] ?? description[DEFAULT_LANG]}
     </p>
-    <div class="tags">
+    <div class="tags" data-size="sm">
       {tags.map((tag) => <span class="tag">{tag}</span>)}
     </div>
   </div>
@@ -55,11 +61,6 @@ const {
     transition-property: translate;
     transition-duration: 0.2s;
     overflow: hidden;
-  }
-
-  .project-card:hover .tag {
-    color: var(--color-hover);
-    background-color: var(--bg-secondary);
   }
 
   html.light .project-card {
@@ -88,7 +89,6 @@ const {
 
   .card-content {
     width: 100%;
-    padding: 1rem;
     display: grid;
     grid-template-rows: min-content 1fr min-content;
     cursor: pointer;
@@ -99,8 +99,6 @@ const {
   .project-title {
     display: grid;
     width: 100%;
-    justify-content: space-between;
-    align-items: center;
     gap: 0.5rem;
   }
   .project-title.no-web {
@@ -116,25 +114,12 @@ const {
     font-size: 0.75rem;
     width: max-content;
   }
-  .tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-top: 0.75rem;
-  }
   .web-icon {
     display: flex;
     transition: transform 0.2s ease;
   }
   .web-icon:hover {
     transform: rotate(12deg) scale(1.1);
-  }
-  .tag {
-    border: 1px solid var(--border);
-    border-radius: 1rem;
-    white-space: nowrap;
-    font-size: 0.75rem;
-    padding: 0.25rem 0.625rem;
   }
 
   @keyframes shine {

@@ -7,7 +7,7 @@ type HomeBlock = (typeof homeDataRaw)["en"];
 const homeData = homeDataRaw as unknown as Localized<HomeBlock>;
 ---
 
-<div class="main-card">
+<div class="card-container card-content" data-size="xlg">
   <h1>Luis Roman Cieza</h1>
   <div class="subtitle">
     <h2 data-i18n="role" data-textfx>{pickLocalized(homeData).role}</h2>

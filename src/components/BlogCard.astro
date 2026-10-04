@@ -1,11 +1,18 @@
-<a href="" class="card-container card-content">
-  <h2>Article</h2>
-  <div class="card-tooltip">
-    <span>August 1, 2026</span>
-    <span>4 min read</span>
+<a href="" class="card-container card-content" data-size="sm">
+  <div class="card-title">
+    <h2>Article</h2>
+    <div class="card-tooltip">
+      <span>August 1, 2026</span>
+      <span>4 min read</span>
+    </div>
   </div>
+
   <hr />
   <p>Lorem ipsum</p>
+  <div class="tags" data-size="sm">
+    <div class="tag">Hola</div>
+    <div class="tag">Adios</div>
+  </div>
 </a>
 
 <style>
@@ -13,5 +20,11 @@
     margin-block: 1rem;
     min-width: 12rem;
     width: 50%;
+  }
+  .card-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
   }
 </style>

@@ -25,14 +25,15 @@ const links = [
   },
   { label: "Youtube", url: "https://youtube.com/@fuis18", icon: YoutubeIcon },
   { label: "Ko-fi", url: "https://ko-fi.com/fuis18", icon: KofiIcon },
-  { label: "Signal", url: "", icon: SignalIcon },
+  {
+    label: "Signal",
+    url: "https://signal.me/#eu/EEVH4zFpmagsTBTa4tiwjhL0ShOEf9hbQpcEa42p9uyEqLSmZVJJQ5hHVEhH0EHG",
+    icon: SignalIcon,
+  },
 ];
 ---
 
 <div class="card-wrap">
-  <!-- Legenda del borde: HERMANO del contenedor (el clip-path no la recorta).
-       Antes del contenedor en el DOM para mantener el orden de lectura; z-index
-       la pinta por encima del fondo del contenedor. -->
   <h3 class="card__legend" data-i18n="about-title" data-textfx>
     {pickLocalized(homeData).about.title}
   </h3>
@@ -125,12 +126,6 @@ const links = [
     );
   }
 
-  /**
-   * Dimensiona la muesca del borde con el box real de la legenda y alinea la
-   * legenda con el inicio del texto (--legend-x). Las variables se escriben
-   * en el WRAP: las leen el clip-path del contenedor (por herencia) y el
-   * parche del hueco (.card-wrap::before).
-   */
   function measureLegend() {
     if (!container || !wrap || !legend) return;
     const wRect = wrap.getBoundingClientRect();
@@ -164,18 +159,16 @@ const links = [
     graphBtn.setAttribute("aria-pressed", String(next === "graph"));
 
     dispatchGraphMode(next === "graph");
-    // Diferir la medida al siguiente frame: los classList.toggle de arriba
-    // invalidan el layout; leer rects aquí forzaría un reflow síncrono.
     requestAnimationFrame(() => measureLegend());
   }
 
   function setup() {
     wrap = document.querySelector(".card-wrap");
-    container = document.querySelector(".card-container");
-    links = document.querySelector(".card__links");
+    container = wrap?.querySelector<HTMLElement>(".card-container") ?? null;
+    links = wrap?.querySelector<HTMLElement>(".card__links") ?? null;
     listBtn = document.getElementById("mode-list") as HTMLButtonElement;
     graphBtn = document.getElementById("mode-nodes") as HTMLButtonElement;
-    legend = document.querySelector(".card__legend");
+    legend = wrap?.querySelector<HTMLElement>(".card__legend") ?? null;
 
     if (!wrap || !container || !listBtn || !graphBtn || !legend) return;
     if (mode !== "about") setMode("about");
@@ -216,13 +209,10 @@ const links = [
     --title-shift: calc(2rem + var(--title-line-center));
   }
 
-  /* El contenedor cambia de fondo al hover; el parche del hueco lo sigue. */
   .card-wrap:has(.card-container:hover) {
     --card-bg: var(--bg-primary);
   }
 
-  /* Parche del hueco: detrás del contenedor, solo visible a través del
-     corte físico del clip-path → el hueco tiene el color del contenedor. */
   .card-wrap::before {
     content: "";
     position: absolute;
@@ -238,8 +228,6 @@ const links = [
     position: relative;
     display: grid;
     grid-template-columns: 1fr;
-    /* Modo about (estado base): borde continuo (muesca colapsada). Cierra
-       a la vez que la legenda baja al interior. */
     clip-path: polygon(
       0 0,
       calc((var(--notch-x1) + var(--notch-x2)) / 2) 0,
@@ -254,8 +242,6 @@ const links = [
   }
 
   .card-wrap.graph-mode .card-container {
-    /* Modo graph: muesca abierta (la línea superior se interrumpe como en
-       un <legend>). Abre al mismo tiempo que la legenda asciende. */
     clip-path: polygon(
       0 0,
       var(--notch-x1) 0,
@@ -269,9 +255,6 @@ const links = [
     transition: clip-path 0.2s var(--ease);
   }
 
-  /* Legenda: centro vertical sobre la línea del borde. En modo about baja
-     al interior (translateY) y en graph sube al borde; ambas se animan a la
-     vez que el borde se abre o se cierra. */
   .card__legend {
     position: absolute;
     top: calc(1px - var(--title-line-center));
@@ -337,7 +320,6 @@ const links = [
   }
   .card__content-text {
     display: block;
-    /* Despeja la legenda posicionada dentro del contenedor (modo about). */
     margin-top: calc(var(--title-line-center) * 2 + 1rem);
   }
   h3 {
@@ -440,7 +422,6 @@ const links = [
     }
   }
 
-  /* Sin animación si el usuario la desactiva. */
   @media (prefers-reduced-motion: reduce) {
     .card-container,
     .card__legend {

@@ -76,24 +76,69 @@ a {
   display: flex;
   justify-content: space-between;
   font-size: 0.75rem;
+  gap: 1rem;
 }
 
-.card-container,
-.main-card {
+.card-title {
+justify-content: space-between;
+  align-items: center;
+}
+
+.card-container {
   border: 1px solid var(--border);
   border-radius: 1rem;
   background-color: var(--bg-secondary);
 }
 
-.card-container:hover,
-.main-card:hover {
+.card-container:hover {
   background-color: var(--bg-primary);
 }
 
-.card-content,
-.main-card {
+.card-content {
   display: grid;
   padding: 2rem;
+}
+
+.card-content[data-size="sm"] {
+  padding: 1rem;
+}
+
+.tags {
+  display: flex;
+}
+
+.card-content[data-size="sm"]:hover .tags[data-size="sm"] .tag {
+  color: var(--color-hover);
+  background-color: var(--bg-secondary);
+}
+
+.tags[data-size="lg"] {
+  gap: 1rem;
+  width: max-content;
+}
+.tags[data-size="sm"] {
+  flex-wrap: wrap;
+  margin-top: 0.75rem;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+}
+
+.tag {
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+}
+
+.tags[data-size="lg"] .tag {
+  padding: 0.5rem 1rem;
+}
+
+.tags[data-size="sm"] .tag {
+  padding: 0.25rem 0.625rem;
+}
+
+.tag:hover {
+  color: var(--color-hover);
+  background-color: var(--bg-secondary);
 }
 
 @font-face {
@@ -132,7 +177,7 @@ a {
   footer {
     max-width: 640px;
   }
-  .main-card {
+  .card-content[data-size="xlg"] {
     padding: 3rem;
   }
 }
@@ -163,7 +208,6 @@ a {
   }
 }
 
-/* --- Animación de texto construir/desconstruir (textFx) --- */
 .textfx-destroying {
   white-space: pre-wrap;
 }

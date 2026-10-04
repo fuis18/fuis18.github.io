@@ -1,0 +1,21 @@
+.shell-large main {
+  max-width: 100%;
+  margin-inline: 1rem;
+  margin-top: 0;
+}
+
+.shell-large footer {
+  max-width: none;
+}
+
+@media screen and (width >= 600px) {
+  .shell-large main {
+    margin-inline: 2rem;
+  }
+}
+
+@media screen and (width >= 1800px) {
+  .shell-large main {
+    margin-inline: 5rem;
+  }
+}

@@ -4,14 +4,42 @@ import { m } from "@/paraglide/messages";
 import BlogCard from "@/components/BlogCard.astro";
 ---
 
-<Layout title="Home" description="My website">
+<Layout title="Home" description="My website" width="large">
   <main transition:animate="slide">
     <h1 data-i18n="blog-title" data-textfx>{m.blog_title()}</h1>
     <div class="blog-container card-handler">
-      <BlogCard />
-      <BlogCard />
-      <BlogCard />
-      <BlogCard />
+      <div class="blog-item" data-side="start">
+        <span class="blog-item__dot" aria-hidden="true"></span>
+        <BlogCard />
+      </div>
+      <div class="blog-item" data-side="end">
+        <span class="blog-item__dot" aria-hidden="true"></span>
+        <BlogCard />
+      </div>
+      <div class="blog-item" data-side="start">
+        <span class="blog-item__dot" aria-hidden="true"></span>
+        <BlogCard />
+      </div>
+      <div class="blog-item" data-side="end">
+        <span class="blog-item__dot" aria-hidden="true"></span>
+        <BlogCard />
+      </div>
+      <div class="blog-item" data-side="start">
+        <span class="blog-item__dot" aria-hidden="true"></span>
+        <BlogCard />
+      </div>
+      <div class="blog-item" data-side="end">
+        <span class="blog-item__dot" aria-hidden="true"></span>
+        <BlogCard />
+      </div>
+      <div class="blog-item" data-side="start">
+        <span class="blog-item__dot" aria-hidden="true"></span>
+        <BlogCard />
+      </div>
+      <div class="blog-item" data-side="end">
+        <span class="blog-item__dot" aria-hidden="true"></span>
+        <BlogCard />
+      </div>
     </div>
   </main>
 </Layout>
@@ -32,9 +60,76 @@ import BlogCard from "@/components/BlogCard.astro";
 </script>
 
 <style>
+  .blog-container {
+    --rail-w: 2px;
+    --dot: 0.625rem;
+    --gap: 1rem;
+
+    position: relative;
+    padding-left: calc(var(--dot) + var(--gap));
+  }
+
+  .blog-container::before {
+    content: "";
+    position: absolute;
+    inset-block: 0;
+    left: calc(var(--dot) / 2 - var(--rail-w) / 2);
+    width: var(--rail-w);
+    background-color: var(--border);
+  }
+
+  .blog-item {
+    position: relative;
+  }
+
+  .blog-item__dot {
+    position: absolute;
+    top: 50%;
+    translate: 0 -50%;
+    left: calc(-1 * (var(--dot) + var(--gap)));
+    width: var(--dot);
+    height: var(--dot);
+    border: 2px solid var(--border);
+    border-radius: 50%;
+    background-color: var(--bg-primary);
+  }
+
   @media screen and (width >= 1000px) {
     .blog-container {
       grid-template-columns: 1fr 1fr;
+      --gap: 3rem;
+      column-gap: calc(var(--gap) * 2);
+      padding-left: 0;
     }
+
+    .blog-container::before {
+      left: 50%;
+      margin-left: calc(var(--rail-w) / -2);
+    }
+
+    .blog-item__dot {
+      left: auto;
+    }
+
+    .blog-item[data-side="start"] .blog-item__dot {
+      top: 25%;
+    }
+
+    .blog-item[data-side="end"] .blog-item__dot {
+      top: 75%;
+    }
+
+    .blog-item[data-side="start"] .blog-item__dot {
+      right: calc(-1 * (var(--gap) + var(--dot) / 2));
+    }
+
+    .blog-item[data-side="end"] .blog-item__dot {
+      left: calc(-1 * (var(--gap) + var(--dot) / 2));
+    }
+  }
+
+  .blog-item:hover .blog-item__dot {
+    border-color: var(--color-hover);
+    background-color: var(--color-hover);
   }
 </style>

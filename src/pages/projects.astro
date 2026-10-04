@@ -13,7 +13,7 @@ const projectCards = projects.map((project) => ({
 const isEven = projects.length % 2 === 0;
 ---
 
-<Layout title="Projects" description="My website" background="true">
+<Layout title="Projects" description="My website" background width="large">
   <main transition:animate="slide">
     <h1 data-i18n="projects-title" data-textfx>{m.projects_title()}</h1>
     <div
@@ -26,10 +26,16 @@ const isEven = projects.length % 2 === 0;
       {
         projectCards.map((project, index) => {
           const alt = Object.values(project.title)[0] ?? "";
-          const loading = index < 8 ? "eager" : "lazy";
+          const loading = index < 4 ? "eager" : "lazy";
+          const priority = index === 0;
           return (
             <div class="project-item" data-project-index={index}>
-              <ImageZoom src={project.image} alt={alt} loading={loading} />
+              <ImageZoom
+                src={project.image}
+                alt={alt}
+                loading={loading}
+                priority={priority}
+              />
               <ProjectCard
                 title={project.title}
                 description={project.description}
@@ -75,15 +81,46 @@ const isEven = projects.length % 2 === 0;
   }
 
   syncOnLangChange(syncProjects);
-  document.addEventListener("astro:page-load", syncProjects);
+
+  const EAGER_THRESHOLDS: ReadonlyArray<readonly [string, number]> = [
+    ["(min-width: 1720px)", 8],
+    ["(min-width: 1010px)", 6],
+  ];
+  const EAGER_DEFAULT = 4;
+
+  function eagerThreshold() {
+    for (const [query, threshold] of EAGER_THRESHOLDS) {
+      if (window.matchMedia(query).matches) return threshold;
+    }
+    return EAGER_DEFAULT;
+  }
+
+  function prioritizeImages() {
+    const threshold = eagerThreshold();
+    document
+      .querySelectorAll<HTMLElement>("[data-project-index]")
+      .forEach((card, index) => {
+        const img = card.querySelector<HTMLImageElement>("img");
+        if (!img) return;
+        img.loading = index < threshold ? "eager" : "lazy";
+        if (index === 0) img.fetchPriority = "high";
+      });
+  }
+
+  for (const [query] of EAGER_THRESHOLDS) {
+    window.matchMedia(query).addEventListener("change", prioritizeImages);
+  }
+
+  function onPageLoad() {
+    syncProjects();
+    prioritizeImages();
+  }
+
+  prioritizeImages();
+  document.addEventListener("astro:page-load", onPageLoad);
 </script>
 
 <style>
-  main {
-    max-width: max-content;
-    margin-inline: 1rem;
-    margin-top: 0;
-  }
   .project-container {
     grid-template-columns: 1fr;
   }
@@ -99,15 +136,6 @@ const isEven = projects.length % 2 === 0;
     translate: 0 -0.25rem;
   }
 
-  :global(footer) {
-    max-width: none;
-  }
-
-  @media screen and (width >= 600px) {
-    main {
-      margin-inline: 2rem;
-    }
-  }
   @media screen and (width >= 670px) {
     .project-container {
       grid-template-columns: 1fr 1fr;
@@ -142,10 +170,4 @@ const isEven = projects.length % 2 === 0;
       transform: translateY(50%);
     }
   }
-  @media screen and (width >= 1800px) {
-    main {
-      margin-inline: 5rem;
-    }
-  }
 </style>
-

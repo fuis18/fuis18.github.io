@@ -4,8 +4,8 @@ const skills = [...skillsData, ...skillsData];
 ---
 
 <div class="scroll">
-  <div class="wrapper">
-    {skills.map((skill) => <span class="item">{skill}</span>)}
+  <div class="tags" data-size="lg">
+    {skills.map((skill) => <span class="tag">{skill}</span>)}
   </div>
 </div>
 
@@ -22,25 +22,8 @@ const skills = [...skillsData, ...skillsData];
     );
   }
 
-  .wrapper {
-    display: flex;
-    width: max-content;
+  .tags {
     animation: scroll 30s linear infinite;
-  }
-
-  .item {
-    flex-shrink: 0;
-    padding: 0.5rem 1rem;
-    margin-inline: 0.5rem;
-    border: 1px solid var(--border);
-    border-radius: 1rem;
-    white-space: nowrap;
-    color: var(--color);
-  }
-
-  .item:hover {
-    color: var(--color-hover);
-    background-color: var(--bg-secondary);
   }
 
   @keyframes scroll {

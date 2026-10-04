@@ -6,12 +6,11 @@ interface Props {
   src: ImageMetadata;
   alt: string;
   loading?: "lazy" | "eager";
+  priority?: boolean;
 }
 
-const { src, alt, loading = "lazy" } = Astro.props;
+const { src, alt, loading = "lazy", priority = false } = Astro.props;
 
-// Versión completa (WebP a resolución nativa 16:9) solo para el zoom.
-// Se genera en build pero NO se carga con la página: se precarga al pasar el cursor.
 const zoomImage = await getImage({ src, format: "webp" });
 ---
 
@@ -23,6 +22,7 @@ const zoomImage = await getImage({ src, format: "webp" });
     widths={[480, 640, 960, 1280]}
     sizes="(min-width: 1720px) 20vw, (min-width: 1400px) 24vw, (min-width: 1010px) 32vw, (min-width: 670px) 46vw, 100vw"
     loading={loading}
+    priority={priority}
   />
   <span class="img-tool">Expand</span>
 </div>
@@ -79,8 +79,8 @@ const zoomImage = await getImage({ src, format: "webp" });
 
 <script>
   function setup() {
-    document.querySelectorAll(".img-container").forEach((container) => {
-      const img = container.querySelector("img");
+    document.querySelectorAll<HTMLElement>(".img-container").forEach((container) => {
+      const img = container.querySelector<HTMLImageElement>("img");
       if (!img || img.dataset.zoom) return;
       img.dataset.zoom = "true";
 

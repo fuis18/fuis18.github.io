@@ -3,7 +3,7 @@ import { test, expect, type Page } from "@playwright/test";
 async function linkColumns(page: Page): Promise<number> {
   return page.evaluate(
     () =>
-      getComputedStyle(document.querySelector(".card__links")!)
+      getComputedStyle(document.querySelector(".card-wrap .card__links")!)
         .gridTemplateColumns.split(" ")
         .filter(Boolean).length,
   );
@@ -12,30 +12,35 @@ async function linkColumns(page: Page): Promise<number> {
 async function evenLinkBorderLeft(page: Page): Promise<string> {
   return page.evaluate(
     () =>
-      getComputedStyle(document.querySelectorAll(".card__links li")[1]!)
-        .borderLeftWidth,
+      getComputedStyle(
+        document.querySelectorAll(".card-wrap .card__links li")[1]!,
+      ).borderLeftWidth,
   );
 }
 
 async function cardContentPadding(page: Page): Promise<string> {
   return page.evaluate(
-    () => getComputedStyle(document.querySelector(".card-content")!).padding,
+    () =>
+      getComputedStyle(document.querySelector(".card-wrap .card-content")!)
+        .padding,
   );
 }
 
 async function penultimateLinkBorderBottom(page: Page): Promise<string> {
   return page.evaluate(
     () =>
-      getComputedStyle(document.querySelectorAll(".card__links li")[4]!)
-        .borderBottomWidth,
+      getComputedStyle(
+        document.querySelectorAll(".card-wrap .card__links li")[4]!,
+      ).borderBottomWidth,
   );
 }
 
 async function linkTopRightRadius(page: Page, index: number): Promise<string> {
   return page.evaluate(
     (i) =>
-      getComputedStyle(document.querySelectorAll(".card__links li")[i]!)
-        .borderTopRightRadius,
+      getComputedStyle(
+        document.querySelectorAll(".card-wrap .card__links li")[i]!,
+      ).borderTopRightRadius,
     index,
   );
 }
@@ -159,7 +164,9 @@ async function emptyCanvasPoint(page: Page): Promise<{ x: number; y: number }> {
 
 async function modesPosition(page: Page): Promise<string> {
   return page.evaluate(
-    () => getComputedStyle(document.querySelector(".card__modes")!).position,
+    () =>
+      getComputedStyle(document.querySelector(".card-wrap .card__modes")!)
+        .position,
   );
 }
 
@@ -444,5 +451,21 @@ test.describe("MainCard modes", () => {
       1,
     );
     expect(await modesPosition(page)).toBe("absolute");
+  });
+
+  // .card-container / .card-content son clases compartidas con otros
+  // componentes (Banner, ProjectCard, BlogCard). Si MainCard las busca de
+  // forma global se queda con la tarjeta del Banner, que va antes en el DOM,
+  // y el cambio de modo deja de aplicarse (el texto no se oculta).
+  test("9. graph-mode solo marca la tarjeta del MainCard", async ({ page }) => {
+    await page.getByRole("button", { name: "Graph mode" }).click();
+    await expect(page.locator("#network canvas")).toBeVisible();
+
+    const marcados = await page.evaluate(() =>
+      [...document.querySelectorAll(".card-container.graph-mode")].map(
+        (el) => el.closest(".card-wrap") !== null,
+      ),
+    );
+    expect(marcados).toEqual([true]);
   });
 });

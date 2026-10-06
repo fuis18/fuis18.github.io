@@ -458,8 +458,7 @@ test.describe("MainCard modes", () => {
   // forma global se queda con la tarjeta del Banner, que va antes en el DOM,
   // y el cambio de modo deja de aplicarse (el texto no se oculta).
   test("9. graph-mode solo marca la tarjeta del MainCard", async ({ page }) => {
-    await page.getByRole("button", { name: "Graph mode" }).click();
-    await expect(page.locator("#network canvas")).toBeVisible();
+    await openGraph(page);
 
     const marcados = await page.evaluate(() =>
       [...document.querySelectorAll(".card-container.graph-mode")].map(

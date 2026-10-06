@@ -4,5 +4,7 @@
   "nav_projects": "プロジェクト",
   "nav_blog": "ブログ",
   "projects_title": "プロジェクト",
-  "blog_title": "ブログ"
+  "blog_title": "ブログ",
+  "blog_read_time": "読了まで{minutes}分",
+  "blog_back": "ブログに戻る"
 }

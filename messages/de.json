@@ -4,5 +4,7 @@
   "nav_projects": "Projekte",
   "nav_blog": "Blogs",
   "projects_title": "Projekte",
-  "blog_title": "Blogs"
+  "blog_title": "Blogs",
+  "blog_read_time": "{minutes} Min. Lesezeit",
+  "blog_back": "Zurück zum Blog"
 }

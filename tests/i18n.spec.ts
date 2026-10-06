@@ -208,4 +208,79 @@ test.describe("Language switching", () => {
     await expect(page.locator(".textfx-char")).toHaveCount(0);
     await expect(page.locator(".textfx-line")).toHaveCount(0);
   });
+
+  test("9. En /blog, cambiar a ES traduce las tarjetas y la fecha", async ({
+    page,
+  }) => {
+    await page.goto("/blog");
+    await switchTo(page, "es");
+
+    await expect(page.locator("html")).toHaveAttribute("lang", "es");
+    await expect(page.locator("[data-i18n='blog-title']")).toHaveText("Blogs");
+
+    // El post más reciente (my-beginnings) es el índice 0
+    const card0 = page.locator("[data-post-index='0']");
+    await expect(card0.locator("[data-post-field='title']")).toHaveText(
+      "Mis comienzos",
+    );
+    await expect(card0.locator("[data-post-field='description']")).toHaveText(
+      "Todo cambio cuando quise ayudar a una chica, pero comienza con muchos desafíos y cada etapa en específico, me permitió llegar hasta aquí.",
+    );
+    await expect(card0.locator("[data-post-field='date']")).toHaveText(
+      "5 de octubre de 2026",
+    );
+    await expect(card0.locator("[data-post-field='reading-time']")).toHaveText(
+      "4 min de lectura",
+    );
+
+    // Nunca hay nodos duplicados ocultos
+    await expect(page.locator("[data-lang]")).toHaveCount(0);
+
+    // Tras la animación del cambio de idioma el DOM queda limpio
+    await expect(page.locator(".textfx-char")).toHaveCount(0);
+    await expect(page.locator(".textfx-line")).toHaveCount(0);
+  });
+
+  test("10. En /blog el idioma persiste entre páginas y en el post", async ({
+    page,
+  }) => {
+    await page.goto("/blog");
+    await switchTo(page, "es");
+
+    await page.click("a[href='/blog/my-beginnings']");
+    await page.waitForURL("**/blog/my-beginnings");
+
+    await expect(page.locator("html")).toHaveAttribute("lang", "es");
+    // El encabezado del post se traduce con el syncer
+    await expect(page.locator("[data-post-field='title']")).toHaveText(
+      "Mis comienzos",
+    );
+    await expect(page.locator("[data-post-field='date']")).toHaveText(
+      "5 de octubre de 2026",
+    );
+    await expect(page.locator("[data-post-field='reading-time']")).toHaveText(
+      "4 min de lectura",
+    );
+    await expect(page.locator("[data-post-field='back']")).toHaveText(
+      "Volver al blog",
+    );
+    // El cuerpo también cambia: el HTML solo trae el del idioma base, así que
+    // el cliente pide `/fragments/{slug}/{lang}` y lo mete en el mismo
+    // contenedor. El inglés desaparece del DOM y queda un solo cuerpo.
+    await expect(page.locator("[data-post-body]")).toHaveAttribute(
+      "data-post-body-lang",
+      "es",
+    );
+    await expect(page.locator(".prose")).toHaveCount(1);
+    await expect(page.locator(".prose")).toContainText(
+      "Desde niño me gustaba argumentar con lo que era correcto",
+    );
+    await expect(page.locator("[data-post-body]")).not.toContainText(
+      "As a child, I liked to argue",
+    );
+
+    await expect(page.locator("[data-lang]")).toHaveCount(0);
+    await expect(page.locator(".textfx-char")).toHaveCount(0);
+    await expect(page.locator(".textfx-line")).toHaveCount(0);
+  });
 });

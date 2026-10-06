@@ -1,0 +1,225 @@
+---
+import { render } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import { m } from "@/paraglide/messages";
+import { DEFAULT_LANG } from "@/lib/i18n";
+import {
+  getBlogPost,
+  getBlogPosts,
+  toPayload,
+  type BlogPostWithEntry,
+} from "@/lib/blog";
+import { serializePayload } from "@/lib/blogClient";
+
+export async function getStaticPaths() {
+  const posts = await getBlogPosts();
+  return posts.map(({ slug }) => ({ params: { slug } }));
+}
+
+const { slug } = Astro.params;
+const { post, entry } = (await getBlogPost(slug!)) as BlogPostWithEntry;
+const { Content } = await render(entry);
+
+const pick = (localized: Record<string, string>) =>
+  localized[DEFAULT_LANG] ?? "";
+
+const payloadJson = serializePayload(toPayload(post));
+---
+
+<Layout title={pick(post.title)} description={pick(post.description)}>
+  <main transition:animate="slide" class="post">
+    <article class="post-body">
+      <header class="post-header">
+        <a href="/blog" class="post-back" data-post-field="back" data-textfx>
+          {m.blog_back()}
+        </a>
+        <h1 data-post-field="title" data-textfx>{pick(post.title)}</h1>
+        <div class="card-tooltip">
+          <time datetime={post.isoDate} data-post-field="date" data-textfx>
+            {pick(post.dateLabel)}
+          </time>
+          <span data-post-field="reading-time" data-textfx>
+            {m.blog_read_time({ minutes: post.readingTime })}
+          </span>
+        </div>
+        {
+          post.tags.length > 0 && (
+            <div class="tags" data-size="sm">
+              {post.tags.map((tag) => (
+                <span class="tag">{tag}</span>
+              ))}
+            </div>
+          )
+        }
+      </header>
+      <hr />
+      <!--
+        El cuerpo del idioma base viene en el HTML (piso de SEO y de no-JS).
+        Los demás idiomas entran por fetch desde `/fragments/{slug}/{lang}` y
+        reemplazan el contenido de este mismo contenedor: nunca hay dos
+        cuerpos en el DOM. `data-post-body-lang` dice cuál está puesto.
+      -->
+      <div
+        class="post-content"
+        data-post-body
+        data-post-body-lang={DEFAULT_LANG}
+      >
+        <div class="prose">
+          <Content />
+        </div>
+      </div>
+    </article>
+    <script
+      type="application/json"
+      data-post-payload
+      is:inline
+      set:html={payloadJson}
+    />
+  </main>
+</Layout>
+
+<script>
+  import { DEFAULT_LANG, syncOnLangChange } from "@/lib/i18n";
+  import {
+    applyPostFields,
+    readPayload,
+    resolveBodyLang,
+    type BlogPostPayload,
+  } from "@/lib/blogClient";
+  import {
+    getCachedBody,
+    idlePrefetch,
+    loadBody,
+    primeBody,
+  } from "@/lib/blogBody";
+
+  const BODY_SELECTOR = "[data-post-body]";
+
+  function container(): HTMLElement | null {
+    return document.querySelector<HTMLElement>(BODY_SELECTOR);
+  }
+
+  /** Descarta un `loadBody` que quedó viejo porque el idioma volvió a cambiar. */
+  let token = 0;
+  /** Slugs cuyos fragmentos ya se pidieron en segundo plano. */
+  const prefetched = new Set<string>();
+
+  async function showBody(slug: string, lang: string): Promise<void> {
+    const host = container();
+    if (!host || host.dataset.postBodyLang === lang) return;
+
+    const mine = ++token;
+    const cached = getCachedBody(slug, lang);
+    let html = cached;
+
+    if (html === undefined) {
+      // Se oculta en vez de vaciarse: `visibility` conserva el espacio, así que
+      // entra el texto nuevo sin salto y sin glimpse del idioma anterior.
+      host.setAttribute("data-body-loading", "");
+      html = (await loadBody(slug, lang)) ?? undefined;
+    }
+
+    // Un cambio de idioma o una navegación mientras esperábamos invalida esto.
+    if (mine !== token || !host.isConnected) return;
+
+    // Si el fragmento no llegó, queda el cuerpo que ya estaba: mejor el idioma
+    // anterior que un hueco. Se destapa igual, o el artículo nunca reaparece.
+    if (html !== undefined) {
+      host.innerHTML = html;
+      host.dataset.postBodyLang = lang;
+    }
+    host.removeAttribute("data-body-loading");
+  }
+
+  function syncPost(): void {
+    const post = readPayload<BlogPostPayload>("[data-post-payload]");
+    if (!post) return;
+    applyPostFields(document, post);
+
+    const host = container();
+    if (!host) return;
+    // Antes de sobrescribir nada, guarda el cuerpo que llegó en el HTML para
+    // poder volver al idioma base sin pedir red.
+    if (host.dataset.postBodyLang === DEFAULT_LANG) {
+      primeBody(post.slug, DEFAULT_LANG, host.innerHTML);
+    }
+
+    void showBody(post.slug, resolveBodyLang(post.langs)).then(() => {
+      if (!prefetched.has(post.slug)) {
+        prefetched.add(post.slug);
+        idlePrefetch(post.slug, post.langs);
+      }
+    });
+  }
+
+  syncOnLangChange(syncPost);
+  document.addEventListener("astro:page-load", syncPost);
+</script>
+
+<style>
+  .post-header {
+    display: grid;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+  }
+
+  .post-back {
+    width: max-content;
+    font-size: 0.875rem;
+  }
+
+  .post-back:hover {
+    color: var(--color-hover);
+  }
+
+  .post-content[data-body-loading] {
+    visibility: hidden;
+  }
+
+  /*
+   * La tipografía del cuerpo va en `:global` porque el HTML de los fragmentos
+   * entra por `innerHTML` y no lleva el `data-astro-cid-*` que Astro agrega a
+   * las etiquetas de su propia plantilla: con estilos con ámbito, el texto
+   * inyectado saldría sin formato.
+   */
+  :global(.prose) {
+    display: grid;
+    gap: 1rem;
+    line-height: 1.7;
+  }
+
+  :global(.prose :is(h1, h2, h3)) {
+    margin-top: 1rem;
+  }
+
+  :global(.prose a) {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  :global(.prose a:hover) {
+    color: var(--color-hover);
+  }
+
+  :global(.prose :is(ul, ol)) {
+    padding-inline-start: 1.5rem;
+  }
+
+  :global(.prose li) {
+    list-style: revert;
+  }
+
+  :global(.prose :not(pre) > code) {
+    padding: 0.125rem 0.375rem;
+    border: 1px solid var(--border);
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+  }
+
+  :global(.prose pre) {
+    overflow-x: auto;
+    padding: 1rem;
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+  }
+</style>

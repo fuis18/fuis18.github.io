@@ -119,7 +119,6 @@ describe("theme", () => {
         configurable: true,
       });
 
-      // Tema 'system': el cambio del SO re-aplica el esquema
       localStorage.setItem("theme", "system");
       applyTheme("light");
       expect(document.documentElement.classList.contains("light")).toBe(true);
@@ -131,7 +130,6 @@ describe("theme", () => {
       expect(document.documentElement.classList.contains("dark")).toBe(true);
       expect(document.documentElement.classList.contains("light")).toBe(false);
 
-      // Tema explícito: el cambio del SO no fuerza nada
       localStorage.setItem("theme", "light");
       applyTheme("dark");
       onChange();

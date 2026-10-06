@@ -4,6 +4,13 @@ function expectClose(actual: number, expected: number, tolerance = 2): void {
   expect(Math.abs(actual - expected)).toBeLessThanOrEqual(tolerance);
 }
 
+/** El conteo viene del contenido, no de un número fijo en el test. */
+async function itemCount(page: Page): Promise<number> {
+  const count = await page.locator(".blog-item").count();
+  expect(count).toBeGreaterThan(0);
+  return count;
+}
+
 async function edges(page: Page): Promise<{
   boxLeft: number;
   left: number;
@@ -40,14 +47,16 @@ async function verticalRatio(page: Page, index: number): Promise<number> {
 }
 
 async function expectQuarterPattern(page: Page): Promise<void> {
-  const expected = [0.25, 0.75, 0.25, 0.75];
-  for (const [index, ratio] of expected.entries()) {
+  const count = await itemCount(page);
+  for (let index = 0; index < count; index++) {
+    const ratio = index % 2 === 0 ? 0.25 : 0.75;
     expectClose(await verticalRatio(page, index), ratio, 0.01);
   }
 }
 
 async function expectCenteredDots(page: Page): Promise<void> {
-  for (const index of [0, 1, 2, 3]) {
+  const count = await itemCount(page);
+  for (let index = 0; index < count; index++) {
     expectClose(await verticalRatio(page, index), 0.5, 0.01);
   }
 }
@@ -62,13 +71,14 @@ test.describe("Línea de tiempo del blog", () => {
     page,
   }) => {
     const { center } = await edges(page);
+    const count = await itemCount(page);
 
-    for (const index of [0, 1, 2, 3]) {
+    for (let index = 0; index < count; index++) {
       expectClose(await dotCenterX(page, index), center);
     }
 
     const sides: string[] = [];
-    for (const index of [0, 1, 2, 3]) {
+    for (let index = 0; index < count; index++) {
       const box = await page
         .locator(".blog-item")
         .nth(index)
@@ -76,7 +86,11 @@ test.describe("Línea de tiempo del blog", () => {
         .boundingBox();
       sides.push(box!.x + box!.width / 2 < center ? "izq" : "der");
     }
-    expect(sides).toEqual(["izq", "der", "izq", "der"]);
+    expect(sides).toEqual(
+      Array.from({ length: count }, (_, index) =>
+        index % 2 === 0 ? "izq" : "der",
+      ),
+    );
 
     await expectQuarterPattern(page);
   });
@@ -88,8 +102,9 @@ test.describe("Línea de tiempo del blog", () => {
 
     const { boxLeft, left, right } = await edges(page);
     const items = page.locator(".blog-item");
+    const count = await itemCount(page);
 
-    for (let index = 0; index < 4; index++) {
+    for (let index = 0; index < count; index++) {
       const box = await items.nth(index).boundingBox();
       expectClose(box!.x, left);
       expectClose(box!.x + box!.width, right);
@@ -98,5 +113,73 @@ test.describe("Línea de tiempo del blog", () => {
     expectClose(await dotCenterX(page, 0), boxLeft + 5); // 5px = --dot / 2
 
     await expectCenteredDots(page);
+  });
+});
+
+test.describe("Contenido del blog", () => {
+  test.beforeEach(async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+  });
+
+  test("3. La lista viene de la colección, del más nuevo al más viejo", async ({
+    page,
+  }) => {
+    await page.goto("/blog");
+
+    const dates = await page
+      .locator("[data-post-index]")
+      .evaluateAll((items) =>
+        items.map((item) =>
+          item
+            .querySelector("time")!
+            .getAttribute("datetime")!
+            .split("-")
+            .map(Number),
+        ),
+      );
+
+    expect(dates.length).toBeGreaterThanOrEqual(2);
+
+    const timestamps = dates.map(([y, m, d]) => Date.UTC(y, m - 1, d));
+    expect(timestamps).toEqual(timestamps.toSorted((a, b) => b - a));
+  });
+
+  test("4. La tarjeta enlaza a /blog/{slug} y el post renderiza el MDX", async ({
+    page,
+  }) => {
+    await page.goto("/blog");
+
+    const card = page.locator("a[href='/blog/my-beginnings']");
+    await expect(card).toHaveCount(1);
+    await expect(card.locator("[data-post-field='title']")).toHaveText(
+      "My Beginnings",
+    );
+
+    await card.click();
+    await page.waitForURL("**/blog/my-beginnings");
+
+    await expect(page.locator("[data-post-field='title']")).toHaveText(
+      "My Beginnings",
+    );
+    await expect(page.locator("time")).toHaveAttribute(
+      "datetime",
+      "2026-10-05",
+    );
+    // El título vive una sola vez, en el encabezado entre tags y contenido
+    await expect(page.locator("main h1")).toHaveCount(1);
+    await expect(page.locator(".prose h1")).toHaveCount(0);
+    // Cuerpo desde el MDX en el idioma base
+    await expect(page.locator(".prose")).toContainText(
+      "As a child, I liked to argue for what was right",
+    );
+  });
+
+  test("5. El post muestra tags y tiempo de lectura", async ({ page }) => {
+    await page.goto("/blog/my-beginnings");
+
+    await expect(page.locator("[data-post-field='reading-time']")).toHaveText(
+      "4 min read",
+    );
+    await expect(page.locator(".tag")).toHaveText(["personal", "psychology"]);
   });
 });

@@ -11,29 +11,22 @@ export const LANGS = locales;
 export type Lang = (typeof LANGS)[number];
 export const DEFAULT_LANG: Lang = baseLocale as Lang;
 
-/**
- * Constante compartida entre MainCard y SkillGraph. Vive aquí porque es el
- * módulo que ambos ya importan: evita un chunk/hop extra en la carga.
- */
 export const GRAPH_MODE_EVENT = "maincard:graph-mode";
 
 export function getLang(): Lang {
   return getLocale() as Lang;
 }
 
-/** Normaliza un valor a un idioma soportado (o al idioma base). */
 function resolveLang(lang: string): Lang {
   return toLocale(lang) ?? DEFAULT_LANG;
 }
 
-/** Aplica el idioma guardado/detectado y dispara el primer re-render. */
 export function initLang(): void {
   const lang = getLang();
   document.documentElement.lang = lang;
   document.dispatchEvent(new CustomEvent("lang-change", { detail: { lang } }));
 }
 
-/** Cambia el idioma activo (persistido en localStorage por paraglide). */
 export function setLang(lang: string): void {
   const next = resolveLang(lang);
   setLocale(next, { reload: false });
@@ -43,7 +36,6 @@ export function setLang(lang: string): void {
   );
 }
 
-/** Selecciona el valor localizado para el idioma activo (con fallback). */
 export function pickLocalized<T>(localized: Localized<T>): T {
   return localized[getLang()] ?? localized[DEFAULT_LANG];
 }
@@ -51,10 +43,6 @@ export function pickLocalized<T>(localized: Localized<T>): T {
 const syncers = new Set<() => void>();
 let bound = false;
 
-/**
- * Registra un re-render de texto que corre de inmediato (primer render)
- * y en cada cambio de idioma (`lang-change`).
- */
 export function syncOnLangChange(fn: () => void): void {
   syncers.add(fn);
   if (!bound) {

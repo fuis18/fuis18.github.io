@@ -1,0 +1,42 @@
+---
+import { render, type CollectionEntry } from "astro:content";
+import { getBlogPostsWithEntries } from "@/lib/blog";
+import { DEFAULT_LANG } from "@/lib/i18n";
+
+/**
+ * Cuerpo del post en un idioma que no es el base, para que `[slug].astro` lo
+ * pida con `fetch` y lo meta en el mismo contenedor.
+ *
+ * El cuerpo del idioma base no se genera aquí: ya viene en el HTML de la página
+ * del post, que es el piso de SEO y de no-JS.
+ */
+export async function getStaticPaths() {
+  const posts = await getBlogPostsWithEntries();
+  return posts.flatMap(({ post, entries }) =>
+    Object.entries(entries)
+      .filter(([lang]) => lang !== DEFAULT_LANG)
+      .map(([lang, entry]) => ({
+        params: { slug: post.slug, lang },
+        props: { entry },
+      })),
+  );
+}
+
+const { entry } = Astro.props as { entry: CollectionEntry<"blog"> };
+const { Content } = await render(entry);
+const { lang } = Astro.params;
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <!-- Duplica el cuerpo del post: no debe indexarse por su cuenta. -->
+    <meta name="robots" content="noindex" />
+  </head>
+  <body>
+    <div class="prose">
+      <Content />
+    </div>
+  </body>
+</html>

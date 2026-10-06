@@ -163,7 +163,7 @@ describe("rebuildText", () => {
 
     // Durante la desconstrucción hay spans temporales…
     vi.advanceTimersByTime(100);
-    const spans = el.querySelectorAll(".textfx-char");
+    const spans = el.querySelectorAll<HTMLElement>(".textfx-char");
     expect(spans.length).toBeGreaterThan(1);
 
     // …y los retardos confirman que va del último carácter al primero
@@ -271,7 +271,7 @@ describe("construcción por líneas (simultánea)", () => {
 
     // Tras el primer tick, todas las líneas ya tienen texto parcial a la vez.
     vi.advanceTimersByTime(15);
-    const spans = el.querySelectorAll(".textfx-line");
+    const spans = el.querySelectorAll<HTMLElement>(".textfx-line");
     expect(spans.length).toBe(3);
     spans.forEach((s) => expect(s.style.display).toBe("block"));
     expect(Array.from(spans).map((s) => s.textContent)).toEqual([

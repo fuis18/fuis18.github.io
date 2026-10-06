@@ -80,7 +80,7 @@ a {
 }
 
 .card-title {
-justify-content: space-between;
+  justify-content: space-between;
   align-items: center;
 }
 
@@ -139,6 +139,10 @@ justify-content: space-between;
 .tag:hover {
   color: var(--color-hover);
   background-color: var(--bg-secondary);
+}
+
+hr {
+  margin-block: 1rem;
 }
 
 @font-face {

@@ -132,12 +132,9 @@ describe("i18n", () => {
         if (node) node.textContent = getLang().toUpperCase();
       });
 
-      // Primer render con el idioma por defecto
       expect(el()?.textContent).toBe("EN");
-      // Cambio de idioma re-renderiza el mismo nodo
       setLang("es");
       expect(el()?.textContent).toBe("ES");
-      // El mecanismo nunca usa display:none
       expect(el()?.style.display).toBe("");
     });
   });

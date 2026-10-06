@@ -34,22 +34,12 @@ export function applyTheme(theme?: Theme): void {
 
 let watchingSystemTheme = false;
 
-/**
- * Re-aplica el tema cuando el SO cambia de esquema de color,
- * siempre que el tema guardado sea "system".
- */
 export function watchSystemTheme(): void {
   if (typeof window === "undefined" || watchingSystemTheme) return;
   watchingSystemTheme = true;
 
   const media = window.matchMedia("(prefers-color-scheme: dark)");
-  const onChange = () => {
+  media.addEventListener("change", () => {
     if (getTheme() === "system") applyTheme("system");
-  };
-
-  if (typeof media.addEventListener === "function") {
-    media.addEventListener("change", onChange);
-  } else {
-    media.addListener?.(onChange);
-  }
+  });
 }

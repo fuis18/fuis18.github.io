@@ -1,30 +1,64 @@
-<a href="" class="card-container card-content" data-size="sm">
+---
+import type { Localized } from "@/types";
+import { DEFAULT_LANG, getLang } from "@/lib/i18n";
+import { m } from "@/paraglide/messages";
+
+interface Props {
+  slug: string;
+  title: Localized<string>;
+  description: Localized<string>;
+  date: Localized<string>;
+  isoDate: string;
+  readingTime: number;
+  tags?: string[];
+}
+
+const {
+  slug,
+  title,
+  description,
+  date,
+  isoDate,
+  readingTime,
+  tags = [],
+} = Astro.props;
+
+const pick = (localized: Localized<string>) =>
+  localized[getLang()] ?? localized[DEFAULT_LANG];
+---
+
+<a href={`/blog/${slug}`} class="card-container card-content" data-size="sm">
   <div class="card-title">
-    <h2>Article</h2>
+    <h2 data-post-field="title" data-textfx>{pick(title)}</h2>
     <div class="card-tooltip">
-      <span>August 1, 2026</span>
-      <span>4 min read</span>
+      <time datetime={isoDate} data-post-field="date" data-textfx>
+        {pick(date)}
+      </time>
+      <span data-post-field="reading-time" data-textfx>
+        {m.blog_read_time({ minutes: readingTime })}
+      </span>
     </div>
   </div>
 
   <hr />
-  <p>Lorem ipsum</p>
+  <p data-post-field="description" data-textfx>{pick(description)}</p>
   <div class="tags" data-size="sm">
-    <div class="tag">Hola</div>
-    <div class="tag">Adios</div>
+    {tags.map((tag) => <span class="tag">{tag}</span>)}
   </div>
 </a>
 
 <style>
   hr {
-    margin-block: 1rem;
     min-width: 12rem;
     width: 50%;
   }
   .card-title {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  h2 {
+    font-size: 1.125rem;
   }
 </style>

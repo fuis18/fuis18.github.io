@@ -54,8 +54,6 @@ describe("badges", () => {
     });
 
     it("no depende del orden del glob: -dark antes que la base", () => {
-      // import.meta.glob ordena alfabéticamente y "-dark.svg" < ".svg" porque
-      // "-" (0x2d) precede a "." (0x2e). La base no debe caer en la variante dark.
       const files = {
         "/src/assets/svg-badges/archlinux-dark.svg": "<arch-dark/>",
         "/src/assets/svg-badges/archlinux.svg": "<arch/>",

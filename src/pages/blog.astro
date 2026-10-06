@@ -2,61 +2,73 @@
 import Layout from "@/layouts/Layout.astro";
 import { m } from "@/paraglide/messages";
 import BlogCard from "@/components/BlogCard.astro";
+import { getBlogPosts, toPayload } from "@/lib/blog";
+import { serializePayload } from "@/lib/blogClient";
+
+const posts = await getBlogPosts();
+const payloadJson = serializePayload(posts.map(toPayload));
 ---
 
-<Layout title="Home" description="My website" width="large">
+<Layout title="Blog" description="My website" width="large">
   <main transition:animate="slide">
     <h1 data-i18n="blog-title" data-textfx>{m.blog_title()}</h1>
     <div class="blog-container card-handler">
-      <div class="blog-item" data-side="start">
-        <span class="blog-item__dot" aria-hidden="true"></span>
-        <BlogCard />
-      </div>
-      <div class="blog-item" data-side="end">
-        <span class="blog-item__dot" aria-hidden="true"></span>
-        <BlogCard />
-      </div>
-      <div class="blog-item" data-side="start">
-        <span class="blog-item__dot" aria-hidden="true"></span>
-        <BlogCard />
-      </div>
-      <div class="blog-item" data-side="end">
-        <span class="blog-item__dot" aria-hidden="true"></span>
-        <BlogCard />
-      </div>
-      <div class="blog-item" data-side="start">
-        <span class="blog-item__dot" aria-hidden="true"></span>
-        <BlogCard />
-      </div>
-      <div class="blog-item" data-side="end">
-        <span class="blog-item__dot" aria-hidden="true"></span>
-        <BlogCard />
-      </div>
-      <div class="blog-item" data-side="start">
-        <span class="blog-item__dot" aria-hidden="true"></span>
-        <BlogCard />
-      </div>
-      <div class="blog-item" data-side="end">
-        <span class="blog-item__dot" aria-hidden="true"></span>
-        <BlogCard />
-      </div>
+      {
+        posts.map((post, index) => (
+          <div
+            class="blog-item"
+            data-side={index % 2 === 0 ? "start" : "end"}
+            data-post-index={index}
+          >
+            <span class="blog-item__dot" aria-hidden="true" />
+            <BlogCard
+              slug={post.slug}
+              title={post.title}
+              description={post.description}
+              date={post.dateLabel}
+              isoDate={post.isoDate}
+              readingTime={post.readingTime}
+              tags={post.tags}
+            />
+          </div>
+        ))
+      }
     </div>
+    <script
+      type="application/json"
+      data-blog-payload
+      is:inline
+      set:html={payloadJson}
+    />
   </main>
 </Layout>
 
 <script>
   import { m } from "@/paraglide/messages";
   import { syncOnLangChange } from "@/lib/i18n";
+  import {
+    applyPostFields,
+    readPayloadList,
+    type BlogPostPayload,
+  } from "@/lib/blogClient";
 
-  function syncTitle() {
+  function syncPosts() {
     const heading = document.querySelector<HTMLElement>(
       "[data-i18n='blog-title']",
     );
     if (heading) heading.textContent = m.blog_title();
+
+    const posts = readPayloadList<BlogPostPayload>("[data-blog-payload]");
+    document
+      .querySelectorAll<HTMLElement>("[data-post-index]")
+      .forEach((card) => {
+        const post = posts[Number(card.dataset.postIndex)];
+        if (post) applyPostFields(card, post);
+      });
   }
 
-  syncOnLangChange(syncTitle);
-  document.addEventListener("astro:page-load", syncTitle);
+  syncOnLangChange(syncPosts);
+  document.addEventListener("astro:page-load", syncPosts);
 </script>
 
 <style>

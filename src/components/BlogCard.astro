@@ -10,7 +10,7 @@ interface Props {
   date: Localized<string>;
   isoDate: string;
   readingTime: number;
-  tags?: string[];
+  tags?: Localized<string[]>;
 }
 
 const {
@@ -20,11 +20,14 @@ const {
   date,
   isoDate,
   readingTime,
-  tags = [],
+  tags = {},
 } = Astro.props;
 
 const pick = (localized: Localized<string>) =>
   localized[getLang()] ?? localized[DEFAULT_LANG];
+
+const pickTags = (localized: Localized<string[]>) =>
+  localized[getLang()] ?? localized[DEFAULT_LANG] ?? [];
 ---
 
 <a href={`/blog/${slug}`} class="card-container card-content" data-size="sm">
@@ -42,8 +45,8 @@ const pick = (localized: Localized<string>) =>
 
   <hr />
   <p data-post-field="description" data-textfx>{pick(description)}</p>
-  <div class="tags" data-size="sm">
-    {tags.map((tag) => <span class="tag">{tag}</span>)}
+  <div class="tags" data-size="sm" data-post-field="tags">
+    {pickTags(tags).map((tag) => <span class="tag">{tag}</span>)}
   </div>
 </a>
 
@@ -60,5 +63,13 @@ const pick = (localized: Localized<string>) =>
   }
   h2 {
     font-size: 1.125rem;
+  }
+  .card-title {
+    display: block;
+  }
+  @media screen and (width >= 700px) {
+    .card-title {
+      display: flex;
+    }
   }
 </style>

@@ -23,6 +23,9 @@ const { Content } = await render(entry);
 const pick = (localized: Record<string, string>) =>
   localized[DEFAULT_LANG] ?? "";
 
+const pickNumber = (localized: Record<string, number>) =>
+  localized[DEFAULT_LANG] ?? 0;
+
 const payloadJson = serializePayload(toPayload(post));
 ---
 
@@ -39,7 +42,7 @@ const payloadJson = serializePayload(toPayload(post));
             {pick(post.dateLabel)}
           </time>
           <span data-post-field="reading-time" data-textfx>
-            {m.blog_read_time({ minutes: post.readingTime })}
+            {m.blog_read_time({ minutes: pickNumber(post.readingTime) })}
           </span>
         </div>
         {

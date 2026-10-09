@@ -7,17 +7,19 @@ import {
   type BlogPostPayload,
 } from "./blogClient";
 import { setLang } from "./i18n";
+import { m } from "@/paraglide/messages";
 
 const post: BlogPostPayload = {
   slug: "my-beginnings",
   title: { en: "My first post", es: "Mi primer post" },
   description: { en: "Introductory", es: "Introductorio" },
   dateLabel: { en: "January 1, 2026", es: "1 de enero de 2026" },
-  readingTime: 4,
+  readingTime: { en: 7, es: 8 },
   tags: {
     en: ["personal", "psychology"],
     es: ["personal", "psicología"],
   },
+  langs: ["en", "es"],
 };
 
 function mount(): HTMLElement {
@@ -178,6 +180,28 @@ describe("blogClient", () => {
 
       expect(tagsDe(card)).toEqual([]);
       expect(contenedor.style.display).toBe("none");
+    });
+
+    it("localiza el tiempo de lectura del idioma activo", () => {
+      setLang("es");
+      const card = mount();
+
+      applyPostFields(card, post);
+
+      expect(
+        card.querySelector("[data-post-field='reading-time']")!.textContent,
+      ).toBe(m.blog_read_time({ minutes: 8 }));
+    });
+
+    it("usa el tiempo de lectura del idioma base si el activo no tiene", () => {
+      setLang("ja"); // no hay entrada 'ja' en el payload
+      const card = mount();
+
+      applyPostFields(card, post);
+
+      expect(
+        card.querySelector("[data-post-field='reading-time']")!.textContent,
+      ).toBe(m.blog_read_time({ minutes: 7 }));
     });
   });
 });

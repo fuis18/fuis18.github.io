@@ -218,19 +218,19 @@ test.describe("Language switching", () => {
     await expect(page.locator("html")).toHaveAttribute("lang", "es");
     await expect(page.locator("[data-i18n='blog-title']")).toHaveText("Blogs");
 
-    // El post más reciente (my-beginnings) es el índice 0
+    // El post más reciente (optimizing-linux) es el índice 0
     const card0 = page.locator("[data-post-index='0']");
     await expect(card0.locator("[data-post-field='title']")).toHaveText(
-      "Mis comienzos",
+      "Optimizando Linux",
     );
     await expect(card0.locator("[data-post-field='description']")).toHaveText(
-      "Todo cambio cuando quise ayudar a una chica, pero comienza con muchos desafíos y cada etapa en específico, me permitió llegar hasta aquí.",
+      "El conocimiento aumenta, la ciencia evoluciona, los procesos son más eficientes. Tu computadora debería ser más capaz, no menos.",
     );
     await expect(card0.locator("[data-post-field='date']")).toHaveText(
-      "5 de octubre de 2026",
+      "9 de octubre de 2026",
     );
     await expect(card0.locator("[data-post-field='reading-time']")).toHaveText(
-      "4 min de lectura",
+      "10 min de lectura",
     );
 
     // Nunca hay nodos duplicados ocultos
@@ -259,7 +259,7 @@ test.describe("Language switching", () => {
       "5 de octubre de 2026",
     );
     await expect(page.locator("[data-post-field='reading-time']")).toHaveText(
-      "4 min de lectura",
+      "7 min de lectura",
     );
     await expect(page.locator("[data-post-field='back']")).toHaveText(
       "Volver al blog",

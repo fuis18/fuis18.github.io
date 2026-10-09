@@ -3,7 +3,6 @@ title: "Mis comienzos"
 description: "Todo cambio cuando quise ayudar a una chica, pero comienza con muchos desafíos y cada etapa en específico, me permitió llegar hasta aquí."
 date: 2026-10-05
 tags: ["personal", "psicología"]
-readingTime: 4
 ---
 
 ## Mi niñez

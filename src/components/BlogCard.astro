@@ -9,7 +9,7 @@ interface Props {
   description: Localized<string>;
   date: Localized<string>;
   isoDate: string;
-  readingTime: number;
+  readingTime: Localized<number>;
   tags?: Localized<string[]>;
 }
 
@@ -26,6 +26,9 @@ const {
 const pick = (localized: Localized<string>) =>
   localized[getLang()] ?? localized[DEFAULT_LANG];
 
+const pickNumber = (localized: Localized<number>) =>
+  localized[getLang()] ?? localized[DEFAULT_LANG] ?? 0;
+
 const pickTags = (localized: Localized<string[]>) =>
   localized[getLang()] ?? localized[DEFAULT_LANG] ?? [];
 ---
@@ -38,7 +41,7 @@ const pickTags = (localized: Localized<string[]>) =>
         {pick(date)}
       </time>
       <span data-post-field="reading-time" data-textfx>
-        {m.blog_read_time({ minutes: readingTime })}
+        {m.blog_read_time({ minutes: pickNumber(readingTime) })}
       </span>
     </div>
   </div>

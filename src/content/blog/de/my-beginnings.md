@@ -3,7 +3,6 @@ title: "Meine Anfänge"
 description: "Alles änderte sich, als ich einem Mädchen helfen wollte; doch der Weg begann mit vielen Herausforderungen, und jede einzelne Phase hat mich dorthin gebracht, wo ich heute stehe."
 date: 2026-10-05
 tags: ["Persönliches", "Psychologie"]
-readingTime: 4
 ---
 
 ## Meine Kindheit
@@ -57,7 +56,9 @@ Als sich die Nachricht verbreitete, holte meine Mutter uns ab und ich zog erneut
 Gegen Jahresende bekam ich einen Computer, was meine Lust am Programmieren neu entfachte – auch wenn es wieder kein WLAN gab. In dieser Zeit begann der YouTuber @soydalto, Kurse zu **HTML, CSS und JS** hochzuladen. Zudem geschahen zwei wichtige Dinge:
 
 1. Ich fuhr auf ein Kirchenlager und lernte ein Mädchen kennen, das anderen helfen wollte, unabhängig von gesellschaftlichen Systemen. Wir blieben über soziale Netzwerke in Kontakt, doch schließlich brach die Verbindung ab.
-2. Ich lernte einen Salesianer-Pater kennen, der mit mir über Philosophie sprach und mir half, die Frage nach dem Tod zu verstehen: Auch wenn es Groll gegeben haben mag, kann man sich an einen geliebten Menschen durch seine schönsten Momente erinnern. ## Das Niveau muss steigen
+2. Ich lernte einen Salesianer-Pater kennen, der mit mir über Philosophie sprach und mir half, die Frage nach dem Tod zu verstehen: Auch wenn es Groll gegeben haben mag, kann man sich an einen geliebten Menschen durch seine schönsten Momente erinnern.
+
+## Das Niveau muss steigen
 
 Meine Schulzeit war von ständigen Ortswechseln geprägt. Das machte mich zu einem Computer-Enthusiasten und ließ mich auch meine Prinzipien weiterentwickeln – es war an der Zeit, sie auszuformen.
 

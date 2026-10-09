@@ -178,7 +178,7 @@ test.describe("Contenido del blog", () => {
     await page.goto("/blog/my-beginnings");
 
     await expect(page.locator("[data-post-field='reading-time']")).toHaveText(
-      "4 min read",
+      "7 min read",
     );
     await expect(page.locator(".tag")).toHaveText(["personal", "psychology"]);
   });

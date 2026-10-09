@@ -3,7 +3,6 @@ title: "My Beginnings"
 description: "Everything changed when I wanted to help a girl, but it all began with many challenges; each specific stage helped me get to where I am today."
 date: 2026-10-05
 tags: ["personal", "psychology"]
-readingTime: 4
 ---
 
 ## My Childhood
@@ -22,7 +21,9 @@ A year later, my father moved us out of the house. We went to live with one of h
 
 Mother's Day brought my second challenge: maintaining my identity. I am the son of two specific people, and just because I was being taken in by another family, I didn't want to have to pretend or adapt just to blend in.
 
-My tablet use was restricted, so I created my own forms of entertainment using paper figures, a pen, and adhesive tape—all influenced by the _Dragon Ball_ ideas that surrounded me. I created "Fuis," a fusion of "Luis" and "Fuego" (Fire) (**Fu** + **is**). ## Becoming a Teenager
+My tablet use was restricted, so I created my own forms of entertainment using paper figures, a pen, and adhesive tape—all influenced by the _Dragon Ball_ ideas that surrounded me. I created "Fuis," a fusion of "Luis" and "Fuego" (Fire) (**Fu** + **is**).
+
+## Becoming a Teenager
 
 Although I changed schools due to my parents' arguments—and because I had a habit of playing games even during class—I had already experienced changing schools much earlier; this time, I went to live with my father's aunt.
 
@@ -53,7 +54,9 @@ Once the news spread, my mother came to pick us up, and I moved again—this tim
 At the end of the year, I got a computer, which reignited my desire to keep programming—even though I still didn't have Wi-Fi. Around that time, the YouTuber @soydalto started uploading courses on **HTML, CSS, and JS**, and two other important things happened:
 
 1. I went to a church camp and met a girl who wanted to help others regardless of the system; we kept talking on social media, but eventually, we lost touch.
-2. I met a Salesian priest who spoke to me about philosophy and helped me come to terms with the concept of death; the idea was that, even if there had been resentment, when you love someone, you can choose to remember them by their best moments. ## Time to Step Up
+2. I met a Salesian priest who spoke to me about philosophy and helped me come to terms with the concept of death; the idea was that, even if there had been resentment, when you love someone, you can choose to remember them by their best moments.
+
+## Time to Step Up
 
 I finished my school years constantly changing environments. This turned me into a computer enthusiast and also helped evolve my principles—it was time to develop them.
 

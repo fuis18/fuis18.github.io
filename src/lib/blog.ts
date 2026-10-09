@@ -1,25 +1,14 @@
 import { getCollection, type CollectionEntry } from "astro:content";
 import type { Localized } from "@/types";
 import { DEFAULT_LANG, LANGS, type Lang } from "@/lib/i18n";
+import { estimateReadingTime } from "@/lib/readingTime";
 import type { BlogPostPayload } from "@/lib/blogClient";
-
-const WORDS_PER_MINUTE = 200;
-
-export const POST_ORDER = [
-  "optimizing-linux",
-  "my-beginnings",
-] as const;
-
-function rankOf(slug: string): number {
-  const index = POST_ORDER.indexOf(slug as never);
-  return index === -1 ? Infinity : index;
-}
 
 export type BlogPost = {
   slug: string;
   date: Date;
   isoDate: string;
-  readingTime: number;
+  readingTime: Localized<number>;
   tags: Localized<string[]>;
   langs: string[];
   title: Localized<string>;
@@ -77,12 +66,16 @@ function pickTags(
   return tags.length > 0 ? tags : fallback;
 }
 
-function estimateReadingTime(body: string | undefined): number {
-  const words = (body ?? "").trim().split(/\s+/).filter(Boolean).length;
-  return Math.max(1, Math.round(words / WORDS_PER_MINUTE));
+function pickReadingTime(
+  versions: Map<string, CollectionEntry<"blog">>,
+  lang: string,
+  fallback: number,
+): number {
+  const entry = versions.get(lang);
+  if (!entry) return fallback;
+  return entry.data.readingTime ?? estimateReadingTime(entry.body);
 }
 
-/** Base primero y el resto en el orden de los idiomas soportados. */
 function orderLangs(versions: Map<string, CollectionEntry<"blog">>): string[] {
   return [...versions.keys()].toSorted((a, b) => {
     if (a === DEFAULT_LANG) return -1;
@@ -96,14 +89,21 @@ function toPost(
   versions: Map<string, CollectionEntry<"blog">>,
 ): BlogPostWithEntry {
   const base = versions.get(DEFAULT_LANG) ?? versions.values().next().value!;
-  const { date, tags: fallbackTags, readingTime } = base.data;
+  const { date, tags: fallbackTags } = base.data;
+  const fallbackReadingTime =
+    base.data.readingTime ?? estimateReadingTime(base.body);
 
   return {
     post: {
       slug,
       date,
       isoDate: date.toISOString().slice(0, 10),
-      readingTime: readingTime ?? estimateReadingTime(base.body),
+      readingTime: Object.fromEntries(
+        LANGS.map((lang) => [
+          lang,
+          pickReadingTime(versions, lang, fallbackReadingTime),
+        ]),
+      ) as Localized<number>,
       tags: Object.fromEntries(
         LANGS.map((lang) => [lang, pickTags(versions, lang, fallbackTags)]),
       ) as Localized<string[]>,
@@ -134,15 +134,12 @@ async function groupBySlug(): Promise<
   return grouped;
 }
 
+/** Todos los posts con sus entradas por idioma, del más nuevo al más viejo. */
 export async function getBlogPostsWithEntries(): Promise<BlogPostWithEntry[]> {
   const grouped = await groupBySlug();
   return [...grouped.entries()]
     .map(([slug, versions]) => toPost(slug, versions))
-    .toSorted(
-      (a, b) =>
-        rankOf(a.post.slug) - rankOf(b.post.slug) ||
-        b.post.date.getTime() - a.post.date.getTime(),
-    );
+    .toSorted((a, b) => b.post.date.getTime() - a.post.date.getTime());
 }
 
 export async function getBlogPosts(): Promise<BlogPost[]> {

@@ -21,17 +21,14 @@ test.describe("Language switching", () => {
     await expect(page.locator("html")).toHaveAttribute("lang", "en");
     await expect(page.locator("[data-lang]")).toHaveCount(0);
 
-    // Nav en inglés, sin versiones duplicadas en otros idiomas
     await expect(page.locator("nav a", { hasText: "Home" })).toHaveCount(1);
     await expect(page.locator("nav a", { hasText: "Inicio" })).toHaveCount(0);
 
-    // Contenido visible en inglés
     await expect(page.locator("[data-i18n='role']")).toHaveText(
       "DevOps Engineer",
     );
     await expect(page.locator("[data-i18n='role']")).toBeVisible();
 
-    // Tras la animación de entrada el DOM queda limpio (sin spans)
     await expect(page.locator(".textfx-char")).toHaveCount(0);
     await expect(page.locator(".textfx-line")).toHaveCount(0);
   });
@@ -54,10 +51,8 @@ test.describe("Language switching", () => {
       "¿Quién Soy?",
     );
 
-    // Nunca hay nodos duplicados ocultos
     await expect(page.locator("[data-lang]")).toHaveCount(0);
 
-    // Tras la animación del cambio de idioma el DOM queda limpio
     await expect(page.locator(".textfx-char")).toHaveCount(0);
     await expect(page.locator(".textfx-line")).toHaveCount(0);
   });
@@ -76,13 +71,11 @@ test.describe("Language switching", () => {
     );
     await expect(page.locator("[data-lang]")).toHaveCount(0);
 
-    // Las tarjetas re-renderizan al idioma activo
     const firstCard = page
       .locator("[data-project-index='0']")
       .locator("[data-project-field='title']");
     await expect(firstCard).toHaveText("Mi portafolio web");
 
-    // Tras la navegación, la construcción de entrada deja el DOM limpio
     await expect(page.locator(".textfx-char")).toHaveCount(0);
     await expect(page.locator(".textfx-line")).toHaveCount(0);
   });
@@ -103,10 +96,8 @@ test.describe("Language switching", () => {
       "私について",
     );
 
-    // Nunca hay nodos duplicados ocultos
     await expect(page.locator("[data-lang]")).toHaveCount(0);
 
-    // Tras la animación del cambio de idioma el DOM queda limpio
     await expect(page.locator(".textfx-char")).toHaveCount(0);
     await expect(page.locator(".textfx-line")).toHaveCount(0);
   });
@@ -127,10 +118,8 @@ test.describe("Language switching", () => {
       "Über mich",
     );
 
-    // Nunca hay nodos duplicados ocultos
     await expect(page.locator("[data-lang]")).toHaveCount(0);
 
-    // Tras la animación del cambio de idioma el DOM queda limpio
     await expect(page.locator(".textfx-char")).toHaveCount(0);
     await expect(page.locator(".textfx-line")).toHaveCount(0);
   });
@@ -169,10 +158,8 @@ test.describe("Language switching", () => {
       "すべてのプロジェクト",
     );
 
-    // Nunca hay nodos duplicados ocultos
     await expect(page.locator("[data-lang]")).toHaveCount(0);
 
-    // Tras la animación del cambio de idioma el DOM queda limpio
     await expect(page.locator(".textfx-char")).toHaveCount(0);
     await expect(page.locator(".textfx-line")).toHaveCount(0);
   });
@@ -201,10 +188,8 @@ test.describe("Language switching", () => {
       "Alle Projekte",
     );
 
-    // Nunca hay nodos duplicados ocultos
     await expect(page.locator("[data-lang]")).toHaveCount(0);
 
-    // Tras la animación del cambio de idioma el DOM queda limpio
     await expect(page.locator(".textfx-char")).toHaveCount(0);
     await expect(page.locator(".textfx-line")).toHaveCount(0);
   });
@@ -218,25 +203,22 @@ test.describe("Language switching", () => {
     await expect(page.locator("html")).toHaveAttribute("lang", "es");
     await expect(page.locator("[data-i18n='blog-title']")).toHaveText("Blogs");
 
-    // El post más reciente (optimizing-linux) es el índice 0
-    const card0 = page.locator("[data-post-index='0']");
-    await expect(card0.locator("[data-post-field='title']")).toHaveText(
-      "Optimizando Linux",
+    const card = page.locator("a[href='/blog/my-beginnings']");
+    await expect(card.locator("[data-post-field='title']")).toHaveText(
+      "Mis comienzos",
     );
-    await expect(card0.locator("[data-post-field='description']")).toHaveText(
-      "El conocimiento aumenta, la ciencia evoluciona, los procesos son más eficientes. Tu computadora debería ser más capaz, no menos.",
+    await expect(card.locator("[data-post-field='description']")).toHaveText(
+      "Todo cambio cuando quise ayudar a una chica, pero comienza con muchos desafíos y cada etapa en específico, me permitió llegar hasta aquí.",
     );
-    await expect(card0.locator("[data-post-field='date']")).toHaveText(
-      "9 de octubre de 2026",
+    await expect(card.locator("[data-post-field='date']")).toHaveText(
+      "5 de octubre de 2026",
     );
-    await expect(card0.locator("[data-post-field='reading-time']")).toHaveText(
-      "10 min de lectura",
+    await expect(card.locator("[data-post-field='reading-time']")).toHaveText(
+      "7 min de lectura",
     );
 
-    // Nunca hay nodos duplicados ocultos
     await expect(page.locator("[data-lang]")).toHaveCount(0);
 
-    // Tras la animación del cambio de idioma el DOM queda limpio
     await expect(page.locator(".textfx-char")).toHaveCount(0);
     await expect(page.locator(".textfx-line")).toHaveCount(0);
   });
@@ -264,9 +246,6 @@ test.describe("Language switching", () => {
     await expect(page.locator("[data-post-field='back']")).toHaveText(
       "Volver al blog",
     );
-    // El cuerpo también cambia: el HTML solo trae el del idioma base, así que
-    // el cliente pide `/fragments/{slug}/{lang}` y lo mete en el mismo
-    // contenedor. El inglés desaparece del DOM y queda un solo cuerpo.
     await expect(page.locator("[data-post-body]")).toHaveAttribute(
       "data-post-body-lang",
       "es",

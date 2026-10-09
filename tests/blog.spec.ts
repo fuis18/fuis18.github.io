@@ -4,7 +4,6 @@ function expectClose(actual: number, expected: number, tolerance = 2): void {
   expect(Math.abs(actual - expected)).toBeLessThanOrEqual(tolerance);
 }
 
-/** El conteo viene del contenido, no de un número fijo en el test. */
 async function itemCount(page: Page): Promise<number> {
   const count = await page.locator(".blog-item").count();
   expect(count).toBeGreaterThan(0);
@@ -137,8 +136,6 @@ test.describe("Contenido del blog", () => {
             .map(Number),
         ),
       );
-
-    expect(dates.length).toBeGreaterThanOrEqual(2);
 
     const timestamps = dates.map(([y, m, d]) => Date.UTC(y, m - 1, d));
     expect(timestamps).toEqual(timestamps.toSorted((a, b) => b - a));

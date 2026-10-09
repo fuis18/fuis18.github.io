@@ -5,13 +5,22 @@ import type { BlogPostPayload } from "@/lib/blogClient";
 
 const WORDS_PER_MINUTE = 200;
 
+export const POST_ORDER = [
+  "optimizing-linux",
+  "my-beginnings",
+] as const;
+
+function rankOf(slug: string): number {
+  const index = POST_ORDER.indexOf(slug as never);
+  return index === -1 ? Infinity : index;
+}
+
 export type BlogPost = {
   slug: string;
   date: Date;
   isoDate: string;
   readingTime: number;
-  tags: string[];
-  /** Idiomas con archivo propio, con el base primero. */
+  tags: Localized<string[]>;
   langs: string[];
   title: Localized<string>;
   description: Localized<string>;
@@ -20,14 +29,7 @@ export type BlogPost = {
 
 export type BlogPostWithEntry = {
   post: BlogPost;
-  /**
-   * Entrada que se renderiza en `[slug].astro`. Como la URL no lleva idioma, el
-   * HTML servido trae solo el cuerpo del idioma base: es el piso de SEO y de
-   * no-JS. Los demas idiomas salen de `/fragments/{slug}/{lang}` y el cliente los
-   * mete en el mismo contenedor.
-   */
   entry: CollectionEntry<"blog">;
-  /** Todas las versiones con archivo, para generar los fragmentos. */
   entries: Localized<CollectionEntry<"blog">>;
 };
 
@@ -66,6 +68,15 @@ function pick(
   );
 }
 
+function pickTags(
+  versions: Map<string, CollectionEntry<"blog">>,
+  lang: string,
+  fallback: string[],
+): string[] {
+  const tags = versions.get(lang)?.data.tags ?? [];
+  return tags.length > 0 ? tags : fallback;
+}
+
 function estimateReadingTime(body: string | undefined): number {
   const words = (body ?? "").trim().split(/\s+/).filter(Boolean).length;
   return Math.max(1, Math.round(words / WORDS_PER_MINUTE));
@@ -85,7 +96,7 @@ function toPost(
   versions: Map<string, CollectionEntry<"blog">>,
 ): BlogPostWithEntry {
   const base = versions.get(DEFAULT_LANG) ?? versions.values().next().value!;
-  const { date, tags, readingTime } = base.data;
+  const { date, tags: fallbackTags, readingTime } = base.data;
 
   return {
     post: {
@@ -93,7 +104,9 @@ function toPost(
       date,
       isoDate: date.toISOString().slice(0, 10),
       readingTime: readingTime ?? estimateReadingTime(base.body),
-      tags,
+      tags: Object.fromEntries(
+        LANGS.map((lang) => [lang, pickTags(versions, lang, fallbackTags)]),
+      ) as Localized<string[]>,
       langs: orderLangs(versions),
       title: Object.fromEntries(
         LANGS.map((lang) => [lang, pick(versions, lang, "title")]),
@@ -121,12 +134,15 @@ async function groupBySlug(): Promise<
   return grouped;
 }
 
-/** Todos los posts con sus entradas por idioma, del más nuevo al más viejo. */
 export async function getBlogPostsWithEntries(): Promise<BlogPostWithEntry[]> {
   const grouped = await groupBySlug();
   return [...grouped.entries()]
     .map(([slug, versions]) => toPost(slug, versions))
-    .toSorted((a, b) => b.post.date.getTime() - a.post.date.getTime());
+    .toSorted(
+      (a, b) =>
+        rankOf(a.post.slug) - rankOf(b.post.slug) ||
+        b.post.date.getTime() - a.post.date.getTime(),
+    );
 }
 
 export async function getBlogPosts(): Promise<BlogPost[]> {
@@ -149,6 +165,7 @@ export function toPayload(post: BlogPost): BlogPostPayload {
     description: post.description,
     dateLabel: post.dateLabel,
     readingTime: post.readingTime,
+    tags: post.tags,
     langs: post.langs,
   };
 }

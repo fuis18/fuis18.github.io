@@ -14,6 +14,10 @@ const post: BlogPostPayload = {
   description: { en: "Introductory", es: "Introductorio" },
   dateLabel: { en: "January 1, 2026", es: "1 de enero de 2026" },
   readingTime: 4,
+  tags: {
+    en: ["personal", "psychology"],
+    es: ["personal", "psicología"],
+  },
 };
 
 function mount(): HTMLElement {
@@ -23,9 +27,17 @@ function mount(): HTMLElement {
       <p data-post-field="description"></p>
       <time data-post-field="date"></time>
       <span data-post-field="reading-time"></span>
+      <div data-post-field="tags"></div>
     </div>
   `;
   return document.querySelector<HTMLElement>("[data-post-index]")!;
+}
+
+/** Texto de los tags pintados dentro de `root`, uno por array. */
+function tagsDe(root: ParentNode): string[] {
+  return [...root.querySelectorAll<HTMLElement>(".tag")].map(
+    (span) => span.textContent ?? "",
+  );
 }
 
 describe("blogClient", () => {
@@ -122,6 +134,50 @@ describe("blogClient", () => {
 
       expect(card.querySelector("[data-post-field='title']")).toBe(heading);
       expect(heading.textContent).toBe("My first post");
+    });
+
+    it("repinta los tags del idioma activo", () => {
+      setLang("es");
+      const card = mount();
+
+      applyPostFields(card, post);
+
+      expect(tagsDe(card)).toEqual(["personal", "psicología"]);
+    });
+
+    it("usa los tags del idioma base si el activo no tiene archivo", () => {
+      setLang("ja"); // no hay entrada 'ja' en los tags
+      const card = mount();
+
+      applyPostFields(card, post);
+
+      expect(tagsDe(card)).toEqual(["personal", "psychology"]);
+    });
+
+    it("reconstruye los nodos de tags sin romper los del resto de campos", () => {
+      setLang("en");
+      const card = mount();
+      const heading = card.querySelector("[data-post-field='title']")!;
+
+      applyPostFields(card, post);
+      setLang("es");
+      applyPostFields(card, post);
+
+      expect(card.querySelector("[data-post-field='title']")).toBe(heading);
+      expect(tagsDe(card)).toEqual(["personal", "psicología"]);
+    });
+
+    it("oculta el contenedor cuando ningún idioma tiene tags", () => {
+      setLang("es");
+      const card = mount();
+      const contenedor = card.querySelector<HTMLElement>(
+        "[data-post-field='tags']",
+      )!;
+
+      applyPostFields(card, { ...post, tags: { en: [], es: [] } });
+
+      expect(tagsDe(card)).toEqual([]);
+      expect(contenedor.style.display).toBe("none");
     });
   });
 });

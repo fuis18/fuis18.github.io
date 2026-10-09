@@ -13,6 +13,8 @@ export type BlogPostPayload = {
   description: Localized<string>;
   dateLabel: Localized<string>;
   readingTime: number;
+  /** Tags localizados por idioma (con el base como fallback). */
+  tags: Localized<string[]>;
   /** Idiomas del post que tienen archivo propio (con el base primero). */
   langs: string[];
 };
@@ -53,6 +55,11 @@ function localize(localized: Localized<string>): string {
   return localized[getLang()] ?? localized[DEFAULT_LANG] ?? "";
 }
 
+/** Tags por idioma con fallback al idioma base. */
+function localizeTags(tags: Localized<string[]>): string[] {
+  return tags[getLang()] ?? tags[DEFAULT_LANG] ?? [];
+}
+
 /**
  * Idioma del cuerpo a mostrar: el activo si el post lo tiene, y si no el base
  * (`ja` y `de` no tienen archivo propio). Nunca devuelve un idioma que no
@@ -66,6 +73,36 @@ export function resolveBodyLang(
   return langs.includes(DEFAULT_LANG)
     ? DEFAULT_LANG
     : (langs[0] ?? DEFAULT_LANG);
+}
+
+/**
+ * Repinta el contenedor de tags del post.
+ *
+ * Es el único campo que no se escribe con `textContent`: son varios nodos y
+ * ninguno lleva `data-textfx`, así que no participan de la animación de tecleo
+ * y reconstruirlos es inocuo.
+ */
+function renderTags(host: HTMLElement, tags: string[]): void {
+  const actuales = [...host.querySelectorAll(".tag")].map(
+    (span) => span.textContent,
+  );
+  const iguales =
+    actuales.length === tags.length &&
+    actuales.every((tag, i) => tag === tags[i]);
+
+  if (!iguales) {
+    host.replaceChildren(
+      ...tags.map((tag) => {
+        const span = document.createElement("span");
+        span.className = "tag";
+        span.textContent = tag;
+        return span;
+      }),
+    );
+  }
+
+  // `.tags { display: flex }` pisa el atributo `hidden`, así que va inline.
+  host.style.display = tags.length > 0 ? "" : "none";
 }
 
 /**
@@ -87,6 +124,9 @@ export function applyPostFields(root: ParentNode, post: BlogPostPayload): void {
         break;
       case "date":
         el.textContent = localize(post.dateLabel);
+        break;
+      case "tags":
+        renderTags(el, localizeTags(post.tags));
         break;
       case "reading-time":
         el.textContent = m.blog_read_time({ minutes: post.readingTime });

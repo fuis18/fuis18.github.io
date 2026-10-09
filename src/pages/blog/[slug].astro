@@ -43,9 +43,9 @@ const payloadJson = serializePayload(toPayload(post));
           </span>
         </div>
         {
-          post.tags.length > 0 && (
-            <div class="tags" data-size="sm">
-              {post.tags.map((tag) => (
+          Object.values(post.tags).some((tags) => tags.length > 0) && (
+            <div class="tags" data-size="sm" data-post-field="tags">
+              {(post.tags[DEFAULT_LANG] ?? []).map((tag) => (
                 <span class="tag">{tag}</span>
               ))}
             </div>
@@ -53,12 +53,6 @@ const payloadJson = serializePayload(toPayload(post));
         }
       </header>
       <hr />
-      <!--
-        El cuerpo del idioma base viene en el HTML (piso de SEO y de no-JS).
-        Los demás idiomas entran por fetch desde `/fragments/{slug}/{lang}` y
-        reemplazan el contenido de este mismo contenedor: nunca hay dos
-        cuerpos en el DOM. `data-post-body-lang` dice cuál está puesto.
-      -->
       <div
         class="post-content"
         data-post-body
@@ -99,9 +93,7 @@ const payloadJson = serializePayload(toPayload(post));
     return document.querySelector<HTMLElement>(BODY_SELECTOR);
   }
 
-  /** Descarta un `loadBody` que quedó viejo porque el idioma volvió a cambiar. */
   let token = 0;
-  /** Slugs cuyos fragmentos ya se pidieron en segundo plano. */
   const prefetched = new Set<string>();
 
   async function showBody(slug: string, lang: string): Promise<void> {
@@ -113,17 +105,12 @@ const payloadJson = serializePayload(toPayload(post));
     let html = cached;
 
     if (html === undefined) {
-      // Se oculta en vez de vaciarse: `visibility` conserva el espacio, así que
-      // entra el texto nuevo sin salto y sin glimpse del idioma anterior.
       host.setAttribute("data-body-loading", "");
       html = (await loadBody(slug, lang)) ?? undefined;
     }
 
-    // Un cambio de idioma o una navegación mientras esperábamos invalida esto.
     if (mine !== token || !host.isConnected) return;
 
-    // Si el fragmento no llegó, queda el cuerpo que ya estaba: mejor el idioma
-    // anterior que un hueco. Se destapa igual, o el artículo nunca reaparece.
     if (html !== undefined) {
       host.innerHTML = html;
       host.dataset.postBodyLang = lang;
@@ -138,8 +125,6 @@ const payloadJson = serializePayload(toPayload(post));
 
     const host = container();
     if (!host) return;
-    // Antes de sobrescribir nada, guarda el cuerpo que llegó en el HTML para
-    // poder volver al idioma base sin pedir red.
     if (host.dataset.postBodyLang === DEFAULT_LANG) {
       primeBody(post.slug, DEFAULT_LANG, host.innerHTML);
     }
@@ -176,16 +161,11 @@ const payloadJson = serializePayload(toPayload(post));
     visibility: hidden;
   }
 
-  /*
-   * La tipografía del cuerpo va en `:global` porque el HTML de los fragmentos
-   * entra por `innerHTML` y no lleva el `data-astro-cid-*` que Astro agrega a
-   * las etiquetas de su propia plantilla: con estilos con ámbito, el texto
-   * inyectado saldría sin formato.
-   */
   :global(.prose) {
     display: grid;
-    gap: 1rem;
+    gap: 1.25rem;
     line-height: 1.7;
+    color: var(--color-title);
   }
 
   :global(.prose :is(h1, h2, h3)) {

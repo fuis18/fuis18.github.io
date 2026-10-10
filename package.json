@@ -18,7 +18,8 @@
     "pretest": "paraglide-js compile --emit-ts-declarations",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "typecheck": "tsc --noEmit"
   },
   "devEngines": {
     "packageManager": {

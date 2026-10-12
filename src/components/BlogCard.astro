@@ -35,13 +35,7 @@ const pickTags = (localized: Localized<string[]>) =>
 
 <a href={`/blog/${slug}`} class="card-container card-content" data-size="sm">
   <div class="card-title">
-    <h2
-      data-post-field="title"
-      data-textfx
-      transition:name={`blog-title-${slug}`}
-    >
-      {pick(title)}
-    </h2>
+    <h2 data-post-field="title" data-textfx>{pick(title)}</h2>
     <div class="card-tooltip">
       <time datetime={isoDate} data-post-field="date" data-textfx>
         {pick(date)}

@@ -162,8 +162,10 @@ test.describe("Contenido del blog", () => {
       "datetime",
       "2026-10-05",
     );
+    // El título vive una sola vez, en el encabezado entre tags y contenido
     await expect(page.locator("main h1")).toHaveCount(1);
     await expect(page.locator(".prose h1")).toHaveCount(0);
+    // Cuerpo desde el MDX en el idioma base
     await expect(page.locator(".prose")).toContainText(
       "As a child, I liked to argue for what was right",
     );
@@ -176,59 +178,5 @@ test.describe("Contenido del blog", () => {
       "7 min read",
     );
     await expect(page.locator(".tag")).toHaveText(["personal", "psychology"]);
-  });
-
-  test("6. El título hace morph de la tarjeta al post sin re-escribirse", async ({
-    page,
-  }) => {
-    await page.goto("/blog");
-
-    const card = page.locator("a[href='/blog/my-beginnings']");
-    const cardTitle = card.locator("[data-post-field='title']");
-    await expect(cardTitle).toHaveText("My Beginnings");
-
-    expect(
-      await cardTitle.evaluate((el) => getComputedStyle(el).viewTransitionName),
-    ).toBe("blog-title-my-beginnings");
-
-    await page.evaluate(() => {
-      const FULL = "My Beginnings";
-      (
-        window as unknown as { __fuisTitleRewrote?: boolean }
-      ).__fuisTitleRewrote = false;
-      new MutationObserver(() => {
-        const h1 = document.querySelector<HTMLElement>(
-          "main h1[data-post-field='title']",
-        );
-        if (h1 && h1.textContent?.trim() !== FULL) {
-          (
-            window as unknown as { __fuisTitleRewrote: boolean }
-          ).__fuisTitleRewrote = true;
-        }
-      }).observe(document.body, {
-        subtree: true,
-        childList: true,
-        characterData: true,
-      });
-    });
-
-    await card.click();
-    await page.waitForURL("**/blog/my-beginnings");
-
-    const postTitle = page.locator("main h1");
-    await expect(postTitle).toHaveText("My Beginnings");
-
-    expect(
-      await postTitle.evaluate((el) => getComputedStyle(el).viewTransitionName),
-    ).toBe("blog-title-my-beginnings");
-
-    await page.waitForTimeout(800);
-    expect(
-      await page.evaluate(
-        () =>
-          (window as unknown as { __fuisTitleRewrote: boolean })
-            .__fuisTitleRewrote,
-      ),
-    ).toBe(false);
   });
 });

@@ -36,13 +36,7 @@ const payloadJson = serializePayload(toPayload(post));
         <a href="/blog" class="post-back" data-post-field="back" data-textfx>
           {m.blog_back()}
         </a>
-        <h1
-          data-post-field="title"
-          data-textfx
-          transition:name={`blog-title-${slug}`}
-        >
-          {pick(post.title)}
-        </h1>
+        <h1 data-post-field="title" data-textfx>{pick(post.title)}</h1>
         <div class="card-tooltip">
           <time datetime={post.isoDate} data-post-field="date" data-textfx>
             {pick(post.dateLabel)}

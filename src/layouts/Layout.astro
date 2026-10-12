@@ -47,6 +47,13 @@ import { DEFAULT_LANG } from "@/lib/i18n";
     return Array.from(document.querySelectorAll<HTMLElement>(FX_SELECTOR));
   }
 
+  function llegaPorMorph(el: HTMLElement): boolean {
+    return (
+      document.documentElement.dataset.astroTransition !== undefined &&
+      el.hasAttribute("data-astro-transition-scope")
+    );
+  }
+
   document.addEventListener(
     "lang-change",
     () => {
@@ -62,6 +69,7 @@ import { DEFAULT_LANG } from "@/lib/i18n";
       const olds = lastOldTexts;
       lastOldTexts = new Map();
       for (const el of fxElements()) {
+        if (llegaPorMorph(el)) continue;
         const old = olds.get(el);
         if (old === undefined) buildText(el);
         else rebuildText(el, old);

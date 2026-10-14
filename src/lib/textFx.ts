@@ -1,31 +1,9 @@
-/**
- * Animación de texto "construir / desconstruir".
- *
- * Desconstruye el texto anterior del último carácter al primero (borrado en
- * reversa) y construye el nuevo con líneas simultáneas: el texto se parte en
- * sus líneas visuales reales y todas se escriben a la vez (avanzan en cada
- * tick), de modo que un texto de N líneas se llena como un bloque único con
- * un presupuesto fijo, sin importar su longitud.
- *
- * Garantías:
- * - Estado final = `textContent` plano (sin spans), manteniendo el requisito
- *   de "single rendered text".
- * - `prefers-reduced-motion` desactiva la animación (texto directo).
- * - Un token por elemento cancela la animación en curso si se dispara otra.
- * - Sin medición de líneas (oculto/jsdom) cae a un tipeo de una sola pasada.
- */
-
 export const FX_SELECTOR = "[data-textfx]";
 
-/** Intervalo mínimo entre ticks de escritura (ms). */
 const STEP_MS = 15;
-/** Presupuesto de tiempo total de la construcción (ms), compartido por todas las líneas. */
 const LINE_BUDGET_MS = 450;
-/** Máximo de caracteres revelados por tick y por línea (para no parecer un borrón). */
 const MAX_CHARS_PER_STEP = 6;
-/** Duración total de la desconstrucción (ms). */
 const DESTROY_MS = 350;
-/** Transición de disolución por carácter (ms). */
 const CHAR_FADE_MS = 120;
 
 const tokens = new WeakMap<HTMLElement, number>();
@@ -49,12 +27,6 @@ function isCurrent(el: HTMLElement, token: number): boolean {
   return tokens.get(el) === token;
 }
 
-/**
- * Mide en qué offsets termina cada línea visual del texto (fines exclusivos,
- * sin incluir la última línea). Requiere que el elemento contenga el texto
- * completo en un nodo de texto. Devuelve `null` si no se puede medir
- * (elemento oculto, sin layout, jsdom o texto de una sola línea).
- */
 export function measureLineBreaks(
   el: HTMLElement,
   text: string,
@@ -68,7 +40,7 @@ export function measureLineBreaks(
     const range = document.createRange();
     range.selectNodeContents(node);
     const total = range.getClientRects().length;
-    if (total <= 1) return null; // oculto, sin layout o una sola línea
+    if (total <= 1) return null;
 
     const bounds: number[] = [];
     let lineStart = 0;
@@ -87,7 +59,7 @@ export function measureLineBreaks(
         }
       }
       if (best < 0) return null;
-      bounds.push(best - 1); // fin exclusivo de la línea anterior
+      bounds.push(best - 1);
       lineStart = best;
     }
     return bounds;
@@ -111,10 +83,6 @@ function construct(
   const bounds =
     lineBounds !== undefined ? lineBounds : measureLineBreaks(el, text);
 
-  // Reserva la altura final del texto mientras se escribe. Sin esto, al
-  // vaciar el elemento su altura colapsa a 0 y el layout "parpadea".
-  // Se mide sobre el texto completo (ya presente, o medido por `rebuildText`
-  // antes de desconstruir) y se suelta al terminar.
   const height = reservedHeight ?? Math.ceil(el.getBoundingClientRect().height);
   if (height > 0) el.style.minHeight = `${height}px`;
 
@@ -123,14 +91,18 @@ function construct(
     Math.min(MAX_CHARS_PER_STEP, Math.max(1, Math.ceil(len / maxSteps)));
 
   let timer: ReturnType<typeof setTimeout> | undefined;
+
+  let anchor: ChildNode | undefined;
+
+  const stillOwned = () => anchor === undefined || el.contains(anchor);
+
   const finish = () => {
     if (!isCurrent(el, token)) return;
     if (timer !== undefined) clearTimeout(timer);
-    el.textContent = text;
     el.style.minHeight = "";
+    if (stillOwned()) el.textContent = text;
   };
 
-  // Parte el texto por sus líneas visuales medidas (fallback: una sola línea).
   const lines: string[] = [];
   if (bounds !== null) {
     let prev = 0;
@@ -147,13 +119,14 @@ function construct(
   el.textContent = "";
 
   if (lines.length <= 1) {
-    // Una sola línea (o sin medición): un nodo de texto, sin spans.
     const textNode = document.createTextNode("");
     el.appendChild(textNode);
+    anchor = textNode;
     const perStep = perStepFor(lines[0].length);
     let pos = 0;
     const step = () => {
       if (!isCurrent(el, token)) return;
+      if (!stillOwned()) return;
       pos = Math.min(text.length, pos + perStep);
       textNode.nodeValue = text.slice(0, pos);
       if (pos >= text.length) {
@@ -166,7 +139,6 @@ function construct(
     return;
   }
 
-  // Varias líneas: un span block por línea; todas avanzan en cada tick.
   const frag = document.createDocumentFragment();
   const jobs = lines.map((line) => {
     const span = document.createElement("span");
@@ -178,9 +150,11 @@ function construct(
     return { text: line, node, pos: 0, perStep: perStepFor(line.length) };
   });
   el.appendChild(frag);
+  anchor = jobs[0].node;
 
   const step = () => {
     if (!isCurrent(el, token)) return;
+    if (!stillOwned()) return;
     let pending = false;
     for (const job of jobs) {
       if (job.pos >= job.text.length) continue;
@@ -219,8 +193,6 @@ function destroy(
     const span = document.createElement("span");
     span.className = "textfx-char";
     span.textContent = chars[i];
-    // El último carácter se desvanece primero: desconstrucción del final al
-    // inicio (retardo = (n - 1 - i) * stagger).
     const delay = Math.round((n - 1 - i) * stagger);
     span.style.transition = `opacity ${CHAR_FADE_MS}ms ease ${delay}ms, transform 200ms ease ${delay}ms`;
     frag.appendChild(span);
@@ -247,10 +219,6 @@ function destroy(
   }, DESTROY_MS + CHAR_FADE_MS);
 }
 
-/**
- * Construye (escribe) el texto actual del elemento. Para entradas de página
- * (primera carga / navegación).
- */
 export function buildText(el: HTMLElement): void {
   const text = el.textContent ?? "";
   const token = nextToken(el);
@@ -262,10 +230,6 @@ export function buildText(el: HTMLElement): void {
   construct(el, text, token);
 }
 
-/**
- * Desconstruye `oldText` y construye el texto actual del elemento
- * (ya actualizado por los syncers). Para cambios de idioma.
- */
 export function rebuildText(el: HTMLElement, oldText: string): void {
   const newText = el.textContent ?? "";
 
@@ -274,9 +238,6 @@ export function rebuildText(el: HTMLElement, oldText: string): void {
     return;
   }
 
-  // Elemento ya animado con texto sin cambios reales: no hacer nada.
-  // Crítico: no invalidar el token de una construcción de entrada en curso
-  // (un `lang-change` redundante al cargar la página la dejaría a medias).
   if (animated.has(el) && oldText === newText) {
     return;
   }
@@ -284,16 +245,11 @@ export function rebuildText(el: HTMLElement, oldText: string): void {
   const token = nextToken(el);
 
   if (!animated.has(el)) {
-    // Elemento fresco (navegación/carga): solo construcción de entrada.
     animated.add(el);
     if (newText) construct(el, newText, token);
     return;
   }
 
-  // Mide la altura y las líneas visuales del texto completo ANTES de
-  // desconstruir (en este punto el elemento ya contiene el texto nuevo escrito
-  // por los syncers): la reserva evita que el layout salte y los límites de
-  // línea permiten construir con líneas simultáneas tras la desconstrucción.
   const reservedHeight = Math.ceil(el.getBoundingClientRect().height);
   if (reservedHeight > 0) el.style.minHeight = `${reservedHeight}px`;
   const lineBounds = measureLineBreaks(el, newText);

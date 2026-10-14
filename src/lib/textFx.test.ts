@@ -26,20 +26,14 @@ function stubMatchMedia(matches: boolean) {
     writable: true,
     value: () => ({
       matches,
-      addEventListener: () => {},
-      removeEventListener: () => {},
-      addListener: () => {},
-      removeListener: () => {},
+      addEventListener: () => { },
+      removeEventListener: () => { },
+      addListener: () => { },
+      removeListener: () => { },
     }),
   });
 }
 
-/**
- * Simula el layout: `getClientRects()` cuenta una línea por cada salto de
- * línea superado (`jumpAt` = offset donde empiezan las líneas 2..n).
- * Bajo este mock, "abcdefghij" con saltos en 4 y 8 se parte en
- * "abcd"/"efgh"/"ij".
- */
 function mockLineRects(jumpAt: number[]) {
   const proto = Range.prototype as { getClientRects?: unknown };
   const original = proto.getClientRects;
@@ -131,8 +125,6 @@ describe("buildText", () => {
       elapsed += 50;
     }
     expect(el.textContent).toBe(longText);
-    // Presupuesto fijo compartido (LINE_BUDGET_MS), no por carácter: la
-    // duración queda acotada incluso para textos muy largos.
     expect(elapsed).toBeLessThanOrEqual(2_000);
     expect(hasLeftovers(el)).toBe(false);
   });
@@ -157,16 +149,13 @@ describe("rebuildText", () => {
     vi.advanceTimersByTime(1_000);
     expect(el.textContent).toBe("Holo");
 
-    // El sync ya escribió el nuevo texto; rebuildText recibe el viejo.
     el.textContent = "Hello";
     rebuildText(el, "Holo");
 
-    // Durante la desconstrucción hay spans temporales…
     vi.advanceTimersByTime(100);
     const spans = el.querySelectorAll<HTMLElement>(".textfx-char");
     expect(spans.length).toBeGreaterThan(1);
 
-    // …y los retardos confirman que va del último carácter al primero
     const delays = Array.from(spans).map((s) => {
       const m = s.style.transition.match(/ease (\d+(?:\.\d+)?)ms/);
       return m ? Number(m[1]) : 0;
@@ -174,7 +163,6 @@ describe("rebuildText", () => {
     expect(delays[delays.length - 1]).toBe(0);
     expect(delays[0]).toBeGreaterThan(delays[delays.length - 1]);
 
-    // …pero al final queda texto plano del idioma nuevo.
     vi.advanceTimersByTime(5_000);
     expect(el.textContent).toBe("Hello");
     expect(hasLeftovers(el)).toBe(false);
@@ -206,11 +194,11 @@ describe("rebuildText", () => {
     vi.useFakeTimers();
     const el = makeEl("Un texto largo para iniciar");
     buildText(el);
-    vi.advanceTimersByTime(100); // mitad de la construcción
+    vi.advanceTimersByTime(100);
 
     el.textContent = "Nuevo idioma";
     rebuildText(el, "Un texto largo para iniciar");
-    vi.advanceTimersByTime(200); // mitad de la desconstrucción
+    vi.advanceTimersByTime(200);
 
     el.textContent = "Otro idioma";
     rebuildText(el, "Nuevo idioma");
@@ -220,22 +208,33 @@ describe("rebuildText", () => {
     expect(hasLeftovers(el)).toBe(false);
   });
 
-  it("un dispatch redundante a mitad de la construcción no la interrumpe", () => {
+  it("un syncer que reescribe el texto completo termina con ese texto", () => {
     vi.useFakeTimers();
     const el = makeEl("Home");
     buildText(el);
-    vi.advanceTimersByTime(30); // construcción en curso (texto parcial)
+    vi.advanceTimersByTime(30);
 
     const partial = el.textContent ?? "";
     expect(partial).not.toBe("Home");
 
-    // Un lang-change redundante captura/reescribe el mismo texto parcial:
-    // rebuildText debe ignorarlo sin invalidar la cadena en curso.
-    el.textContent = partial;
+    el.textContent = "Home";
     rebuildText(el, partial);
     vi.advanceTimersByTime(5_000);
 
     expect(el.textContent).toBe("Home");
+    expect(hasLeftovers(el)).toBe(false);
+  });
+
+  it("una construcción en curso no pisa el texto que escribió un syncer", () => {
+    vi.useFakeTimers();
+    const el = makeEl("Home");
+    buildText(el);
+    vi.advanceTimersByTime(15);
+
+    el.textContent = "Inicio";
+
+    vi.advanceTimersByTime(5_000);
+    expect(el.textContent).toBe("Inicio");
     expect(hasLeftovers(el)).toBe(false);
   });
 
@@ -269,7 +268,6 @@ describe("construcción por líneas (simultánea)", () => {
     const el = makeEl("abcdefghij");
     buildText(el);
 
-    // Tras el primer tick, todas las líneas ya tienen texto parcial a la vez.
     vi.advanceTimersByTime(15);
     const spans = el.querySelectorAll<HTMLElement>(".textfx-line");
     expect(spans.length).toBe(3);
@@ -309,7 +307,6 @@ describe("construcción por líneas (simultánea)", () => {
     buildText(el);
     vi.advanceTimersByTime(1_000);
 
-    // El sync ya escribió el nuevo texto; rebuildText recibe el viejo.
     el.textContent = "abcdefghij";
     rebuildText(el, "Holo");
 
@@ -355,7 +352,6 @@ describe("reserva de altura (antiparpadeo)", () => {
     vi.advanceTimersByTime(1_000);
     mockHeight(el, 64);
 
-    // El sync ya escribió el nuevo texto; rebuildText recibe el viejo.
     el.textContent = "Hello";
     rebuildText(el, "Holo");
 

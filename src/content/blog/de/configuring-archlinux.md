@@ -9,7 +9,7 @@ tags: ["linux", "Optimierung", "Geschichte"]
 
 Zunächst wollte ich neue Technologien und komplexere Architekturen erkunden, doch die 4 GB RAM – die für die Webentwicklung ohne Frameworks ausgereicht hatten – erwiesen sich als eine zu schmerzhafte Einschränkung. So begann ich zu erforschen, wie ich aus einem alten PC einen möglichst minimalistischen Server bauen könnte, und probierte dabei **Arch Linux** aus.
 
-Ein weiterer Faktor war meine Überzeugung: Die Erkenntnis, dass Linux technisch überlegen ist und man seinen Computer exakt nach eigenen Wünschen konfigurieren kann, begeisterte mich. Da mich Rust faszinierte – weil es Anwendungen schneller und sicherer macht –, wurde diese Philosophie zu einem Teil meiner Identität.
+In einem zweiten Schritt spielte meine Ideologie eine Rolle: Die Erkenntnis, dass Linux volle Kontrolle bietet – sei es, um zu lernen oder um unter Einsatz bester Technologien ein gerechtes und notwendiges System zu schaffen –, begeisterte mich. Als ich entdeckte, dass Rust eine schnellere und technisch überlegene Sprache ist, war ich fasziniert; diese Philosophie wurde zu einem Teil meiner Identität.
 
 Schließlich spielte auch meine finanzielle Situation eine Rolle. Als ich versuchte, eine Anwendung mit Tauri zu kompilieren, war mein Laptop überfordert und der Lüfter ging kaputt. In diesem Moment beschloss ich, zu Arch Linux als meiner einzigen Hauptdistribution zu wechseln.
 

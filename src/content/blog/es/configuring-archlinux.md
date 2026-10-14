@@ -9,7 +9,7 @@ tags: ["linux", "optimización", "historia"]
 
 En primer lugar, quería seguir explorando nuevas tecnologías y arquitecturas más complejas, pero los 4 GB de RAM —que eran suficientes para programar páginas web sin _frameworks_— se volvieron una limitación demasiado dolorosa como para soportarla. Así fue como empecé a explorar cómo armarme un servidor con una PC vieja que fuera lo más minimalista posible, por lo que probé **Arch Linux**.
 
-En segunda instancia intervino mi ideología: saber que Linux es superior técnicamente y que puedes configurar exactamente tu computadora como quieres me enamoró. Fascinado por Rust al hacer las aplicaciones más rápidas y seguras, esta filosofía se volvió parte de mi identidad.
+En segunda instancia intervino mi ideología: saber que Linux te permite un control total, tanto para aprender como para dedicarme a hacer un sistema justo y necesario con las mejores técnologías me enamoró. Fascinado por Rust al saber que era un lenguage más rápido y que técnicamente superior, esta filosofía se volvió parte de mi identidad.
 
 Como último detonante, mi situación financiera no era la mejor. Al intentar compilar una aplicación con Tauri, mi laptop no lo soportó y el ventilador (_heat fan_) se averió. Fue en ese momento cuando decidí pasarme a Arch Linux como mi distribución principal y única.
 

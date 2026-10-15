@@ -39,10 +39,10 @@ body {
   line-height: 1.8;
 }
 
-header,
+.header-inner,
 main {
   margin-inline: auto;
-  padding-inline: 15px;
+  padding-inline: 0.75rem;
 }
 
 main {
@@ -176,7 +176,7 @@ hr {
 }
 
 @media screen and (width >= 660px) {
-  header,
+  .header-inner,
   main,
   footer {
     max-width: 640px;
@@ -187,7 +187,7 @@ hr {
 }
 
 @media screen and (width >= 768px) {
-  header,
+  .header-inner,
   main,
   footer {
     max-width: 738px;
@@ -195,7 +195,7 @@ hr {
 }
 
 @media screen and (width >= 960px) {
-  header,
+  .header-inner,
   main,
   footer {
     max-width: 930px;
@@ -203,7 +203,7 @@ hr {
 }
 
 @media screen and (width >= 1200px) {
-  header {
+  .header-inner {
     max-width: 1200px;
   }
   main,

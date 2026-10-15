@@ -7,48 +7,80 @@ import LangDropdown from "./LangDropdown.astro";
 import ThemeToggle from "./ThemeToggle.astro";
 ---
 
-<header>
-  <div class="header-left">
-    <a href="/" class="JP">{SITE.TITLE}</a>
-    <span class="clock">00:00</span>
-  </div>
-  <nav>
-    {
-      LINKS.map((LINK) => {
-        const isActive =
-          LINK.HREF === "/" ? pathname === "/" : pathname.startsWith(LINK.HREF);
-        return (
-          <a
-            href={LINK.HREF}
-            data-message={LINK.KEY}
-            data-textfx
-            class:list={[{ active: isActive }]}
-          >
-            {m[LINK.KEY]()}
-          </a>
-        );
-      })
-    }
-  </nav>
-  <div class="header-rigth">
-    <LangDropdown />
-    <ThemeToggle />
+<header id="header">
+  <div class="header-inner">
+    <div class="header-left">
+      <a href="/" class="JP">{SITE.TITLE}</a>
+      <span class="clock">00:00</span>
+    </div>
+    <nav>
+      {
+        LINKS.map((LINK) => {
+          const isActive =
+            LINK.HREF === "/"
+              ? pathname === "/"
+              : pathname.startsWith(LINK.HREF);
+          return (
+            <a
+              href={LINK.HREF}
+              data-message={LINK.KEY}
+              data-textfx
+              class:list={[{ active: isActive }]}
+            >
+              {m[LINK.KEY]()}
+            </a>
+          );
+        })
+      }
+    </nav>
+    <div class="header-rigth">
+      <LangDropdown />
+      <ThemeToggle />
+    </div>
   </div>
 </header>
 
 <style>
   header {
-    display: flex;
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    border-bottom: 1px solid transparent;
+    transition:
+      background-color 0.3s ease,
+      border-color 0.3s ease,
+      backdrop-filter 0.3s ease;
+  }
+  .header-inner {
+    display: grid;
+    padding-block: 0.75rem;
+    gap: 0.5rem;
+    grid-template:
+      "hLeft hLeft hRigth" auto
+      "hNav hNav hNav" auto;
     justify-content: center;
     align-items: center;
-    height: 4rem;
+    min-height: 4rem;
+  }
+  header.scrolled {
+    background-color: color-mix(in srgb, var(--bg-primary) 95%, transparent);
+    border-bottom-color: var(--border);
+    backdrop-filter: blur(12px);
+  }
+  @supports (backdrop-filter: blur(1px)) {
+    header.scrolled {
+      background-color: color-mix(in srgb, var(--bg-primary) 60%, transparent);
+    }
+  }
+  .header-left {
+    grid-area: hLeft;
+  }
+  .header-rigth {
+    grid-area: hRigth;
   }
   .header-left,
   .header-rigth {
-    display: none;
-  }
-  .header-left,
-  .header-rigth {
+    display: inline-flex;
     gap: 12px;
     color: var(--color-title);
     align-items: center;
@@ -67,6 +99,7 @@ import ThemeToggle from "./ThemeToggle.astro";
   nav {
     font-size: 0.875rem;
     position: relative;
+    grid-area: hNav;
   }
   nav a {
     display: inline-block;
@@ -84,22 +117,15 @@ import ThemeToggle from "./ThemeToggle.astro";
     color: var(--color-title);
   }
 
-  @media screen and (width >= 400px) {
-    header {
-      justify-content: space-between;
-    }
-    .header-rigth {
-      display: inline-flex;
-    }
-  }
-  @media screen and (width >= 500px) {
+  @media screen and (width >= 350px) {
     nav a {
       padding-inline: 1rem;
     }
   }
-  @media screen and (width >= 640px) {
-    .header-left {
-      display: inline-flex;
+  @media screen and (width >= 650px) {
+    .header-inner {
+      grid-template: "hLeft hNav hRigth" auto;
+      justify-content: space-between;
     }
   }
   @media screen and (width >= 960px) {
@@ -159,7 +185,19 @@ import ThemeToggle from "./ThemeToggle.astro";
       });
   }
 
+  function handleScroll() {
+    const header = document.getElementById("header");
+    if (header) header.classList.toggle("scrolled", window.scrollY > 0);
+  }
+
+  function setupScrollHandler() {
+    window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+  }
+
   syncOnLangChange(syncNav);
+  document.addEventListener("astro:page-load", setupScrollHandler);
   document.addEventListener("astro:page-load", syncNav);
   document.addEventListener("astro:page-load", initClock);
   document.addEventListener("astro:page-load", initIndicator);

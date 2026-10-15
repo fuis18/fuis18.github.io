@@ -41,7 +41,7 @@ pnpm paraglide        # compilar mensajes de i18n
 
 Empecé con [All-Projects](https://fuis18.github.io/All-Projects) con JS puro; al ponerle el modo oscuro encontré una paleta que me gustaba.
 
-Luego, al aprender React, lo rehice pero quedó a medias ([commit](https://github.com/fuis18/fuis18.github.io/tree/53beb8944b794f0cea5b3e7ead396b7e2afcf6ec)) para dedicarme a estudiar Astro y configurar mi entorno de Linux.
+Entonces, al aprender React, lo rehice pero quedó a medias ([commit](https://github.com/fuis18/fuis18.github.io/tree/53beb8944b794f0cea5b3e7ead396b7e2afcf6ec)) por dedicarme a estudiar Astro y configurar mi entorno de Linux, y gracias a eso puedo ofrecer algo mejor.
 
 Gracias a involucrarme más, pude crear una web que me refleja mejor como ingeniero y como persona.
 
@@ -53,4 +53,4 @@ Gracias a involucrarme más, pude crear una web que me refleja mejor como ingeni
 
 ## Licencia
 
-MIT · ver [LICENSE](LICENSE) (declarada en [package.json](package.json))
+MIT · ver [LICENSE](LICENSE)

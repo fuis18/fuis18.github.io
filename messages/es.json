@@ -6,5 +6,8 @@
   "projects_title": "Proyectos",
   "blog_title": "Blogs",
   "blog_read_time": "{minutes} min de lectura",
-  "blog_back": "Volver al blog"
+  "blog_back": "Volver al blog",
+  "status_online": "En línea",
+  "status_working": "Trabajando",
+  "status_offline": "Desconectado"
 }

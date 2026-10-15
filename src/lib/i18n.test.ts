@@ -20,7 +20,7 @@ describe("i18n", () => {
   });
 
   it("expone los idiomas soportados (con 'ja' BCP-47) y el idioma por defecto", () => {
-    expect(LANGS).toEqual(["en", "es", "ja", "de"]);
+    expect(LANGS).toEqual(["de", "en", "es", "ja"]);
     expect(DEFAULT_LANG).toBe("en");
   });
 

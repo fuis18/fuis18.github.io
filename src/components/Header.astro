@@ -7,7 +7,7 @@ import LangDropdown from "./LangDropdown.astro";
 import ThemeToggle from "./ThemeToggle.astro";
 ---
 
-<header>
+<header id="header">
   <div class="header-left">
     <a href="/" class="JP">{SITE.TITLE}</a>
     <span class="clock">00:00</span>
@@ -42,6 +42,24 @@ import ThemeToggle from "./ThemeToggle.astro";
     justify-content: center;
     align-items: center;
     height: 4rem;
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    border-bottom: 1px solid transparent;
+    transition:
+      background-color 0.3s ease,
+      border-color 0.3s ease,
+      backdrop-filter 0.3s ease;
+  }
+  header.scrolled {
+    background-color: color-mix(in srgb, var(--bg-primary) 95%, transparent);
+    border-bottom-color: var(--border);
+    backdrop-filter: blur(12px);
+  }
+  @supports (backdrop-filter: blur(1px)) {
+    header.scrolled {
+      background-color: color-mix(in srgb, var(--bg-primary) 60%, transparent);
+    }
   }
   .header-left,
   .header-rigth {
@@ -159,7 +177,19 @@ import ThemeToggle from "./ThemeToggle.astro";
       });
   }
 
+  function handleScroll() {
+    const header = document.getElementById("header");
+    if (header) header.classList.toggle("scrolled", window.scrollY > 0);
+  }
+
+  function setupScrollHandler() {
+    window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+  }
+
   syncOnLangChange(syncNav);
+  document.addEventListener("astro:page-load", setupScrollHandler);
   document.addEventListener("astro:page-load", syncNav);
   document.addEventListener("astro:page-load", initClock);
   document.addEventListener("astro:page-load", initIndicator);

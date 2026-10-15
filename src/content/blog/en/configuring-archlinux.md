@@ -17,7 +17,7 @@ As a final trigger, my financial situation wasn't the best. When trying to compi
 
 There were two main reasons Linux was born: the first, to have more features; the second, to have freedom, both of ownership and of decision. The first reason has allowed us to have servers and cell phones; but the second has been forgotten. I believe that offering a system that works _"out of the box"_ is a great step toward making the entry of new people much more accessible.
 
-Arch Linux and, therefore, the **AUR** (_Arch User Repository_), today have one of the largest communities among the various distributions. This kicked off the _dotfiles_ culture, making the installation and customization of the system easier, while forcing you to learn the internal process of installing the operating system.
+Arch Linux—and, by extension, the **AUR** (_Arch User Repository_)—boasts one of the largest communities among the various Linux distributions. This gave rise to the culture of "dotfiles," which simplifies system installation and customization, while simultaneously allowing you to learn about every layer of your own operating system.
 
 For its part, **CachyOS** proved that users are truly enthusiastic about performance, but that is only achieved if every part of the system is known and optimized.
 

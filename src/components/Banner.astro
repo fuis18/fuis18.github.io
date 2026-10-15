@@ -1,6 +1,7 @@
 ---
 import homeDataRaw from "@/data/home.json";
 import { pickLocalized } from "@/lib/i18n";
+import { m } from "@/paraglide/messages";
 import type { Localized } from "@/types";
 
 type HomeBlock = (typeof homeDataRaw)["en"];
@@ -8,6 +9,14 @@ const homeData = homeDataRaw as unknown as Localized<HomeBlock>;
 ---
 
 <div class="card-container card-content" data-size="xlg">
+  <span class="tag status" data-status-tag data-status="online">
+    <span class="status-indicator" aria-hidden="true">
+      <span class="status-dot"></span>
+      <span class="status-ping"></span>
+    </span>
+    <span class="status-prefix">Status:</span>
+    <span class="status-value" data-status-label>{m.status_online()}</span>
+  </span>
   <h1>Luis Roman Cieza</h1>
   <div class="subtitle">
     <h2 data-i18n="role" data-textfx>{pickLocalized(homeData).role}</h2>
@@ -19,9 +28,17 @@ const homeData = homeDataRaw as unknown as Localized<HomeBlock>;
 <script>
   import homeDataRaw from "@/data/home.json";
   import { pickLocalized, syncOnLangChange } from "@/lib/i18n";
+  import { m } from "@/paraglide/messages";
+  import { getCurrentStatus, type Status } from "@/lib/status";
   import type { Localized } from "@/types";
 
   type HomeBlock = (typeof homeDataRaw)["en"];
+
+  const STATUS_MESSAGES: Record<Status, () => string> = {
+    online: m.status_online,
+    working: m.status_working,
+    offline: m.status_offline,
+  };
 
   function syncRole() {
     const homeData = homeDataRaw as unknown as Localized<HomeBlock>;
@@ -29,8 +46,21 @@ const homeData = homeDataRaw as unknown as Localized<HomeBlock>;
     if (role) role.textContent = pickLocalized(homeData).role;
   }
 
+  function syncStatus() {
+    const tag = document.querySelector<HTMLElement>("[data-status-tag]");
+    if (!tag) return;
+    const status = getCurrentStatus();
+    tag.dataset.status = status;
+    const label = tag.querySelector<HTMLElement>("[data-status-label]");
+    if (label) label.textContent = STATUS_MESSAGES[status]();
+  }
+
   syncOnLangChange(syncRole);
   document.addEventListener("astro:page-load", syncRole);
+
+  syncOnLangChange(syncStatus);
+  document.addEventListener("astro:page-load", syncStatus);
+  setInterval(syncStatus, 30_000);
 </script>
 
 <style>
@@ -48,6 +78,71 @@ const homeData = homeDataRaw as unknown as Localized<HomeBlock>;
   .subtitle span {
     font-size: 1.25rem;
   }
+
+  .status {
+    --status: #4ade80;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: max-content;
+    padding: 0.25rem 0.75rem;
+    font-size: 0.75rem;
+    line-height: 1.5;
+  }
+  .status[data-status="online"] {
+    --status: #4ade80;
+  }
+  .status[data-status="working"] {
+    --status: #60a5fa;
+  }
+  .status[data-status="offline"] {
+    --status: #737371;
+  }
+  /* neutraliza .tag:hover de globals.css */
+  .tag.status:hover {
+    background-color: transparent;
+  }
+  .status-prefix {
+    color: var(--color);
+  }
+  .status-value {
+    color: var(--status);
+  }
+  .status-indicator {
+    position: relative;
+    flex: none;
+    width: 8px;
+    height: 8px;
+  }
+  .status-dot,
+  .status-ping {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--status);
+  }
+  .status-ping {
+    opacity: 0.7;
+    animation: ping 1.5s infinite;
+  }
+  @keyframes ping {
+    0% {
+      transform: scale(1);
+      opacity: 0.7;
+    }
+    70% {
+      transform: scale(2.2);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(2.2);
+      opacity: 0;
+    }
+  }
+
   @media screen and (width >= 640px) {
     h1 {
       font-size: 3.5rem;
@@ -56,6 +151,13 @@ const homeData = homeDataRaw as unknown as Localized<HomeBlock>;
   @media screen and (width >= 960px) {
     h1 {
       font-size: 4.5rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .status-ping {
+      animation: none;
+      opacity: 0;
     }
   }
 </style>

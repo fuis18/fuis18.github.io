@@ -41,7 +41,7 @@ pnpm paraglide        # compile i18n messages
 
 I started with [All-Projects](https://fuis18.github.io/All-Projects) in plain JS; adding dark mode led me to a palette I really liked.
 
-Then, while learning React, I rebuilt it but left it half-finished ([commit](https://github.com/fuis18/fuis18.github.io/tree/53beb8944b794f0cea5b3e7ead396b7e2afcf6ec)) to focus on studying Astro and setting up my Linux environment.
+Then, while learning React, I rebuilt it—though I left it unfinished ([commit](https://github.com/fuis18/fuis18.github.io/tree/53beb8944b794f0cea5b3e7ead396b7e2afcf6ec))—because I shifted my focus to studying Astro and setting up my Linux environment; thanks to that, I’m now able to offer something better.
 
 Getting more involved from there, I ended up building a site that reflects me better as an engineer and as a person.
 
@@ -53,4 +53,4 @@ Getting more involved from there, I ended up building a site that reflects me be
 
 ## License
 
-MIT · see [LICENSE](LICENSE) (declared in [package.json](package.json))
+MIT · see [LICENSE](LICENSE)

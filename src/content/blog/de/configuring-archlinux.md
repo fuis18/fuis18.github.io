@@ -17,7 +17,7 @@ Schließlich spielte auch meine finanzielle Situation eine Rolle. Als ich versuc
 
 Es gab zwei Hauptgründe für die Entstehung von Linux: erstens mehr Funktionen und zweitens Freiheit – sowohl in Bezug auf das Eigentum als auch auf die Entscheidungsfreiheit. Der erste Grund hat uns Server und Mobiltelefone beschert, doch der zweite geriet zunehmend in Vergessenheit. Ich bin der Meinung, dass ein System, das „out of the box“ (sofort einsatzbereit) funktioniert, einen wichtigen Schritt darstellt, um neuen Nutzern den Einstieg zu erleichtern.
 
-Arch Linux und damit auch das **AUR** (_Arch User Repository_) verfügen heute über eine der größten Communities unter den verschiedenen Distributionen. Dies begründete die Kultur der „Dotfiles“, die die Installation und Anpassung des Systems erleichtert, auch wenn sie einen dazu zwingt, die internen Abläufe bei der Installation des Betriebssystems zu verstehen.
+Arch Linux – und damit auch das **AUR** (_Arch User Repository_) – verfügt heute über eine der größten Communities unter den verschiedenen Distributionen. Dies gab den Anstoß zur Kultur der sogenannten _Dotfiles_, die die Installation und Anpassung des Systems erleichtern und es einem zugleich ermöglichen, die einzelnen Schichten des eigenen Betriebssystems kennenzulernen.
 
 **CachyOS** wiederum hat gezeigt, dass Nutzer großen Wert auf Leistung legen – doch diese lässt sich nur erzielen, wenn man alle Komponenten des Systems kennt und optimiert.
 

@@ -17,7 +17,7 @@ Como último detonante, mi situación financiera no era la mejor. Al intentar co
 
 Hubo dos motivos principales por los cuales nació Linux: el primero, tener más características; el segundo, tener libertad, tanto de propiedad como de decisión. La primera razón nos ha permitido tener servidores y teléfonos celulares; pero la segunda se ha estado olvidando. Considero que ofrecer un sistema que funcione _"out of the box"_ (listo para usar) es un gran paso para hacer más accesible la entrada a nuevas personas.
 
-Arch Linux y, por ende, el **AUR** (_Arch User Repository_), cuentan hoy con una de las comunidades más grandes entre las distintas distribuciones. Esto dio inicio a la cultura de los _dotfiles_, facilitando la instalación y personalización del sistema, aunque obligándote a aprender el proceso interno de instalación del sistema operativo.
+Arch Linux y, por ende, el **AUR** (_Arch User Repository_), cuentan hoy con una de las comunidades más grandes entre las distintas distribuciones. Esto dio inicio a la cultura de los _dotfiles_, facilitando la instalación y personalización del sistema, y aprendiendo de paso cada capa de tu propio sistema operativo.
 
 Por su parte, **CachyOS** demostró que los usuarios están verdaderamente entusiasmados por el rendimiento, pero eso solo se logra si se conocen y optimizan todas las piezas del sistema.
 

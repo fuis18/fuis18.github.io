@@ -46,7 +46,7 @@ main {
 }
 
 main {
-  margin-block: 3rem 2.5rem;
+  margin-block: 1rem 2rem;
   display: grid;
   gap: 1.5rem;
 }

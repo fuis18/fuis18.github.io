@@ -66,16 +66,17 @@ const homeData = homeDataRaw as unknown as Localized<HomeBlock>;
 <style>
   h2 {
     display: inline;
-    font-size: 1.5rem;
     color: var(--color);
   }
+  .card-content {
+    gap: 1rem;
+  }
+
   .subtitle {
     display: inline-flex;
     gap: 0.75rem;
     align-items: center;
     color: var(--color);
-  }
-  .subtitle span {
     font-size: 1.25rem;
   }
 
@@ -142,7 +143,11 @@ const homeData = homeDataRaw as unknown as Localized<HomeBlock>;
       opacity: 0;
     }
   }
-
+  @media screen and (width >= 450px) {
+    h2 {
+      font-size: 1.5rem;
+    }
+  }
   @media screen and (width >= 640px) {
     h1 {
       font-size: 3.5rem;

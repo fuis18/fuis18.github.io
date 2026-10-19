@@ -7,7 +7,7 @@ tags: ["personal", "psychology"]
 
 ## My Childhood
 
-As a child, I liked to justify my decisions and needs based on the logic of what was "right" for a child. I also had a large collection of toys, which my sister and I used to create various stories that wove together different themes. I was almost always playing, putting effort into crafting the next story, though occasionally I would also practice origami or draw paper figures of various characters.
+When I was a child, I liked to justify my decisions and needs based on the logic of what was "right" for a child. I also had a large collection of toys, which my sister and I used to create various stories that wove together different themes. I was almost always playing, putting effort into crafting the next story, though occasionally I would also practice origami or draw paper figures of various characters.
 
 I was also allowed to watch YouTube on the TV or play on the computer all day. I used to play games on Friv because I wasn't allowed to download anything—though the one thing I _did_ download was Minecraft.
 

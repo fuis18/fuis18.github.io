@@ -7,7 +7,7 @@ tags: ["Persönliches", "Psychologie"]
 
 ## Meine Kindheit
 
-Als Kind mochte ich es, meine Entscheidungen und Bedürfnisse logisch zu begründen – basierend darauf, was für ein Kind eben „richtig“ war. Zudem besaß ich eine große Menge an Spielzeug; gemeinsam mit meiner Schwester dachten wir uns damit zahlreiche Geschichten aus, in denen wir verschiedenste Themen miteinander verknüpften. Ich war eigentlich ständig am Spielen und tüftelte eifrig an der nächsten Geschichte – wobei ich mich hin und wieder auch dem Origami widmete oder Papierfiguren verschiedener Charaktere zeichnete.
+In meiner Kindheit mochte ich es, meine Entscheidungen und Bedürfnisse logisch zu begründen – basierend darauf, was für ein Kind eben „richtig“ war. Zudem besaß ich eine große Menge an Spielzeug; gemeinsam mit meiner Schwester dachten wir uns damit zahlreiche Geschichten aus, in denen wir verschiedenste Themen miteinander verknüpften. Ich war eigentlich ständig am Spielen und tüftelte eifrig an der nächsten Geschichte – wobei ich mich hin und wieder auch dem Origami widmete oder Papierfiguren verschiedener Charaktere zeichnete.
 
 Außerdem durfte ich den ganzen Tag lang YouTube am Fernseher schauen oder am Computer spielen. Meistens spielte ich auf der Website „Friv“, da ich nichts herunterladen durfte – wobei Minecraft die einzige Ausnahme bildete.
 

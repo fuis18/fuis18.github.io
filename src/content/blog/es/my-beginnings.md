@@ -7,7 +7,7 @@ tags: ["personal", "psicología"]
 
 ## Mi niñez
 
-De niño, me gustaba argumentar mis decisiones y mis necesidades en cuestion de la lógica de lo que era correcto para un niño, además tenía un gran cantidad de juguetes, de las cuales con mi hermana creabamos muchas historias relacionando varios temas, solía estar jugando todo el tiempo y esforzandome a preparar la siguiente historia, aunque de vez en cuando me ponía a hacer origami o hacer dibujar muñercos de papel de distintos personajes.
+Cuando era niño, me gustaba argumentar mis decisiones y mis necesidades en cuestion de la lógica de lo que era correcto para un niño, además tenía un gran cantidad de juguetes, de las cuales con mi hermana creabamos muchas historias relacionando varios temas, solía estar jugando todo el tiempo y esforzandome a preparar la siguiente historia, aunque de vez en cuando me ponía a hacer origami o hacer dibujar muñercos de papel de distintos personajes.
 
 Aparte de también me dejaban viendo YouTube en la televisión o jugar en la computadora todo el día, solía jugar Friv, porque no querían que descargara nada, aunque lo único que descargue fue Minecraft.
 

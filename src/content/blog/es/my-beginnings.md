@@ -7,7 +7,7 @@ tags: ["personal", "psicología"]
 
 ## Mi niñez
 
-Desde niño me gustaba argumentar con lo que era correcto para cumplir mis necesidades, de comida o diversión, y en lo último tenía una gran cantidad de juguetes por lo que creaba una gran cantidad de historias, por lo que también para sentirme validado intentaba potenciar las ideas de mis compañeros.
+Cuando era niño, me gustaba argumentar mis decisiones y mis necesidades en cuestion de la lógica de lo que era correcto para un niño, además tenía un gran cantidad de juguetes, de las cuales con mi hermana creabamos muchas historias relacionando varios temas, solía estar jugando todo el tiempo y esforzandome a preparar la siguiente historia, aunque de vez en cuando me ponía a hacer origami o hacer dibujar muñercos de papel de distintos personajes.
 
 Aparte de también me dejaban viendo YouTube en la televisión o jugar en la computadora todo el día, solía jugar Friv, porque no querían que descargara nada, aunque lo único que descargue fue Minecraft.
 
@@ -21,7 +21,7 @@ Hasta que luego de un año mi padre nos saca de la casa, y pasamos a vivir con u
 
 Llegando la festividad por el día de la madre, tuve mi segundo reto, mantener mi identidad, soy hijo de dos personas, y no por estar acogido por otra familia, tendría que fingir o adaptarme para pasar desapercibido.
 
-Me restringieron el uso de la tablet, así que creé mis propios entretenimientos: muñecos de papel, lapicero y cinta adhesiva, influido por las ideas de Dragon Ball de mi entorno. Creé a "Fuis", la fusión de "Luis" y "Fuego" (**Fu** + **is**).
+Me restringieron el uso de la tablet, así que creé mi propio entretenimiento: muñecos de papel, lapicero y cinta adhesiva, influido por las ideas de _Dragon Ball_ y de unos compañeros de colegio. Creé a "Fuis", la fusión de "Luis" y "Fuego" (**Fu** + **is**).
 
 ## Volviéndome adolescente
 

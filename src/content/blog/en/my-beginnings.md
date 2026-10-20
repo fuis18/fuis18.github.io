@@ -7,7 +7,7 @@ tags: ["personal", "psychology"]
 
 ## My Childhood
 
-As a child, I liked to argue for what was right in order to meet my needs—whether for food or fun. Regarding the latter, I had a huge number of toys and created countless stories; I also sought validation by trying to build upon my friends' ideas.
+When I was a child, I liked to justify my decisions and needs based on the logic of what was "right" for a child. I also had a large collection of toys, which my sister and I used to create various stories that wove together different themes. I was almost always playing, putting effort into crafting the next story, though occasionally I would also practice origami or draw paper figures of various characters.
 
 I was also allowed to watch YouTube on the TV or play on the computer all day. I used to play games on Friv because I wasn't allowed to download anything—though the one thing I _did_ download was Minecraft.
 
@@ -21,7 +21,7 @@ A year later, my father moved us out of the house. We went to live with one of h
 
 Mother's Day brought my second challenge: maintaining my identity. I am the son of two specific people, and just because I was being taken in by another family, I didn't want to have to pretend or adapt just to blend in.
 
-My tablet use was restricted, so I created my own forms of entertainment using paper figures, a pen, and adhesive tape—all influenced by the _Dragon Ball_ ideas that surrounded me. I created "Fuis," a fusion of "Luis" and "Fuego" (Fire) (**Fu** + **is**).
+My access to the tablet was restricted, so I created my own entertainment: paper figures, a pen, and adhesive tape—inspired by ideas from _Dragon Ball_ and some schoolmates. I created "Fuis," a fusion of "Luis" and "Fuego" (fire) (**Fu** + **is**).
 
 ## Becoming a Teenager
 

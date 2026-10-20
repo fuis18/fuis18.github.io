@@ -7,7 +7,7 @@ tags: ["Persönliches", "Psychologie"]
 
 ## Meine Kindheit
 
-Schon als Kind diskutierte ich gerne darüber, was nötig war, um meine Bedürfnisse – sei es nach Essen oder Unterhaltung – zu erfüllen. Was Letzteres betraf: Ich besaß unzählige Spielsachen und erfand damit ständig neue Geschichten; zudem versuchte ich, die Ideen meiner Spielkameraden zu fördern, um mich selbst bestätigt zu fühlen.
+In meiner Kindheit mochte ich es, meine Entscheidungen und Bedürfnisse logisch zu begründen – basierend darauf, was für ein Kind eben „richtig“ war. Zudem besaß ich eine große Menge an Spielzeug; gemeinsam mit meiner Schwester dachten wir uns damit zahlreiche Geschichten aus, in denen wir verschiedenste Themen miteinander verknüpften. Ich war eigentlich ständig am Spielen und tüftelte eifrig an der nächsten Geschichte – wobei ich mich hin und wieder auch dem Origami widmete oder Papierfiguren verschiedener Charaktere zeichnete.
 
 Außerdem durfte ich den ganzen Tag lang YouTube am Fernseher schauen oder am Computer spielen. Meistens spielte ich auf der Website „Friv“, da ich nichts herunterladen durfte – wobei Minecraft die einzige Ausnahme bildete.
 
@@ -21,7 +21,7 @@ Nach einem Jahr holte mich mein Vater aus dem Haus; wir zogen zunächst zu einer
 
 Als der Muttertag näher rückte, stand ich vor einer neuen Herausforderung: Ich wollte meine Identität bewahren. Ich bin das Kind zweier Menschen, und nur weil ich bei einer anderen Familie untergebracht war, wollte ich mich nicht verstellen oder anpassen, um einfach unauffällig zu bleiben.
 
-Da die Nutzung des Tablets eingeschränkt war, erfand ich meine eigenen Beschäftigungen: Ich bastelte Papierfiguren mit Stift und Klebeband, inspiriert von der Dragon-Ball-Welt, die mich umgab. So erschuf ich „Fuis“ – eine Verschmelzung aus „Luis“ und „Fuego“ (Feuer) (**Fu** + **is**).
+Die Nutzung meines Tablets wurde eingeschränkt, also schuf ich mir meine eigene Unterhaltung: Papierfiguren, Stifte und Klebeband – inspiriert von Ideen aus _Dragon Ball_ sowie von einigen Mitschülern. So entstand „Fuis“, eine Verschmelzung von „Luis“ und „Fuego“ (Feuer) (**Fu** + **is**).
 
 ## Auf dem Weg zum Teenager
 

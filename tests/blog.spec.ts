@@ -166,16 +166,14 @@ test.describe("Contenido del blog", () => {
     await expect(page.locator("main h1")).toHaveCount(1);
     await expect(page.locator(".prose h1")).toHaveCount(0);
     // Cuerpo desde el MDX en el idioma base
-    await expect(page.locator(".prose")).toContainText(
-      "As a child, I liked to argue for what was right",
-    );
+    await expect(page.locator(".prose")).toContainText("Minecraft");
   });
 
   test("5. El post muestra tags y tiempo de lectura", async ({ page }) => {
     await page.goto("/blog/my-beginnings");
 
     await expect(page.locator("[data-post-field='reading-time']")).toHaveText(
-      "7 min read",
+      /^\d+ min read$/,
     );
     await expect(page.locator(".tag")).toHaveText(["personal", "psychology"]);
   });

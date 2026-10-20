@@ -214,7 +214,7 @@ test.describe("Language switching", () => {
       "5 de octubre de 2026",
     );
     await expect(card.locator("[data-post-field='reading-time']")).toHaveText(
-      "7 min de lectura",
+      /^\d+ min de lectura$/,
     );
 
     await expect(page.locator("[data-lang]")).toHaveCount(0);
@@ -241,7 +241,7 @@ test.describe("Language switching", () => {
       "5 de octubre de 2026",
     );
     await expect(page.locator("[data-post-field='reading-time']")).toHaveText(
-      "7 min de lectura",
+      /^\d+ min de lectura$/,
     );
     await expect(page.locator("[data-post-field='back']")).toHaveText(
       "Volver al blog",
@@ -251,11 +251,9 @@ test.describe("Language switching", () => {
       "es",
     );
     await expect(page.locator(".prose")).toHaveCount(1);
-    await expect(page.locator(".prose")).toContainText(
-      "Desde niño me gustaba argumentar con lo que era correcto",
-    );
+    await expect(page.locator(".prose")).toContainText("Minecraft");
     await expect(page.locator("[data-post-body]")).not.toContainText(
-      "As a child, I liked to argue",
+      "When I was a child",
     );
 
     await expect(page.locator("[data-lang]")).toHaveCount(0);

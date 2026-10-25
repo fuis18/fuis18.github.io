@@ -9,7 +9,7 @@ tags: ["Persönliches", "Psychologie"]
 
 In meiner Kindheit mochte ich es, meine Entscheidungen und Bedürfnisse logisch zu begründen – basierend darauf, was für ein Kind eben „richtig“ war. Zudem besaß ich eine große Menge an Spielzeug; gemeinsam mit meiner Schwester dachten wir uns damit zahlreiche Geschichten aus, in denen wir verschiedenste Themen miteinander verknüpften. Ich war eigentlich ständig am Spielen und tüftelte eifrig an der nächsten Geschichte – wobei ich mich hin und wieder auch dem Origami widmete oder Papierfiguren verschiedener Charaktere zeichnete.
 
-Außerdem durfte ich den ganzen Tag lang YouTube am Fernseher schauen oder am Computer spielen. Meistens spielte ich auf der Website „Friv“, da ich nichts herunterladen durfte – wobei Minecraft die einzige Ausnahme bildete.
+Ich spielte oft Browsergames am Computer, wie zum Beispiel „Friv“, da ich nichts herunterladen durfte – wobei Minecraft die einzige Ausnahme blieb. Außerdem schaute ich YouTube-Videos, in denen andere spielten, um so auf meine Art die Erfahrung jener Videospiele zu erleben, die ich nicht installieren konnte.
 
 Hier stieß ich auf meine erste Herausforderung: Mein Vater und meine Schwester zogen mich gerne mit Mädchen auf. Mich störte es, dass ich meine Lebensbereiche strikt trennen musste und gezwungen war, alles auf eigene Faust zu bewältigen.
 
@@ -17,15 +17,15 @@ Schließlich kam es zu heftigen Streitigkeiten zwischen meinen Eltern, die sogar
 
 ## Meine kleine Blase
 
-Nach einem Jahr holte mich mein Vater aus dem Haus; wir zogen zunächst zu einer Tante väterlicherseits, und am Ende des Jahres wechselten wir zu einer anderen Tante.
+Nach einem Jahr holte uns mein Vater aus dem Haus; meine Schwester und ich zogen zu einer Tante väterlicherseits in einen nahegelegenen Bezirk. Da mein Vater an mehreren Orten arbeitete, lebten wir nicht bei ihm – erst zum Ende des Jahres hin zogen wir erneut zu einer Tante, diesmal in die Hauptstadt, wo es auch einige Onkel gab, die ich nicht kannte.
+
+Obwohl ich wegen der Streitigkeiten meiner Eltern die Schule wechselte, hatte ich einen Schulwechsel bereits viel früher erlebt, weil ich selbst im Unterricht ständig spielte. Später sagten mir meine Lehrer, dass ich Dinge schneller begriff als andere Kinder und das Spielen für mich die Art war, mich nicht zu langweilen.
 
 Als der Muttertag näher rückte, stand ich vor einer neuen Herausforderung: Ich wollte meine Identität bewahren. Ich bin das Kind zweier Menschen, und nur weil ich bei einer anderen Familie untergebracht war, wollte ich mich nicht verstellen oder anpassen, um einfach unauffällig zu bleiben.
 
 Die Nutzung meines Tablets wurde eingeschränkt, also schuf ich mir meine eigene Unterhaltung: Papierfiguren, Stifte und Klebeband – inspiriert von Ideen aus _Dragon Ball_ sowie von einigen Mitschülern. So entstand „Fuis“, eine Verschmelzung von „Luis“ und „Fuego“ (Feuer) (**Fu** + **is**).
 
 ## Auf dem Weg zum Teenager
-
-Obwohl ich wegen der Streitigkeiten meiner Eltern die Schule wechseln musste – ich hatte nämlich selbst im Unterricht ständig gespielt –, war mir ein Schulwechsel nicht neu; diesmal zog ich wieder zu der Tante väterlicherseits.
 
 Es war eine Kleinstadt, sodass ich leichter Freunde finden konnte; zu einem von ihnen halte ich bis heute Kontakt. In der Mitte des Jahres passierten zwei Dinge: Bei einem Ausflug bekam ich ein kleines Notizbuch und ein Heft geschenkt. Darin begann ich, die Titel all meiner Lieblingslieder zu notieren – ich hatte im Vorjahr viele neue Songs kennengelernt und wollte sie nicht vergessen, weshalb ich das Heft überallhin mitnahm. Da es kein Internet gab, musste ich die Musik in den wenigen verfügbaren Momenten herunterladen, um für „dunkle Tage“ gewappnet zu sein.
 

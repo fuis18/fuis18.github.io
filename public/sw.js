@@ -34,13 +34,22 @@ self.addEventListener("fetch", (event) => {
   event.respondWith(
     caches.open(CACHE_NAME).then(async (cache) => {
       const cached = await cache.match(request);
-      if (cached) return cached;
 
-      const response = await fetch(request);
-      if (response.ok) {
-        cache.put(request, response.clone());
-      }
-      return response;
+      const network = fetch(request)
+        .then((response) => {
+          if (response.ok) cache.put(request, response.clone());
+          return response;
+        })
+        .catch(() => null);
+
+      return (
+        cached ??
+        network.then(
+          (response) =>
+            response ??
+            new Response("", { status: 504, statusText: "Offline" }),
+        )
+      );
     }),
   );
 });

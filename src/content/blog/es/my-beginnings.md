@@ -9,7 +9,7 @@ tags: ["personal", "psicología"]
 
 Cuando era niño, me gustaba argumentar mis decisiones y mis necesidades en cuestion de la lógica de lo que era correcto para un niño, además tenía un gran cantidad de juguetes, de las cuales con mi hermana creabamos muchas historias relacionando varios temas, solía estar jugando todo el tiempo y esforzandome a preparar la siguiente historia, aunque de vez en cuando me ponía a hacer origami o hacer dibujar muñercos de papel de distintos personajes.
 
-Aparte de también me dejaban viendo YouTube en la televisión o jugar en la computadora todo el día, solía jugar Friv, porque no querían que descargara nada, aunque lo único que descargue fue Minecraft.
+Solía jugar en la computadora a juegos de navegador como Friv, ya que no me permitían descargar nada; aunque la única excepción fue Minecraft. También veía videos de YouTube sobre gente jugando para poder vivir, de alguna manera, la experiencia de aquellos videojuegos que no podía instalar.
 
 Este fue mi primer reto, ya que mi padre y hermana les gustaba molestarme con chicas, y me molestaba que, tenía que separar dimensiones, y así forzarme a resolver todo a cuenta propia.
 
@@ -17,15 +17,15 @@ Hasta que hubo varias peleas entre mis padres hasta llegar a juicio, así que mi
 
 ## Mi pequeña burbuja
 
-Hasta que luego de un año mi padre nos saca de la casa, y pasamos a vivir con una tía de mi padre y terminando el año pasamos a vivir con otra tía.
+Hasta que luego de un año mi padre nos saca de la casa, y pasamos a vivir mi hermana y yo con una tía de mi padre en un distrito cercano, debido a que mi padre trabajaba en varios lugares no convivimos con él, hasta ya finalizar el año, ya que nos mudamos nuevamente con una tía en la capital, donde también habian varios tios que no conocía.
+
+Y aunque me cambie de colegio por mis las discusiones de mis padres, ya había experimentado el cambio de colegio mucho más temprano debido a que me gustaba jugar hasta en clase, más adelante mis profesora dijeron que debido a que captaba las cosas más rápido que otros niños, jugar era mi forma de dejar de estar aburrido.
 
 Llegando la festividad por el día de la madre, tuve mi segundo reto, mantener mi identidad, soy hijo de dos personas, y no por estar acogido por otra familia, tendría que fingir o adaptarme para pasar desapercibido.
 
 Me restringieron el uso de la tablet, así que creé mi propio entretenimiento: muñecos de papel, lapicero y cinta adhesiva, influido por las ideas de _Dragon Ball_ y de unos compañeros de colegio. Creé a "Fuis", la fusión de "Luis" y "Fuego" (**Fu** + **is**).
 
 ## Volviéndome adolescente
-
-Y aunque me cambie de colegio por mis las discusiones de mis padres, debido a que me gustaba jugar hasta en clase, ya había experimentado el cambio de colegio mucho más temprano, y en esta ocasión volví a vivir con la tía de mi padre.
 
 Era una ciudad pequeña, por lo que pude hacer amigos más fácilmente del cual conservo el contacto de uno, a mitad de año ocurriendo dos cosas, primero me regalan en una excursión una libreta pequeña y un cuadernillo, donde empiezo a anotar los nombres de todas las canciones que me gustan, ya que había conocido una gran número del año pasado y con la idea de recordarlas en el futuro la llevaba a todas partes, ya que no había internet, entonces en los pocos momentos tenía que descargar música para lo "días oscuros".
 

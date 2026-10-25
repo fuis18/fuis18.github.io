@@ -9,7 +9,7 @@ tags: ["personal", "psychology"]
 
 When I was a child, I liked to justify my decisions and needs based on the logic of what was "right" for a child. I also had a large collection of toys, which my sister and I used to create various stories that wove together different themes. I was almost always playing, putting effort into crafting the next story, though occasionally I would also practice origami or draw paper figures of various characters.
 
-I was also allowed to watch YouTube on the TV or play on the computer all day. I used to play games on Friv because I wasn't allowed to download anything—though the one thing I _did_ download was Minecraft.
+I used to play browser games like Friv on the computer, since I wasn't allowed to download anything—though the one exception was Minecraft. I also watched YouTube videos of people playing to, in a way, live the experience of those video games I couldn't install.
 
 This was my first real challenge: my father and sister liked to tease me about girls. It bothered me, so I had to keep my worlds separate, forcing myself to resolve everything on my own.
 
@@ -17,15 +17,15 @@ Eventually, there were several fights between my parents that led to a court cas
 
 ## My Little Bubble
 
-A year later, my father moved us out of the house. We went to live with one of his aunts, and by the end of the year, we moved in with another aunt.
+A year later, my father took us out of the house. My sister and I went to live with one of his aunts in a nearby district; since my father worked in several places, we didn't live with him. That lasted until the end of the year, when we moved again to live with an aunt in the capital, where there were also several uncles I didn't know.
+
+And although I changed schools because of my parents' arguments, I had already experienced changing schools much earlier because I liked to play even during class; later on, my teachers told me that, since I grasped things faster than other kids, playing was my way of not being bored.
 
 Mother's Day brought my second challenge: maintaining my identity. I am the son of two specific people, and just because I was being taken in by another family, I didn't want to have to pretend or adapt just to blend in.
 
 My access to the tablet was restricted, so I created my own entertainment: paper figures, a pen, and adhesive tape—inspired by ideas from _Dragon Ball_ and some schoolmates. I created "Fuis," a fusion of "Luis" and "Fuego" (fire) (**Fu** + **is**).
 
 ## Becoming a Teenager
-
-Although I changed schools due to my parents' arguments—and because I had a habit of playing games even during class—I had already experienced changing schools much earlier; this time, I went to live with my father's aunt.
 
 It was a small city, so making friends was easier, and I’ve kept in touch with one of them. Two things happened midway through the year: first, during a field trip, I was given a small notebook and a booklet. I started writing down the names of all the songs I liked—having discovered so many the previous year—and carried the notebook everywhere so I wouldn't forget them. Since there was no internet, I had to download music during the few moments I could, stocking up for the "dark days" ahead.
 

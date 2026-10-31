@@ -9,7 +9,7 @@ tags: ["Persönliches", "Psychologie"]
 
 In meiner Kindheit mochte ich es, meine Entscheidungen und Bedürfnisse an der Logik dessen auszurichten, was für ein Kind „richtig“ war. Außerdem besaß ich eine große Menge an Spielzeug, mit der meine Schwester und ich zahlreiche Geschichten erschufen, in die wir die verschiedensten Themen einwoben. Ich war ständig am Spielen und strengte mich an, die nächste Handlung vorzubereiten – hin und wieder widmete ich mich jedoch auch dem Origami oder zeichnete Papierfiguren verschiedener Charaktere.
 
-Meine erste Herausforderung war es, meine Ideen für mich zu behalten, denn mein Vater und meine Schwester zogen mich gerne mit Mädchen auf. Es ärgerte mich, meine Lebensbereiche trennen zu müssen und gezwungen zu sein, alles auf eigene Faust zu bewältigen.
+Meine erste Herausforderung war es, meine Ideen für mich zu behalten, denn mein Vater und meine Schwester zogen mich gerne mit Mädchen auf. Also musste ich meine Lebensbereiche trennen und war gezwungen, alles auf eigene Faust zu bewältigen.
 
 Das hielt an, bis es mehrere Streitigkeiten zwischen meinen Eltern gab – bis vor Gericht –, woraufhin mein Vater nicht mehr bei uns wohnte. Meine Art, mit diesen Veränderungen umzugehen, war es, mir einzureden, dass es als Kind meine Aufgabe sei, zu spielen.
 

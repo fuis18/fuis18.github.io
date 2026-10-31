@@ -9,7 +9,7 @@ tags: ["personal", "psychology"]
 
 When I was a child, I liked to justify my decisions and needs based on the logic of what was "right" for a child. I also had a large number of toys, with which my sister and I created many stories weaving together various themes. I was always playing, striving to prepare the next plot, though from time to time I would make origami or draw paper figures of different characters.
 
-My first challenge was keeping my ideas to myself, since my father and my sister liked to tease me about girls. It bothered me having to keep my worlds separate and being forced to resolve everything on my own.
+My first challenge was keeping my ideas to myself, since my father and my sister liked to tease me about girls. So I had to keep my worlds separate and was forced to resolve everything on my own.
 
 That was until there were several fights between my parents, even reaching court, and my father stopped living with us. My way of coping with those changes was telling myself that, as a child, it was my place to play.
 

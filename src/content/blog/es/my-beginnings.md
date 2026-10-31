@@ -9,7 +9,7 @@ tags: ["personal", "psicología"]
 
 Cuando era niño, me gustaba argumentar mis decisiones y mis necesidades basándome en la lógica de lo que era correcto para un niño. Además, tenía una gran cantidad de juguetes con los que, junto a mi hermana, creábamos muchas historias relacionando varios temas. Solía estar jugando todo el tiempo y esforzándome por preparar la siguiente trama, aunque de vez en cuando me ponía a hacer origami o a dibujar muñecos de papel de distintos personajes.
 
-Mi primer reto fue guardarme mis ideas, ya que a mi padre y a mi hermana les gustaba molestarme con chicas. Me molestaba tener que separar dimensiones y verme forzado a resolver todo a cuenta propia.
+Mi primer reto fue guardarme mis ideas, ya que a mi padre y a mi hermana les gustaba molestarme con chicas. Así que tuve que separar dimensiones y verme forzado a resolver todo a cuenta propia.
 
 Hasta que hubo varias peleas entre mis padres, hasta llegar a juicio, y mi padre dejó de vivir con nosotros. Mi forma de llevar esos cambios era decirme que, como niño, me correspondía jugar.
 

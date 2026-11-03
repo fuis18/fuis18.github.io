@@ -1,14 +1,10 @@
 import { describe, it, expect } from "vitest";
-import {
-  getCurrentStatus,
-  getHourInTimezone,
-  statusFromHour,
-} from "./status";
+import { getCurrentStatus, getHourInTimezone, statusFromHour } from "./status";
 
 describe("statusFromHour", () => {
-  it("es offline de 22:00 a 06:59", () => {
+  it("es offline de 21:00 a 06:59", () => {
+    expect(statusFromHour(21)).toBe("offline");
     expect(statusFromHour(22)).toBe("offline");
-    expect(statusFromHour(23)).toBe("offline");
     expect(statusFromHour(0)).toBe("offline");
     expect(statusFromHour(6)).toBe("offline");
   });
@@ -22,7 +18,7 @@ describe("statusFromHour", () => {
   it("es online de 12:00 a 21:59", () => {
     expect(statusFromHour(12)).toBe("online");
     expect(statusFromHour(18)).toBe("online");
-    expect(statusFromHour(21)).toBe("online");
+    expect(statusFromHour(20)).toBe("online");
   });
 });
 
@@ -35,7 +31,7 @@ describe("getHourInTimezone", () => {
   });
 
   it("devuelve 0 en medianoche (no 24)", () => {
-    const midnight = new Date("2026-06-01T05:00:00Z"); // 00:00 en Lima
+    const midnight = new Date("2026-06-01T05:00:00Z");
     expect(getHourInTimezone(midnight, "America/Lima")).toBe(0);
   });
 });

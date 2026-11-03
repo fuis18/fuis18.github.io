@@ -172,7 +172,6 @@
     };
   }
 
-  /** Nodos con la descripción resuelta para el idioma activo. */
   function nodesForLang(): ResolvedGraphNode[] {
     return rawNodes.map((node) => {
       const badge = node.badge ? badgeState[node.id]?.base : undefined;

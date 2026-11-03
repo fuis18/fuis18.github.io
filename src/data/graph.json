@@ -73,10 +73,10 @@
       "group": "skill",
       "badge": "javascript",
       "description": {
-        "en": "JavaScript: the language of the web and its ecosystem.",
-        "es": "JavaScript: el lenguaje de la web y su ecosistema.",
-        "ja": "JavaScript：ウェブの言語とそのエコシステム",
-        "de": "JavaScript: die Sprache des Webs und ihr Ökosystem."
+        "en": "The language of the web and its ecosystem.",
+        "es": "El lenguaje de la web y su ecosistema.",
+        "ja": "ウェブの言語とそのエコシステム",
+        "de": "Die Sprache des Webs und ihr Ökosystem."
       }
     },
     {
@@ -85,10 +85,10 @@
       "group": "skill",
       "badge": "typescript",
       "description": {
-        "en": "TypeScript: static types and safer refactoring.",
-        "es": "TypeScript: tipos estáticos y refactorización más segura.",
-        "ja": "TypeScript：静的型付けと安全なリファクタリング",
-        "de": "TypeScript: statische Typen und sichereres Refactoring."
+        "en": "Static types and safer refactoring.",
+        "es": "Tipos estáticos y refactorización más segura.",
+        "ja": "静的型付けと安全なリファクタリング",
+        "de": "Statische Typen und sichereres Refactoring."
       }
     },
     {
@@ -96,10 +96,10 @@
       "label": "pnpm",
       "group": "skill",
       "description": {
-        "en": "pnpm: fast, disk-efficient package manager.",
-        "es": "pnpm: gestor de paquetes rápido y eficiente en disco.",
-        "ja": "pnpm：高速でディスク効率の良いパッケージマネージャー",
-        "de": "pnpm: schneller, platzsparender Paketmanager."
+        "en": "Fast, disk-efficient package manager.",
+        "es": "Gestor de paquetes rápido y eficiente en disco.",
+        "ja": "高速でディスク効率の良いパッケージマネージャー",
+        "de": "Schneller, platzsparender Paketmanager."
       }
     },
     {
@@ -118,10 +118,10 @@
       "label": "Astro",
       "group": "skill",
       "description": {
-        "en": "Astro: building content-focused static sites.",
-        "es": "Astro: construcción de sitios estáticos orientados al contenido.",
-        "ja": "Astro：コンテンツ中心の静的サイト構築",
-        "de": "Astro: content-orientierte statische Websites."
+        "en": "Building content-focused static sites.",
+        "es": "Construcción de sitios estáticos orientados al contenido.",
+        "ja": "コンテンツ中心の静的サイト構築",
+        "de": "Content-orientierte statische Websites."
       }
     },
     {
@@ -130,10 +130,10 @@
       "group": "skill",
       "badge": "react",
       "description": {
-        "en": "React: library for building user interfaces.",
-        "es": "React: librería para construir interfaces de usuario.",
-        "ja": "React：ユーザーインターフェース構築のためのライブラリ",
-        "de": "React: Bibliothek für Benutzeroberflächen."
+        "en": "Library for building user interfaces.",
+        "es": "Librería para construir interfaces de usuario.",
+        "ja": "ユーザーインターフェース構築のためのライブラリ",
+        "de": "Bibliothek für Benutzeroberflächen."
       }
     },
     {
@@ -141,10 +141,10 @@
       "label": "Svelte",
       "group": "skill",
       "description": {
-        "en": "Svelte: compiler-based framework with reactive UI.",
-        "es": "Svelte: framework basado en compilador con UI reactiva.",
-        "ja": "Svelte：コンパイラベースのリアクティブUIフレームワーク",
-        "de": "Svelte: compilerbasiertes Framework mit reaktiver UI."
+        "en": "Compiler-based framework with reactive UI.",
+        "es": "Framework basado en compilador con UI reactiva.",
+        "ja": "コンパイラベースのリアクティブUIフレームワーク",
+        "de": "Compilerbasiertes Framework mit reaktiver UI."
       }
     },
     {
@@ -153,10 +153,10 @@
       "group": "skill",
       "badge": "tauri",
       "description": {
-        "en": "Tauri: lightweight desktop apps with web technologies.",
-        "es": "Tauri: aplicaciones de escritorio ligeras con tecnologías web.",
-        "ja": "Tauri：ウェブ技術による軽量なデスクトップアプリ",
-        "de": "Tauri: leichte Desktop-Apps mit Web-Technologien."
+        "en": "Lightweight desktop apps with web technologies.",
+        "es": "Aplicaciones de escritorio ligeras con tecnologías web.",
+        "ja": "ウェブ技術による軽量なデスクトップアプリ",
+        "de": "Leichte Desktop-Apps mit Web-Technologien."
       }
     },
     {
@@ -164,10 +164,10 @@
       "label": "Backend",
       "group": "skill",
       "description": {
-        "en": "Backend: services, APIs and data persistence.",
-        "es": "Backend: servicios, APIs y persistencia de datos.",
-        "ja": "バックエンド：サービス、API、データ永続化",
-        "de": "Backend: Dienste, APIs und Datenpersistenz."
+        "en": "Services, APIs and data persistence.",
+        "es": "Servicios, APIs y persistencia de datos.",
+        "ja": "サービス、API、データ永続化",
+        "de": "Dienste, APIs und Datenpersistenz."
       }
     },
     {
@@ -187,10 +187,10 @@
       "group": "skill",
       "badge": "rust",
       "description": {
-        "en": "Rust: performance with memory safety.",
-        "es": "Rust: rendimiento con seguridad de memoria.",
-        "ja": "Rust：メモリ安全性とパフォーマンス",
-        "de": "Rust: Leistung mit Speichersicherheit."
+        "en": "Performance with memory safety.",
+        "es": "Rendimiento con seguridad de memoria.",
+        "ja": "メモリ安全性とパフォーマンス",
+        "de": "Leistung mit Speichersicherheit."
       }
     },
     {
@@ -199,10 +199,10 @@
       "group": "skill",
       "badge": "nodejs",
       "description": {
-        "en": "Node.js: JavaScript on the server.",
-        "es": "Node.js: JavaScript en el servidor.",
-        "ja": "Node.js：サーバーサイドJavaScript",
-        "de": "Node.js: JavaScript auf dem Server."
+        "en": "JavaScript on the server.",
+        "es": "JavaScript en el servidor.",
+        "ja": "サーバーサイドJavaScript",
+        "de": "JavaScript auf dem Server."
       }
     },
     {
@@ -210,10 +210,10 @@
       "label": "GO",
       "group": "skill",
       "description": {
-        "en": "Go: simple, concurrent and fast services.",
-        "es": "Go: servicios simples, concurrentes y rápidos.",
-        "ja": "Go：シンプルで並行処理に強い高速なサービス",
-        "de": "Go: einfache, nebenläufige und schnelle Dienste."
+        "en": "Simple, concurrent and fast services.",
+        "es": "Servicios simples, concurrentes y rápidos.",
+        "ja": "シンプルで並行処理に強い高速なサービス",
+        "de": "Einfache, nebenläufige und schnelle Dienste."
       }
     },
     {
@@ -221,10 +221,10 @@
       "label": "Bases Datos",
       "group": "skill",
       "description": {
-        "en": "Databases: relational engines and queries.",
-        "es": "Bases de datos: motores relacionales y consultas.",
-        "ja": "データベース：リレーショナルエンジンとクエリ",
-        "de": "Datenbanken: relationale Engines und Abfragen."
+        "en": "Relational databases and queries.",
+        "es": "Motores relacionales y consultas.",
+        "ja": "リレーショナルエンジンとクエリ",
+        "de": "Relationale Engines und Abfragen."
       }
     },
     {
@@ -233,10 +233,10 @@
       "group": "skill",
       "badge": "sqlite",
       "description": {
-        "en": "SQLite: embedded, zero-configuration database.",
-        "es": "SQLite: base de datos embebida sin configuración.",
-        "ja": "SQLite：組み込み・設定不要のデータベース",
-        "de": "SQLite: eingebettete Datenbank ohne Konfiguration."
+        "en": "Embedded, zero-configuration database.",
+        "es": "Base de datos embebida sin configuración.",
+        "ja": "組み込み・設定不要のデータベース",
+        "de": "Eingebettete Datenbank ohne Konfiguration."
       }
     },
     {
@@ -245,10 +245,22 @@
       "group": "skill",
       "badge": "postgresql",
       "description": {
-        "en": "PostgreSQL: open-source relational database.",
-        "es": "PostgreSQL: base de datos relacional de código abierto.",
-        "ja": "PostgreSQL：オープンソースのリレーショナルデータベース",
-        "de": "PostgreSQL: relationale Open-Source-Datenbank."
+        "en": "Open-source relational database.",
+        "es": "Base de datos relacional de código abierto.",
+        "ja": "オープンソースのリレーショナルデータベース",
+        "de": "Relationale Open-Source-Datenbank."
+      }
+    },
+    {
+      "id": "docker",
+      "label": "Docker",
+      "group": "skill",
+      "badge": "docker",
+      "description": {
+        "en": "Container platform for applications and services.",
+        "es": "Plataforma de contenedores para aplicaciones y servicios.",
+        "ja": "アプリケーションとサービスのコンテナプラットフォーム",
+        "de": "Container-Plattform für Anwendungen und Dienste."
       }
     },
     {
@@ -268,10 +280,10 @@
       "group": "skill",
       "badge": "brave",
       "description": {
-        "en": "Brave: privacy-first browser with built-in blockers.",
-        "es": "Brave: navegador centrado en privacidad con bloqueadores integrados.",
-        "ja": "Brave：内蔵ブロッカーを備えたプライバシー第一のブラウザ",
-        "de": "Brave: datenschutzorientierter Browser mit integrierten Blockern."
+        "en": "Privacy-first browser with built-in blockers.",
+        "es": "Navegador centrado en privacidad con bloqueadores integrados.",
+        "ja": "内蔵ブロッカーを備えたプライバシー第一のブラウザ",
+        "de": "Datenschutzorientierter Browser mit integrierten Blockern."
       }
     },
     {
@@ -279,10 +291,10 @@
       "label": "Zen Browser",
       "group": "skill",
       "description": {
-        "en": "Zen Browser: minimal, focused Firefox-based browser.",
-        "es": "Zen Browser: navegador minimalista basado en Firefox.",
-        "ja": "Zen Browser：Firefoxベースのミニマルなブラウザ",
-        "de": "Zen Browser: minimalistischer, fokussierter Browser auf Firefox-Basis."
+        "en": "Minimal, focused Firefox-based browser.",
+        "es": "Navegador minimalista basado en Firefox.",
+        "ja": "Firefoxベースのミニマルなブラウザ",
+        "de": "Minimalistischer, fokussierter Browser auf Firefox-Basis."
       }
     },
     {
@@ -290,10 +302,10 @@
       "label": "Helium",
       "group": "skill",
       "description": {
-        "en": "Helium: a browser fighting for an open web.",
-        "es": "Helium: un navegador que defiende una web abierta.",
-        "ja": "Helium：オープンなウェブを目ざすブラウザ",
-        "de": "Helium: ein Browser für ein offenes Web."
+        "en": "A browser fighting for an open web.",
+        "es": "Un navegador que defiende una web abierta.",
+        "ja": "オープンなウェブを目指すブラウザ",
+        "de": "Ein Browser für ein offenes Web."
       }
     },
     {
@@ -301,10 +313,10 @@
       "label": "Epiphany",
       "group": "skill",
       "description": {
-        "en": "Epiphany: GNOME's simple web browser.",
-        "es": "Epiphany: el navegador sencillo de GNOME.",
-        "ja": "Epiphany：GNOMEのシンプルなウェブブラウザ",
-        "de": "Epiphany: der schlichte Browser von GNOME."
+        "en": "GNOME's simple web browser.",
+        "es": "El navegador sencillo de GNOME.",
+        "ja": "GNOMEのシンプルなウェブブラウザ",
+        "de": "Der schlichte Browser von GNOME."
       }
     },
     {
@@ -312,10 +324,10 @@
       "label": "Mullvad Browser",
       "group": "skill",
       "description": {
-        "en": "Mullvad Browser: Tor-based browser from Mullvad VPN.",
-        "es": "Mullvad Browser: navegador basado en Tor de Mullvad VPN.",
-        "ja": "Mullvad Browser：Mullvad VPNによるTorベースのブラウザ",
-        "de": "Mullvad Browser: Tor-basierter Browser von Mullvad VPN."
+        "en": "Tor-based browser from Mullvad VPN.",
+        "es": "Navegador basado en Tor de Mullvad VPN.",
+        "ja": "Mullvad VPNによるTorベースのブラウザ",
+        "de": "Tor-basierter Browser von Mullvad VPN."
       }
     },
     {
@@ -334,10 +346,10 @@
       "label": "Opencode",
       "group": "skill",
       "description": {
-        "en": "OpenCode: AI coding agent in the terminal.",
-        "es": "OpenCode: agente de desarrollo con IA en la terminal.",
-        "ja": "OpenCode：ターミナルで動くAIコーディングエージェント",
-        "de": "OpenCode: KI-Coding-Agent in der Konsole."
+        "en": "AI coding agent in the terminal.",
+        "es": "Agente de desarrollo con IA en la terminal.",
+        "ja": "ターミナルで動くAIコーディングエージェント",
+        "de": "KI-Coding-Agent in der Konsole."
       }
     },
     {
@@ -358,10 +370,10 @@
       "group": "skill",
       "badge": "git",
       "description": {
-        "en": "Lazygit: simple Git in a terminal UI.",
-        "es": "Lazygit: Git simple en una interfaz de terminal.",
-        "ja": "Lazygit：ターミナルUIで使うシンプルなGit",
-        "de": "Lazygit: einfaches Git in einer Terminal-Oberfläche."
+        "en": "Simple Git in a terminal UI.",
+        "es": "Git simple en una interfaz de terminal.",
+        "ja": "ターミナルUIで使うシンプルなGit",
+        "de": "Einfaches Git in einer Terminal-Oberfläche."
       }
     },
     {
@@ -380,10 +392,10 @@
       "label": "Kitty",
       "group": "skill",
       "description": {
-        "en": "Kitty: fast GPU-accelerated terminal.",
-        "es": "Kitty: terminal rápido acelerado por GPU.",
-        "ja": "Kitty：GPUアクセラレーション対応の高速ターミナル",
-        "de": "Kitty: schnelles GPU-beschleunigtes Terminal."
+        "en": "Fast GPU-accelerated terminal.",
+        "es": "Terminal rápido acelerado por GPU.",
+        "ja": "GPUアクセラレーション対応の高速ターミナル",
+        "de": "Schnelles GPU-beschleunigtes Terminal."
       }
     },
     {
@@ -391,10 +403,10 @@
       "label": "Ghostty",
       "group": "skill",
       "description": {
-        "en": "Ghostty: fast native terminal emulator.",
-        "es": "Ghostty: emulador de terminal nativo y rápido.",
-        "ja": "Ghostty：高速なネイティブターミナルエミュレータ",
-        "de": "Ghostty: schneller nativer Terminal-Emulator."
+        "en": "Fast native terminal emulator.",
+        "es": "Emulador de terminal nativo y rápido.",
+        "ja": "高速なネイティブターミナルエミュレータ",
+        "de": "Schneller nativer Terminal-Emulator."
       }
     },
     {
@@ -402,10 +414,10 @@
       "label": "Yazi",
       "group": "skill",
       "description": {
-        "en": "Yazi: blazing-fast terminal file manager.",
-        "es": "Yazi: gestor de archivos ultrarápido en terminal.",
-        "ja": "Yazi：ターミナルの超高速ファイルマネージャー",
-        "de": "Yazi: blitzschneller Dateimanager im Terminal."
+        "en": "Blazing-fast terminal file manager.",
+        "es": "Gestor de archivos ultrarrápido en terminal.",
+        "ja": "ターミナルの超高速ファイルマネージャー",
+        "de": "Blitzschneller Dateimanager im Terminal."
       }
     },
     {
@@ -413,10 +425,10 @@
       "label": "Nautilus",
       "group": "skill",
       "description": {
-        "en": "Nautilus: GNOME's file manager.",
-        "es": "Nautilus: el gestor de archivos de GNOME.",
-        "ja": "Nautilus：GNOMEのファイルマネージャー",
-        "de": "Nautilus: der Dateimanager von GNOME."
+        "en": "GNOME's file manager.",
+        "es": "El gestor de archivos de GNOME.",
+        "ja": "GNOMEのファイルマネージャー",
+        "de": "Der Dateimanager von GNOME."
       }
     },
     {
@@ -425,10 +437,10 @@
       "group": "skill",
       "badge": "rclone",
       "description": {
-        "en": "Rclone: sync files with cloud storage.",
-        "es": "Rclone: sincroniza archivos con almacenamiento en la nube.",
-        "ja": "Rclone：クラウドストレージとのファイル同期",
-        "de": "Rclone: Dateisynchronisierung mit Cloud-Speichern."
+        "en": "Sync files with cloud storage.",
+        "es": "Sincroniza archivos con almacenamiento en la nube.",
+        "ja": "クラウドストレージとのファイル同期",
+        "de": "Dateisynchronisierung mit Cloud-Speichern."
       }
     },
     {
@@ -437,10 +449,10 @@
       "group": "skill",
       "badge": "obsidian",
       "description": {
-        "en": "Obsidian: notes and knowledge base on local Markdown.",
-        "es": "Obsidian: notas y base de conocimiento en Markdown local.",
-        "ja": "Obsidian：ローカルMarkdownのノートとナレッジベース",
-        "de": "Obsidian: Notizen und Wissensdatenbank auf lokalem Markdown."
+        "en": "Notes and knowledge base on local Markdown.",
+        "es": "Notas y base de conocimiento en Markdown local.",
+        "ja": "ローカルMarkdownのノートとナレッジベース",
+        "de": "Notizen und Wissensdatenbank auf lokalem Markdown."
       }
     },
     {
@@ -448,10 +460,10 @@
       "label": "System",
       "group": "skill",
       "description": {
-        "en": "System: window managers and desktop environments.",
-        "es": "Sistema: gestores de ventanas y entornos de escritorio.",
-        "ja": "システム：ウィンドウマネージャーとデスクトップ環境",
-        "de": "System: Fenstermanager und Desktop-Umgebungen."
+        "en": "Window managers and desktop environments.",
+        "es": "Gestores de ventanas y entornos de escritorio.",
+        "ja": "ウィンドウマネージャーとデスクトップ環境",
+        "de": "Fenstermanager und Desktop-Umgebungen."
       }
     },
     {
@@ -459,10 +471,10 @@
       "label": "Hyprland",
       "group": "skill",
       "description": {
-        "en": "Hyprland: dynamic tiling Wayland compositor.",
-        "es": "Hyprland: compositor Wayland con tiling dinámico.",
-        "ja": "Hyprland：動的なタイル型Waylandコンポジタ",
-        "de": "Hyprland: dynamischer Tiling-Wayland-Compositor."
+        "en": "Dynamic tiling Wayland compositor.",
+        "es": "Compositor Wayland con tiling dinámico.",
+        "ja": "動的なタイル型Waylandコンポジタ",
+        "de": "Dynamischer Tiling-Wayland-Compositor."
       }
     },
     {
@@ -470,10 +482,10 @@
       "label": "Niri",
       "group": "skill",
       "description": {
-        "en": "Niri: scrollable-tiling Wayland compositor.",
-        "es": "Niri: compositor Wayland con tiling en scroll.",
-        "ja": "Niri：スクロール式タイル型Waylandコンポジタ",
-        "de": "Niri: Wayland-Compositor mit scrollbarem Tiling."
+        "en": "Scrollable-tiling Wayland compositor.",
+        "es": "Compositor Wayland con tiling en scroll.",
+        "ja": "スクロール式タイル型Waylandコンポジタ",
+        "de": "Wayland-Compositor mit scrollbarem Tiling."
       }
     }
   ],
@@ -500,6 +512,7 @@
     { "from": "backend", "to": "back-sql" },
     { "from": "back-sql", "to": "sqlite" },
     { "from": "back-sql", "to": "posgresql" },
+    { "from": "ops", "to": "docker" },
     { "from": "linux", "to": "browsers" },
     { "from": "linux", "to": "development" },
     { "from": "linux", "to": "apps-desk" },

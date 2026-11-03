@@ -1,16 +1,14 @@
 export type Status = "offline" | "working" | "online";
 
-// GMT-5 fijo, sin horario de verano (igual que Bogotá).
 export const STATUS_TIMEZONE = "America/Lima";
 
 /**
- * Estado según la hora local (0-23):
- * - offline: 22:00 - 06:59
+ * - offline: 21:00 - 06:59
  * - working: 07:00 - 11:59
- * - online:  12:00 - 21:59
+ * - online:  12:00 - 20:59
  */
 export function statusFromHour(hour: number): Status {
-  if (hour >= 22 || hour < 7) return "offline";
+  if (hour >= 21 || hour < 7) return "offline";
   if (hour < 12) return "working";
   return "online";
 }

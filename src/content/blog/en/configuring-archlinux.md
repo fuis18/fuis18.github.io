@@ -7,7 +7,7 @@ tags: ["linux", "optimization", "history"]
 
 ## My Motivation
 
-First of all, I wanted to keep exploring new technologies and more complex architectures, but the 4 GB of RAM — which were enough to program web pages without _frameworks_ — became a limitation far too painful to tolerate. That's how I started exploring how to build myself a server from an old PC that was as minimalist as possible, so I tried **Arch Linux**.
+First of all, I wanted to keep exploring new technologies and more complex architectures, but my 4 GB of RAM — which were enough to program web pages without _frameworks_ — became a limitation far too painful to tolerate. That's how I started exploring how to build myself a server from an old PC that was as minimalist as possible, so I tried **Arch Linux**.
 
 My ideology played a secondary role: I fell in love with the fact that Linux offers total control—enabling me both to learn and to dedicate myself to building a fair and essential system using the best technologies. Fascinated by Rust upon discovering it was a faster and technically superior language, I made this philosophy part of my identity.
 
@@ -15,7 +15,7 @@ As a final trigger, my financial situation wasn't the best. When trying to compi
 
 ## The black box
 
-There were two main reasons Linux was born: the first, to have more features; the second, to have freedom, both of ownership and of decision. The first reason has allowed us to have servers and cell phones; but the second has been forgotten. I believe that offering a system that works _"out of the box"_ is a great step toward making the entry of new people much more accessible.
+There were two main reasons Linux was born: the first, to have more features; the second, to have freedom, both of ownership and of decision. The first reason has allowed us to have servers and cell phones; but the second has been forgotten. I believe that offering a system that works _"out of the box"_ (ready to use) is a great step toward making the entry of new people much more accessible, but it must not be a limitation for learning about the system.
 
 Arch Linux—and, by extension, the **AUR** (_Arch User Repository_)—boasts one of the largest communities among the various Linux distributions. This gave rise to the culture of "dotfiles," which simplifies system installation and customization, while simultaneously allowing you to learn about every layer of your own operating system.
 
@@ -53,17 +53,15 @@ However, when all memory runs out, the traditional Out-Of-Memory (OOM) manager o
 
 In the same way we have **file** compression, in fact this is the basis of the ISO image, but compressing too much costs more compute for only a slight improvement. This is where the **`zstd`** algorithm shines, hitting the perfect sweet spot: it compresses fast, saves space, and consumes the minimum processing.
 
-### Kernel
+### Kernel and repositories
 
-Here comes our cornerstone: the **Linux kernel**, which contains the dormant code to communicate with the hardware. Optimized to maximize overall performance and the fairness of the system — something ideal for servers, but which may not offer the best response in personal or desktop use.
+Here comes our cornerstone: the Linux kernel, which contains the dormant code to communicate with any component of our hardware. Optimized to maximize overall performance and the fairness of the system — something ideal for servers, but which may not offer the best response in personal or desktop use.
 
-To fix this, the community created **`linux-zen`**, an adapted variant designed to reduce latency and give priority to the interactive tasks that the user performs. For a long time, this was the preferred option for desktop and video games.
+To fix this, the community created linux-zen, an adapted variant designed to reduce latency and give priority to the interactive tasks that the user performs. For a long time, this was the preferred option for desktop and video games.
 
-However, the CachyOS distribution proved that there was still room for improvement by creating **`linux-cachyos`**. This kernel optimizes interactivity through the **BORE** (_Burst-Oriented Response Enhancer_) process scheduler and compiles the binaries taking full advantage of each CPU architecture's extensions (like x86-64-v3 and v4), achieving superior performance.
+However, the CachyOS distribution proved that there was still room for improvement by creating linux-cachyos. This kernel optimizes interactivity through the BORE (Burst-Oriented Response Enhancer) process scheduler and compiles the binaries taking full advantage of each CPU architecture's extensions (like x86-64-v3 and v4).
 
-### Repositories
-
-And precisely to take advantage of the architecture of the processor, these optimized repositories are defined in Pacman's configuration (`/etc/pacman.conf`), placing them above the base repositories of the distribution. This allows offering binaries compiled for modern instructions (like x86-64-v3 or v4), while keeping access to the immense AUR catalog intact.
+That same philosophy extends beyond the kernel: if we are going to compile with modern instructions, it makes sense to consume packages that are also compiled that way. That's why, in the Pacman configuration (/etc/pacman.conf), optimized repositories are enabled by placing them above the distribution's base repositories. This allows offering binaries compiled for modern instructions (like x86-64-v3 or v4), while keeping access to the immense AUR catalog intact. Kernel and packages thus work together: the entire chain, from the scheduler to every binary, exploits the processor's actual capabilities.
 
 ### Display Server
 
@@ -97,4 +95,4 @@ One of Qt's initial advantages was its low RAM consumption, as long as you had t
 
 Nowadays, the desktop gap in Linux has clearly split between two philosophies: **reactive hyper-customization** through tools like QuickShell or AGS (assuming a higher RAM consumption when running runtimes like JS/QML), versus the **extreme performance and security** offered by native development in Rust.
 
-However, for many the interface of the future lies in **web technology** (a topic I will dig into in the next post). On the other hand, true performance consists of knowing how to connect and assemble the best pieces; in this post I have highlighted the most important ones, leaving for the next publication those rarely seen but fundamental pieces of the ecosystem.
+However, for many the interface of the future lies in **web technology** (a topic I will dig into in the next post). On the other hand, true performance consists of knowing how to connect and assemble the best pieces; in this post I have highlighted the most important ones, but I invite you to visit [dotfiles-website](https://fuis18.is-a.dev/dotfiles-website/), where I explain the best technologies in detail.

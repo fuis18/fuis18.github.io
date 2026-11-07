@@ -7,15 +7,15 @@ tags: ["linux", "optimización", "historia"]
 
 ## Mi Motivación
 
-En primer lugar, quería seguir explorando nuevas tecnologías y arquitecturas más complejas, pero los 4 GB de RAM —que eran suficientes para programar páginas web sin _frameworks_— se volvieron una limitación demasiado dolorosa como para soportarla. Así fue como empecé a explorar cómo armarme un servidor con una PC vieja que fuera lo más minimalista posible, por lo que probé **Arch Linux**.
+En primer lugar, quería seguir explorando nuevas tecnologías y arquitecturas más complejas, pero mis 4 GB de RAM —que eran suficientes para programar páginas web sin _frameworks_— se volvieron una limitación demasiado dolorosa como para soportarla. Así fue como empecé a explorar cómo armarme un servidor con una PC vieja que fuera lo más minimalista posible, por lo que probé **Arch Linux**.
 
-En segunda instancia intervino mi ideología: saber que Linux te permite un control total, tanto para aprender como para dedicarme a hacer un sistema justo y necesario con las mejores técnologías me enamoró. Fascinado por Rust al saber que era un lenguage más rápido y que técnicamente superior, esta filosofía se volvió parte de mi identidad.
+En segunda instancia intervino mi ideología: saber que Linux te permite un control total, tanto para aprender como para dedicarme a hacer un sistema justo y necesario con las mejores tecnologías me enamoró. Fascinado por Rust al saber que era un lenguaje más rápido y que técnicamente superior, esta filosofía se volvió parte de mi identidad.
 
 Como último detonante, mi situación financiera no era la mejor. Al intentar compilar una aplicación con Tauri, mi laptop no lo soportó y el ventilador (_heat fan_) se averió. Fue en ese momento cuando decidí pasarme a Arch Linux como mi distribución principal y única.
 
 ## La caja negra
 
-Hubo dos motivos principales por los cuales nació Linux: el primero, tener más características; el segundo, tener libertad, tanto de propiedad como de decisión. La primera razón nos ha permitido tener servidores y teléfonos celulares; pero la segunda se ha estado olvidando. Considero que ofrecer un sistema que funcione _"out of the box"_ (listo para usar) es un gran paso para hacer más accesible la entrada a nuevas personas.
+Hubo dos motivos principales por los cuales nació Linux: el primero, tener más características; el segundo, tener libertad, tanto de propiedad como de decisión. La primera razón nos ha permitido tener servidores y teléfonos celulares; pero la segunda se ha estado olvidando. Considero que ofrecer un sistema que funcione _"out of the box"_ (listo para usar) es un gran paso para hacer más accesible la entrada a nuevas personas, pero no debe ser una limitación para aprender sobre el sistema.
 
 Arch Linux y, por ende, el **AUR** (_Arch User Repository_), cuentan hoy con una de las comunidades más grandes entre las distintas distribuciones. Esto dio inicio a la cultura de los _dotfiles_, facilitando la instalación y personalización del sistema, y aprendiendo de paso cada capa de tu propio sistema operativo.
 
@@ -39,7 +39,7 @@ No fue sino hasta la llegada de **iwd** (_iNet wireless daemon_), desarrollado p
 
 Sin embargo, resolver la capa inalambrica con `iwd` solo solucionaba la mitad del problema: la latencia percibida al navegar seguía dependiendo del **DNS y la configuración de red**. Durante años, Linux dependió del archivo estático `/etc/resolv.conf`, el cual solía ser sobrescrito torpemente por los gestores de red. Para agilizar esto, se introdujeron capas intermedias como `systemd-resolved` o `dnsmasq`, pero esto añadía complejidad al flujo de datos.
 
-En este escenario entra en juego **Knot Resolver (`kresd`)**. que opera como un **resolvedor DNS recursivo con caché persistente y soporte nativo de vanguardia para DNS-over-TLS (DoT) y DNSSEC**. Al eliminar las consultas redundantes y procesar la resolución de forma ultrarrápida, se reduce a milisegundos la latencia en el primer 'handshake' de red, eliminando el último cuello de botella que arrastraba la pila tradicional de Linux.
+En este escenario entra en juego **Knot Resolver (`kresd`)**. Que opera como un **resolvedor DNS recursivo con caché persistente y soporte nativo de vanguardia para DNS-over-TLS (DoT) y DNSSEC**. Al eliminar las consultas redundantes y procesar la resolución de forma ultrarrápida, se reduce a milisegundos la latencia en el primer 'handshake' de red, eliminando el último cuello de botella que arrastraba la pila tradicional de Linux.
 
 Sin embargo, la optimización de servicios no se detiene en la red. Durante décadas, el subsistema de audio en Linux estuvo fragmentado entre ALSA, PulseAudio y JACK, generando latencias altas y conflictos al trabajar con audio profesional o transmisión multimedia. La llegada de **PipeWire** marcó un hito en la arquitectura del sistema: un servidor unificado de audio y vídeo que procesa flujos de datos en tiempo real mediante un gráfico de nodos acelerado. Al sustituir las viejas capas intermedias por un motor ligero escrito en C, PipeWire redujo la latencia a niveles imperceptibles y eliminó el consumo innecesario de CPU, garantizando que el apartado multimedia responda con la misma agilidad que la pila de red.
 
@@ -53,17 +53,15 @@ Sin embargo, cuando toda la memoria se agota, el gestor de _Out-Of-Memory_ (OOM)
 
 De igual forma tenemos la compresión de los **archivos**, de hecho esta es la base de la imagen ISO, pero comprimir demasiado cuesta más computo para solo una ligera mejora. Es aquí donde brilla el algoritmo **`zstd`**, logrando el punto dulce perfecto: comprime rápido, ahorra espacio y consume el mínimo procesamiento.
 
-### Kernel
+### Kernel y repositorios
 
-Aquí viene nuestra pieza angular: el **kernel de Linux**, que contiene el código dormido para comunicarse con el hardware. Optimizado para maximizar el rendimiento general y la equidad del sistema, algo ideal para servidores, pero que puede no ofrecer la mejor respuesta en el uso personal o de escritorio.
+Aquí viene nuestra pieza angular: el kernel de Linux, que contiene el código dormido para comunicarse con cualquier componente de nuestro hardware. Optimizado para maximizar el rendimiento general y la equidad del sistema, algo ideal para servidores, pero que puede no ofrecer la mejor respuesta en el uso personal o de escritorio.
 
-Para solucionar esto, la comunidad creó **`linux-zen`**, una variante adaptada para reducir la latencia y dar prioridad a las tareas interactivas que utiliza el usuario. Durante mucho tiempo, esta fue la opción predilecta para escritorio y videojuegos.
+Para solucionar esto, la comunidad creó linux-zen, una variante adaptada para reducir la latencia y dar prioridad a las tareas interactivas que utiliza el usuario. Durante mucho tiempo, esta fue la opción predilecta para escritorio y videojuegos.
 
-Sin embargo, la distribución CachyOS demostró que aún había margen de mejora creando **`linux-cachyos`**. Este kernel optimiza la interactividad mediante el planificador de procesos **BORE** (_Burst-Oriented Response Enhancer_) y compila los binarios aprovechando al máximo las extensiones de cada arquitectura de CPU (como x86-64-v3 y v4), logrando un rendimiento superior.
+Sin embargo, la distribución CachyOS demostró que aún había margen de mejora creando linux-cachyos. Este kernel optimiza la interactividad mediante el planificador de procesos BORE (Burst-Oriented Response Enhancer) y compila los binarios aprovechando al máximo las extensiones de cada arquitectura de CPU (como x86-64-v3 y v4).
 
-### Repositories
-
-Y justamente para aprovechar la arquitectura del procesador, se definen estos repositorios optimizados en la configuración de Pacman (`/etc/pacman.conf`), situándolos por encima de los repositorios base de la distribución. Esto permite ofrecer binarios compilados para instrucciones modernas (como x86-64-v3 o v4), manteniendo intacto el acceso al inmenso catálogo de AUR.
+Esa misma filosofía se extiende más allá del kernel: si vamos a compilar con instrucciones modernas, tiene sentido consumir paquetes que también estén compilados así. Por eso, en la configuración de Pacman (/etc/pacman.conf) se habilitan repositorios optimizados situándolos por encima de los repositorios base de la distribución. Esto permite ofrecer binarios compilados para instrucciones modernas (como x86-64-v3 o v4), manteniendo intacto el acceso al inmenso catálogo de AUR. Kernel y paquetes trabajan así en conjunto: toda la cadena, desde el planificador hasta cada binario, explota las capacidades reales del procesador.
 
 ### Display Server
 
@@ -97,4 +95,4 @@ Una de las ventajas iniciales de QT fue su bajo consumo de ram, siempre y cuando
 
 En la actualidad, la brecha del escritorio en Linux se ha dividido claramente entre dos filosofías: **la hiperpersonalización reactiva** mediante herramientas como QuickShell o AGS (asumiendo un mayor consumo de RAM al ejecutar entornos de ejecución como JS/QML), frente al **rendimiento extremo y la seguridad** que ofrece el desarrollo nativo en Rust.
 
-Sin embargo, para muchos la interfaz del futuro se encuentra en la **tecnología web** (tema que profundizaré en la siguiente entrega). Por otro lado, el verdadero rendimiento consiste en saber conectar y ensamblar las mejores piezas; en este post he destacado las más importantes, dejando para la próxima publicación aquellas piezas poco vistas pero fundamentales del ecosistema.
+Sin embargo, para muchos la interfaz del futuro se encuentra en la **tecnología web** (tema que profundizaré en la siguiente entrega). Por otro lado, el verdadero rendimiento consiste en saber conectar y ensamblar las mejores piezas; en este post he destacado las más importantes pero les invito a visitar [dotfiles-website](https://fuis18.is-a.dev/dotfiles-website/), donde explico a detalle la mejores tecnologías.

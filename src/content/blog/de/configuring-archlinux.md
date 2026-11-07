@@ -7,7 +7,7 @@ tags: ["linux", "Optimierung", "Geschichte"]
 
 ## Meine Motivation
 
-Zunächst wollte ich neue Technologien und komplexere Architekturen erkunden, doch die 4 GB RAM – die für die Webentwicklung ohne Frameworks ausgereicht hatten – erwiesen sich als eine zu schmerzhafte Einschränkung. So begann ich zu erforschen, wie ich aus einem alten PC einen möglichst minimalistischen Server bauen könnte, und probierte dabei **Arch Linux** aus.
+Zunächst wollte ich neue Technologien und komplexere Architekturen erkunden, doch meine 4 GB RAM – die für die Webentwicklung ohne Frameworks ausgereicht hatten – erwiesen sich als eine zu schmerzhafte Einschränkung. So begann ich zu erforschen, wie ich aus einem alten PC einen möglichst minimalistischen Server bauen könnte, und probierte dabei **Arch Linux** aus.
 
 In einem zweiten Schritt spielte meine Ideologie eine Rolle: Die Erkenntnis, dass Linux volle Kontrolle bietet – sei es, um zu lernen oder um unter Einsatz bester Technologien ein gerechtes und notwendiges System zu schaffen –, begeisterte mich. Als ich entdeckte, dass Rust eine schnellere und technisch überlegene Sprache ist, war ich fasziniert; diese Philosophie wurde zu einem Teil meiner Identität.
 
@@ -15,7 +15,7 @@ Schließlich spielte auch meine finanzielle Situation eine Rolle. Als ich versuc
 
 ## Die Blackbox
 
-Es gab zwei Hauptgründe für die Entstehung von Linux: erstens mehr Funktionen und zweitens Freiheit – sowohl in Bezug auf das Eigentum als auch auf die Entscheidungsfreiheit. Der erste Grund hat uns Server und Mobiltelefone beschert, doch der zweite geriet zunehmend in Vergessenheit. Ich bin der Meinung, dass ein System, das „out of the box“ (sofort einsatzbereit) funktioniert, einen wichtigen Schritt darstellt, um neuen Nutzern den Einstieg zu erleichtern.
+Es gab zwei Hauptgründe für die Entstehung von Linux: erstens mehr Funktionen und zweitens Freiheit – sowohl in Bezug auf das Eigentum als auch auf die Entscheidungsfreiheit. Der erste Grund hat uns Server und Mobiltelefone beschert, doch der zweite geriet zunehmend in Vergessenheit. Ich bin der Meinung, dass ein System, das „out of the box" (sofort einsatzbereit) funktioniert, einen wichtigen Schritt darstellt, um neuen Nutzern den Einstieg zu erleichtern, jedoch keine Einschränkung für das Erlernen des Systems darstellen darf.
 
 Arch Linux – und damit auch das **AUR** (_Arch User Repository_) – verfügt heute über eine der größten Communities unter den verschiedenen Distributionen. Dies gab den Anstoß zur Kultur der sogenannten _Dotfiles_, die die Installation und Anpassung des Systems erleichtern und es einem zugleich ermöglichen, die einzelnen Schichten des eigenen Betriebssystems kennenzulernen.
 
@@ -49,19 +49,19 @@ Wir sind nicht mehr strikt durch die physischen Kapazitäten unserer Hardware ei
 
 An erster Stelle steht hierbei die **RAM-Kompression**, die es ermöglicht, Programme sofort einsatzbereit im Speicher zu halten. Dank der `zram`-Technologie benötigen Daten weniger Platz, sodass größere Mengen verarbeitet werden können. Allerdings gibt es Grenzen: Würde der Speicher vollständig komprimiert, bliebe kein Platz für die Dekomprimierung, und das System würde abstürzen. Als Ausweichmöglichkeit dient hier der Festplattenspeicher, der sogenannte `swap`, welcher dedizierten Speicherplatz als Reserve bereitstellt.
 
-Wenn der Arbeitsspeicher jedoch vollständig erschöpft ist, reagiert der herkömmliche „Out-of-Memory“ (OOM)-Manager des Kernels oft zu spät. Um dies zu verhindern, setzt die Community auf **`earlyoom`**, ein Tool, das die Speicherdruck-Metriken des Kernels überwacht. Sobald das System an seine Grenzen stößt, greift `earlyoom` innerhalb von Millisekunden ein – noch bevor die Benutzeroberfläche einfriert. Ebenso spielt die Komprimierung der **Dateien** eine Rolle – sie bildet tatsächlich die Grundlage des ISO-Abbilds –, doch eine zu starke Komprimierung erfordert mehr Rechenleistung bei nur geringfügiger Verbesserung. Genau hier glänzt der **`zstd`**-Algorithmus, der die perfekte Balance findet: Er komprimiert schnell, spart Speicherplatz und benötigt nur ein Minimum an Rechenleistung.
+Wenn der Arbeitsspeicher jedoch vollständig erschöpft ist, reagiert der herkömmliche „Out-of-Memory“ (OOM)-Manager des Kernels oft zu spät. Um dies zu verhindern, setzt die Community auf **`earlyoom`**, ein Tool, das die Speicherdruck-Metriken des Kernels überwacht. Sobald das System an seine Grenzen stößt, greift `earlyoom` innerhalb von Millisekunden ein – noch bevor die Benutzeroberfläche einfriert.
 
-### Kernel
+Ebenso spielt die Komprimierung der **Dateien** eine Rolle – sie bildet tatsächlich die Grundlage des ISO-Abbilds –, doch eine zu starke Komprimierung erfordert mehr Rechenleistung bei nur geringfügiger Verbesserung. Genau hier glänzt der **`zstd`**-Algorithmus, der die perfekte Balance findet: Er komprimiert schnell, spart Speicherplatz und benötigt nur ein Minimum an Rechenleistung.
 
-Hier kommt unser Herzstück ins Spiel: der **Linux-Kernel**, der den grundlegenden Code für die Kommunikation mit der Hardware enthält. Er ist auf maximale Gesamtleistung und Systemfairness optimiert – ideal für Server, bietet jedoch im persönlichen Gebrauch oder auf dem Desktop unter Umständen nicht das beste Reaktionsverhalten.
+### Kernel und Repositories
 
-Um hier Abhilfe zu schaffen, entwickelte die Community **`linux-zen`**, eine Variante, die auf die Verringerung von Latenzen und die Priorisierung interaktiver Benutzeraufgaben ausgelegt ist. Lange Zeit galt dies als die bevorzugte Wahl für Desktop-Systeme und Gaming.
+Hier kommt unser Herzstück ins Spiel: der Linux-Kernel, der den grundlegenden Code für die Kommunikation mit jeder Komponente unserer Hardware enthält. Er ist auf maximale Gesamtleistung und Systemfairness optimiert – ideal für Server, bietet jedoch im persönlichen Gebrauch oder auf dem Desktop unter Umständen nicht das beste Reaktionsverhalten.
 
-Die Distribution CachyOS zeigte jedoch mit der Entwicklung von **`linux-cachyos`**, dass noch Raum für Verbesserungen bestand. Dieser Kernel optimiert die Interaktivität mithilfe des Prozess-Schedulers **BORE** (_Burst-Oriented Response Enhancer_) und kompiliert die Binärdateien unter voller Ausnutzung der Erweiterungen jeweiliger CPU-Architekturen (wie x86-64-v3 und v4), was zu einer überlegenen Leistung führt.
+Um hier Abhilfe zu schaffen, entwickelte die Community linux-zen, eine Variante, die auf die Verringerung von Latenzen und die Priorisierung interaktiver Benutzeraufgaben ausgelegt ist. Lange Zeit galt dies als die bevorzugte Wahl für Desktop-Systeme und Gaming.
 
-### Repositories
+Die Distribution CachyOS zeigte jedoch mit der Entwicklung von linux-cachyos, dass noch Raum für Verbesserungen bestand. Dieser Kernel optimiert die Interaktivität mithilfe des Prozess-Schedulers BORE (Burst-Oriented Response Enhancer) und kompiliert die Binärdateien unter voller Ausnutzung der Erweiterungen jeweiliger CPU-Architekturen (wie x86-64-v3 und v4).
 
-Genau um diese Prozessorarchitektur optimal zu nutzen, werden in der Pacman-Konfiguration (`/etc/pacman.conf`) spezielle, optimierte Repositories definiert und über den Standard-Repositories der Distribution platziert. Dies ermöglicht die Bereitstellung von Binärdateien, die für moderne Befehlssätze (wie x86-64-v3 oder v4) kompiliert wurden, während der Zugriff auf den riesigen Katalog des AUR uneingeschränkt erhalten bleibt.
+Dieselbe Philosophie erstreckt sich über den Kernel hinaus: Wenn wir mit modernen Anweisungen kompilieren, macht es Sinn, auch Pakete zu verwenden, die auf dieselbe Weise kompiliert sind. Daher werden in der Pacman-Konfiguration (/etc/pacman.conf) optimierte Repositories aktiviert, indem sie über den Basis-Repositories der Distribution platziert werden. Dies ermöglicht die Bereitstellung von Binärdateien, die für moderne Befehlssätze (wie x86-64-v3 oder v4) kompiliert wurden, während der Zugriff auf den riesigen Katalog des AUR uneingeschränkt erhalten bleibt. Kernel und Pakete arbeiten so zusammen: die gesamte Kette, vom Scheduler bis zu jedem Binär, nutzt die tatsächlichen Fähigkeiten des Prozessors optimal aus.
 
 ### Display-Server
 
@@ -83,7 +83,9 @@ Im Jahr **2020** erschien **GTK4** mit einer neuen, auf Leistung ausgerichteten 
 
 Mit dem Übergang zu Wayland etablierte sich **Waybar** (basierend auf C++ und GTK, entwickelt **2018**) als Standard-Statusleiste für Compositor und Tiling-Window-Manager (wie Sway und Hyprland).
 
-Im Jahr **2023** entstand das Projekt **QuickShell**, das in der „Ricing“-Community (der Szene für visuelle Anpassungen) für einen enormen Aufschwung sorgte: Es ermöglicht die native Erstellung von Leisten, Widgets und Systemkomponenten unter Nutzung der Leistungsfähigkeit von Qt und QML für Wayland-Window-Manager. Als Alternative innerhalb des GTK-Ökosystems entstand **2023** das Projekt **AGS** (_Aylur's GTK Shell_). Es revolutionierte die Anpassungsmöglichkeiten, indem es die Definition der Desktop-Oberfläche mittels **TypeScript/JavaScript** und CSS auf GTK-Basis ermöglichte und so die Erstellung hochdynamischer und reaktiver Widgets und Panels erleichterte.
+Im Jahr **2023** entstand das Projekt **QuickShell**, das in der „Ricing“-Community (der Szene für visuelle Anpassungen) für einen enormen Aufschwung sorgte: Es ermöglicht die native Erstellung von Leisten, Widgets und Systemkomponenten unter Nutzung der Leistungsfähigkeit von Qt und QML für Wayland-Window-Manager.
+
+Als Alternative innerhalb des GTK-Ökosystems entstand **2023** das Projekt **AGS** (_Aylur's GTK Shell_). Es revolutionierte die Anpassungsmöglichkeiten, indem es die Definition der Desktop-Oberfläche mittels **TypeScript/JavaScript** und CSS auf GTK-Basis ermöglichte und so die Erstellung hochdynamischer und reaktiver Widgets und Panels erleichterte.
 
 ## Zukunft
 
@@ -93,4 +95,4 @@ Einer der anfänglichen Vorteile von Qt war der geringe RAM-Verbrauch – zumind
 
 Gegenwärtig spaltet sich die Linux-Desktop-Landschaft klar in zwei Philosophien auf: einerseits die **reaktive Hyper-Personalisierung** durch Tools wie QuickShell oder AGS (wobei ein höherer RAM-Verbrauch durch Laufzeitumgebungen wie JS/QML in Kauf genommen wird), und andererseits **extreme Leistung und Sicherheit**, wie sie die native Entwicklung in Rust bietet.
 
-Für viele liegt die Zukunft der Benutzeroberflächen jedoch in der **Webtechnologie** (ein Thema, das ich im nächsten Beitrag vertiefen werde). Letztlich besteht echte Leistungsfähigkeit darin, die besten Komponenten sinnvoll miteinander zu verknüpfen; in diesem Beitrag habe ich die wichtigsten vorgestellt und werde im nächsten Artikel auf jene weniger bekannten, aber dennoch fundamentalen Bausteine ​​des Ökosystems eingehen.
+Für viele liegt die Zukunft der Benutzeroberflächen jedoch in der **Webtechnologie** (ein Thema, das ich im nächsten Beitrag vertiefen werde). Letztlich besteht echte Leistungsfähigkeit darin, die besten Komponenten sinnvoll miteinander zu verknüpfen; in diesem Beitrag habe ich die wichtigsten vorgestellt, doch ich lade Sie ein, [dotfiles-website](https://fuis18.is-a.dev/dotfiles-website/) zu besuchen, wo ich die besten Technologien im Detail erkläre.

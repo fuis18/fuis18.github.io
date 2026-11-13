@@ -1,6 +1,6 @@
 # Mi página personal
 
-[![CI](https://github.com/fuis18/fuis18.github.io/actions/workflows/ci.yml/badge.svg)](https://github.com/fuis18/fuis18.github.io/actions/workflows/ci.yml)
+[![CI & CD](https://github.com/fuis18/fuis18.github.io/actions/workflows/ci_cd.yml/badge.svg)](https://github.com/fuis18/fuis18.github.io/actions/workflows/ci_cd.yml)
 ![Astro](https://img.shields.io/badge/Astro-7.3.1-black?logo=astro&logoColor=white)
 ![Licencia](https://img.shields.io/badge/licencia-MIT-blue)
 

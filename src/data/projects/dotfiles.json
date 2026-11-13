@@ -1,6 +1,6 @@
 {
   "repo": "https://github.com/fuis18/dotfiles",
-  "website": null,
+  "website": "https://fuis18.is-a.dev/dotfiles-website",
   "image": "img-dotfiles.png",
   "tags": ["Achlinux", "Hyprland", "CachyOS"],
   "es": {

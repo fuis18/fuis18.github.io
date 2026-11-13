@@ -1,6 +1,6 @@
 # My personal website
 
-[![CI](https://github.com/fuis18/fuis18.github.io/actions/workflows/ci.yml/badge.svg)](https://github.com/fuis18/fuis18.github.io/actions/workflows/ci.yml)
+[![CI & CD](https://github.com/fuis18/fuis18.github.io/actions/workflows/ci_cd.yml/badge.svg)](https://github.com/fuis18/fuis18.github.io/actions/workflows/ci_cd.yml)
 ![Astro](https://img.shields.io/badge/Astro-7.3.1-black?logo=astro&logoColor=white)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 
@@ -49,7 +49,7 @@ Getting more involved from there, I ended up building a site that reflects me be
 
 - Main inspiration: [@raexera](https://github.com/raexera)
 - Secondary inspiration: [@notkimu](https://github.com/notKimu), [@Equs](https://github.com/corecommit), [@vaxry](https://github.com/vaxerski)
-- Thanks to: [@oscarbeaumont](https://otbeaumont.me/), [@jaimepine](https://discover.me/jamie), [@mati](https://github.com/rosymati), [@caarclos](https://github.com/caarlos0)
+- Thanks also to: [@oscarbeaumont](https://otbeaumont.me/), [@jaimepine](https://discover.me/jamie), [@mati](https://github.com/rosymati), [@caarclos](https://github.com/caarlos0)
 
 ## License
 

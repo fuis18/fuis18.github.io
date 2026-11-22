@@ -15,12 +15,16 @@ const homeData = homeDataRaw as unknown as Localized<HomeBlock>;
       <span class="status-ping"></span>
     </span>
     <span class="status-prefix">Status:</span>
-    <span class="status-value" data-status-label>{m.status_online()}</span>
+    <span class="status-value" data-status-label>
+      {m.status_online()}
+    </span>
   </span>
   <h1>Luis Roman Cieza</h1>
   <div class="subtitle">
-    <h2 data-i18n="role" data-textfx>{pickLocalized(homeData).role}</h2>
-    <span>/</span>
+    <h2 data-i18n="role" data-textfx>
+      {pickLocalized(homeData).role}
+    </h2>
+    <span class="subtitle-space">/</span>
     <span>@fuis18</span>
   </div>
 </div>
@@ -74,10 +78,13 @@ const homeData = homeDataRaw as unknown as Localized<HomeBlock>;
 
   .subtitle {
     display: inline-flex;
+    flex-direction: column;
     gap: 0.75rem;
-    align-items: center;
     color: var(--color);
     font-size: 1.25rem;
+  }
+  .subtitle-space {
+    display: none;
   }
 
   .status {
@@ -146,6 +153,13 @@ const homeData = homeDataRaw as unknown as Localized<HomeBlock>;
   @media screen and (width >= 450px) {
     h2 {
       font-size: 1.5rem;
+    }
+    .subtitle {
+      align-items: center;
+      flex-direction: row;
+    }
+    .subtitle-space {
+      display: block;
     }
   }
   @media screen and (width >= 640px) {

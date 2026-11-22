@@ -240,8 +240,8 @@
       }
     },
     {
-      "id": "posgresql",
-      "label": "PosgreSQL",
+      "id": "postgresql",
+      "label": "postgresql",
       "group": "skill",
       "badge": "postgresql",
       "description": {
@@ -261,6 +261,18 @@
         "es": "Plataforma de contenedores para aplicaciones y servicios.",
         "ja": "アプリケーションとサービスのコンテナプラットフォーム",
         "de": "Container-Plattform für Anwendungen und Dienste."
+      }
+    },
+    {
+      "id": "nginx",
+      "label": "Nginx",
+      "group": "skill",
+      "badge": "nginx",
+      "description": {
+        "en": "High-performance web server and reverse proxy.",
+        "es": "Servidor web de alto rendimiento y proxy inverso.",
+        "ja": "高性能なウェブサーバー兼リバースプロキシ",
+        "de": "Leistungsstarker Webserver und Reverse-Proxy."
       }
     },
     {
@@ -511,8 +523,9 @@
     { "from": "back-stack", "to": "go" },
     { "from": "backend", "to": "back-sql" },
     { "from": "back-sql", "to": "sqlite" },
-    { "from": "back-sql", "to": "posgresql" },
+    { "from": "back-sql", "to": "postgresql" },
     { "from": "ops", "to": "docker" },
+    { "from": "ops", "to": "nginx" },
     { "from": "linux", "to": "browsers" },
     { "from": "linux", "to": "development" },
     { "from": "linux", "to": "apps-desk" },

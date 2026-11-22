@@ -8,6 +8,7 @@ type LocalizedEntry = {
 };
 
 export const PROJECT_ORDER = [
+  "backend",
   "portafolio",
   "software",
   "ccna",

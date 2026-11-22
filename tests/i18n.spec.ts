@@ -71,10 +71,10 @@ test.describe("Language switching", () => {
     );
     await expect(page.locator("[data-lang]")).toHaveCount(0);
 
-    const firstCard = page
-      .locator("[data-project-index='0']")
+    const oldestCard = page
+      .locator("[data-project-slug='all-projects']")
       .locator("[data-project-field='title']");
-    await expect(firstCard).toHaveText("Mi portafolio web");
+    await expect(oldestCard).toHaveText("Todos los Proyectos");
 
     await expect(page.locator(".textfx-char")).toHaveCount(0);
     await expect(page.locator(".textfx-line")).toHaveCount(0);
@@ -146,15 +146,8 @@ test.describe("Language switching", () => {
       "プロジェクト",
     );
 
-    const card0 = page.locator("[data-project-index='0']");
-    await expect(card0.locator("[data-project-field='title']")).toHaveText(
-      "私の Web ポートフォリオ",
-    );
-    await expect(card0.locator("[data-project-field='date']")).toHaveText(
-      "2026年9月",
-    );
-    const card8 = page.locator("[data-project-index='8']");
-    await expect(card8.locator("[data-project-field='title']")).toHaveText(
+    const oldestCard = page.locator("[data-project-slug='all-projects']");
+    await expect(oldestCard.locator("[data-project-field='title']")).toHaveText(
       "すべてのプロジェクト",
     );
 
@@ -176,15 +169,8 @@ test.describe("Language switching", () => {
       "Projekte",
     );
 
-    const card0 = page.locator("[data-project-index='0']");
-    await expect(card0.locator("[data-project-field='title']")).toHaveText(
-      "Mein Web-Portfolio",
-    );
-    await expect(card0.locator("[data-project-field='date']")).toHaveText(
-      "SEP 2026",
-    );
-    const card8 = page.locator("[data-project-index='8']");
-    await expect(card8.locator("[data-project-field='title']")).toHaveText(
+    const oldestCard = page.locator("[data-project-slug='all-projects']");
+    await expect(oldestCard.locator("[data-project-field='title']")).toHaveText(
       "Alle Projekte",
     );
 

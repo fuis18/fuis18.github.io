@@ -8,6 +8,7 @@ type LocalizedEntry = {
 };
 
 export const PROJECT_ORDER = [
+  "backend",
   "portafolio",
   "software",
   "ccna",
@@ -37,6 +38,7 @@ function slugOf(path: string): string {
 }
 
 export type ProjectData = {
+  slug: string;
   image: string | null;
   repo: string;
   website: string | null;
@@ -66,9 +68,10 @@ export const projects: ProjectData[] = Object.entries(modules)
     const rankB = indexB === -1 ? Infinity : indexB;
     return rankA - rankB;
   })
-  .map(([, module]) => {
+  .map(([path, module]) => {
     const entry = module.default;
     return {
+      slug: slugOf(path),
       image: entry.image ?? null,
       repo: entry.repo,
       website: entry.website,

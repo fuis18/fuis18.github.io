@@ -15,7 +15,9 @@ const isEven = projects.length % 2 === 0;
 
 <Layout title="Projects" description="My website" background width="large">
   <main transition:animate="slide">
-    <h1 data-i18n="projects-title" data-textfx>{m.projects_title()}</h1>
+    <h1 data-i18n="projects-title" data-textfx>
+      {m.projects_title()}
+    </h1>
     <div
       class:list={[
         "project-container",
@@ -23,31 +25,33 @@ const isEven = projects.length % 2 === 0;
         { "even-count": isEven },
       ]}
     >
-      {
-        projectCards.map((project, index) => {
-          const alt = Object.values(project.title)[0] ?? "";
-          const loading = index < 4 ? "eager" : "lazy";
-          const priority = index === 0;
-          return (
-            <div class="project-item" data-project-index={index}>
-              <ImageZoom
-                src={project.image}
-                alt={alt}
-                loading={loading}
-                priority={priority}
-              />
-              <ProjectCard
-                title={project.title}
-                description={project.description}
-                repo={project.repo}
-                website={project.website}
-                tags={project.tags}
-                date={project.date}
-              />
-            </div>
-          );
-        })
-      }
+      {projectCards.map((project, index) => {
+        const alt = Object.values(project.title)[0] ?? "";
+        const loading = index < 4 ? "eager" : "lazy";
+        const priority = index === 0;
+        return (
+          <div
+            class="project-item"
+            data-project-index={index}
+            data-project-slug={project.slug}
+          >
+            <ImageZoom
+              src={project.image}
+              alt={alt}
+              loading={loading}
+              priority={priority}
+            />
+            <ProjectCard
+              title={project.title}
+              description={project.description}
+              repo={project.repo}
+              website={project.website}
+              tags={project.tags}
+              date={project.date}
+            />
+          </div>
+        );
+      })}
     </div>
   </main>
 </Layout>

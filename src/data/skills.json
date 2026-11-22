@@ -12,10 +12,9 @@
   "Svelte",
   "NextJS",
   "NodeJS",
-  "f-droid",
-  "Docker",
-  "nvim",
-  "ncmpcpp",
+  "Podman",
   "Fastify",
-  "Tan-Stack"
+  "Tan-Stack",
+  "Go",
+  "Nginx"
 ]

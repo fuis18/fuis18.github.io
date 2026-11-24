@@ -2,25 +2,25 @@
   "repo": "https://github.com/fuis18/learn-backend",
   "website": null,
   "image": "img-backend.png",
-  "tags": ["GO", "podman", "nginx"],
+  "tags": ["Go", "podman", "nginx"],
   "es": {
     "title": "Aprende Backend",
     "description": "Sin atajos: recorro el backend piso a piso, donde cada nivel abre el siguiente.",
-    "date": "NOV 2026 - AHORA"
+    "date": "NOV 2026 - ACTUALIDAD"
   },
   "en": {
     "title": "Learn Backend",
     "description": "No shortcuts: I climb backend floor by floor, where each level opens the next.",
-    "date": "NOV 2026 - NOW"
+    "date": "NOV 2026 - PRESENT"
   },
   "ja": {
     "title": "バックエンドを学ぶ",
     "description": "近道はなし ―― バックエンドを階ごとに登る、各レベルが次への扉を開くから。",
-    "date": "2026年11月 - 今"
+    "date": "2026年11月 - 現在"
   },
   "de": {
     "title": "Backend lernen",
     "description": "Keine Abkürzungen: ich erkunde das Backend Etappe für Etappe, denn jede öffnet die nächste.",
-    "date": "NOV 2026 - JETZT"
+    "date": "NOV 2026 - HEUTE"
   }
 }

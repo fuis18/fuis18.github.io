@@ -1,5 +1,5 @@
 ---
-title: Web Ecosystem
+title: The Browser Wars
 description: Open it in your notes blog, write it in HTML, open it in your browser — your web page, a shot of dopamine where the passion of many began
 date: 2026-11-21
 tags: ["development", "browsers", "history"]

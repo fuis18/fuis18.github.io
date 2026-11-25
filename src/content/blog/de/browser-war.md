@@ -1,5 +1,5 @@
 ---
-title: Web-Ökosystem
+title: Der Browserkrieg
 description: Öffne es in deinem Notiz-Blog, schreibe es in HTML, öffne es im Browser — deine Webseite, ein Dopamin-Kick, wo die Leidenschaft vieler begann
 date: 2026-11-21
 tags: ["Entwicklung", "Browser", "Geschichte"]

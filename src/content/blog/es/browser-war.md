@@ -1,5 +1,5 @@
 ---
-title: Ecosistema Web
+title: Guerra de los Navegadores
 description: Abre en blog de notas, escribe en html, ábrelo en el navegador, tu página web, un shot de dopámina donde comenzó la pasión de muchos
 date: 2026-11-21
 tags: ["desarrollo", "navegadores", "historia"]
